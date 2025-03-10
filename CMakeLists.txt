@@ -16,8 +16,17 @@ set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)           # Don't build Installation I
 set(GLFW_USE_HYBRID_HPG ON CACHE BOOL "" FORCE)     # Add variables to use High Performance Graphics Card if available
 add_subdirectory(vendor/glfw)                       # Build the GLFW project to use later as a library
 
-# A variable with all the source files of GLAD
-set(GLAD_SOURCE vendor/glad/src/gl.c)
+
+# Detect the OS and set GLAD source accordingly
+if(WIN32)
+    set(GLAD_SOURCE vendor/glad/src/gl.c)
+elseif(UNIX AND NOT APPLE)
+    message(STATUS "Detected Linux")
+    set(GLAD_SOURCE vendor/glad-windows/src/gl.c)
+else()
+    message(WARNING "Unsupported OS")
+endif()
+
 # A variables with all the source files of Dear ImGui
 set(IMGUI_SOURCES
         vendor/imgui/imgui.cpp
@@ -26,7 +35,7 @@ set(IMGUI_SOURCES
         vendor/imgui/imgui_widgets.cpp
         vendor/imgui/imgui_impl/imgui_impl_glfw.cpp
         vendor/imgui/imgui_impl/imgui_impl_opengl3.cpp
-        )
+)
 
 # Combine all vendor source files together into a single variable
 set(VENDOR_SOURCES ${GLAD_SOURCE} ${IMGUI_SOURCES})
@@ -91,11 +100,19 @@ set(COMMON_SOURCES
 include_directories(
         source/common
         vendor/glfw/include
-        vendor/glad/include
         vendor/glm
         vendor/imgui
         vendor/utils
 )
+
+
+if(WIN32)
+    include_directories(vendor/glad-windows/include)
+elseif(UNIX AND NOT APPLE)
+    include_directories(vendor/glad/include)
+else()
+    message(WARNING "Unsupported OS")
+endif()
 
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)

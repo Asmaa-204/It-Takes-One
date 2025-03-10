@@ -24,13 +24,23 @@
 
 #include "texture/screenshot.hpp"
 
-std::string default_screenshot_filepath() {
+std::string default_screenshot_filepath() 
+{
     std::stringstream stream;
     auto time = std::time(nullptr);
-    
+
     struct tm localtime;
+
+#ifdef _WIN32
+    localtime_s(&localtime, &time);
+    stream << "screenshots\\screenshot-" << std::put_time(&localtime, "%Y-%m-%d-%H-%M-%S") << ".png";
+#elif __linux__
     localtime_r(&time, &localtime);
     stream << "screenshots/screenshot-" << std::put_time(&localtime, "%Y-%m-%d-%H-%M-%S") << ".png";
+#else
+    return "unsupported_os.png";
+#endif
+
     return stream.str();
 }
 
