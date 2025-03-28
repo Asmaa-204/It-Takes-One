@@ -2,6 +2,8 @@
 #include "../mesh/mesh-utils.hpp"
 #include "../texture/texture-utils.hpp"
 
+#include <iostream>
+
 namespace our {
 
     void ForwardRenderer::initialize(glm::ivec2 windowSize, const nlohmann::json& config){
@@ -55,11 +57,30 @@ namespace our {
         if(config.contains("postprocess")){
             //TODO: (Req 11) Create a framebuffer
 
+            glGenFramebuffers(1, &postprocessFrameBuffer);
+            glBindFramebuffer(GL_FRAMEBUFFER, postprocessFrameBuffer);
+
             //TODO: (Req 11) Create a color and a depth texture and attach them to the framebuffer
             // Hints: The color format can be (Red, Green, Blue and Alpha components with 8 bits for each channel).
             // The depth format can be (Depth component with 24 bits).
-            
+
+            colorTarget = our::texture_utils::empty(GL_RGBA, this->windowSize, GL_UNSIGNED_BYTE);
+            depthTarget = our::texture_utils::empty(GL_DEPTH_COMPONENT, this->windowSize, GL_FLOAT);
+
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTarget->getOpenGLName(), 0);
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTarget->getOpenGLName(), 0);
+
+            // Specify the draw buffers
+            GLenum drawBuffers[] = { GL_COLOR_ATTACHMENT0 };
+            glDrawBuffers(1, drawBuffers); 
+
+            if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+                std::cerr << "Framebuffer is not complete!" << std::endl;
+                std::exit(1);
+            }
+        
             //TODO: (Req 11) Unbind the framebuffer just to be safe
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
             // Create a vertex array to use for drawing the texture
             glGenVertexArrays(1, &postProcessVertexArray);
@@ -209,10 +230,14 @@ namespace our {
 
         // If there is a postprocess material, apply postprocessing
         if(postprocessMaterial){
-            //TODO: (Req 11) Return to the default framebuffer
+            // TODO: (Req 11) Return to the default framebuffer
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
             
             //TODO: (Req 11) Setup the postprocess material and draw the fullscreen triangle
-            
+            postprocessMaterial->setup();
+            glBindVertexArray(postProcessVertexArray);
+            glDrawArrays(GL_TRIANGLES, 0, 3);
+            glBindVertexArray(0);
         }
     }
 
