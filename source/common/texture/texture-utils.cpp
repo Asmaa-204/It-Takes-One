@@ -5,9 +5,18 @@
 
 #include <iostream>
 
-our::Texture2D* our::texture_utils::empty(GLenum format, glm::ivec2 size){
+our::Texture2D* our::texture_utils::empty(GLenum format, glm::ivec2 size, GLenum type){
     our::Texture2D* texture = new our::Texture2D();
     //TODO: (Req 11) Finish this function to create an empty texture with the given size and format
+    
+    GLenum internalFormat = format == GL_RGBA ? GL_RGBA8 : GL_DEPTH_COMPONENT24;
+    texture->bind();
+    glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, size.x, size.y, 0, format, type, nullptr);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    texture->unbind();
 
     return texture;
 }
