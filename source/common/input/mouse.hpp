@@ -32,6 +32,7 @@ namespace our {
 
         static void lockMouse(GLFWwindow* window);
         static void unlockMouse(GLFWwindow* window);
+        static void toggleMouse(GLFWwindow* window);
 
         [[nodiscard]] bool isEnabled() const;
         void setEnabled(bool enabled, GLFWwindow* window);

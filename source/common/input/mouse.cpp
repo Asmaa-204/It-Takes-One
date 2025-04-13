@@ -77,6 +77,11 @@ namespace our {
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
 
+    void Mouse::toggleMouse(GLFWwindow* window) {
+        if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED) unlockMouse(window);
+        else lockMouse(window);
+    }
+
     bool Mouse::isEnabled() const {
         return enabled;
     }
