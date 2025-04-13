@@ -1,9 +1,10 @@
 #pragma once
 
-#include "../ecs/world.hpp"
-#include "../components/camera.hpp"
-#include "../components/mesh-renderer.hpp"
-#include "../asset-loader.hpp"
+#include <systems/system.hpp>
+#include <entities/world.hpp>
+#include <components/camera.hpp>
+#include <components/mesh-renderer.hpp>
+#include <asset-loader.hpp>
 
 #include <glad/gl.h>
 #include <vector>
@@ -26,7 +27,8 @@ namespace our
     // In other words, the fragment shader in the material should output the color that we should see on the screen
     // This is different from more complex renderers that could draw intermediate data to a framebuffer before computing the final color
     // In this project, we only need to implement a forward renderer
-    class ForwardRenderer {
+    class ForwardRenderer : public System
+    {
         // These window size will be used on multiple occasions (setting the viewport, computing the aspect ratio, etc.)
         glm::ivec2 windowSize;
         // These are two vectors in which we will store the opaque and the transparent commands.
@@ -47,9 +49,7 @@ namespace our
         // Clean up the renderer
         void destroy();
         // This function should be called every frame to draw the given world
-        void render(World* world);
-
-
+        void update(World* world, float deltaTime);
     };
 
 }

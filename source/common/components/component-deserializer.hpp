@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../ecs/entity.hpp"
+#include "entities/entity.hpp"
 #include "camera.hpp"
 #include "mesh-renderer.hpp"
 #include "free-camera-controller.hpp"
@@ -13,7 +13,6 @@ namespace our {
     inline void deserializeComponent(const nlohmann::json& data, Entity* entity){
         std::string type = data.value("type", "");
         Component* component = nullptr;
-        //TODO: (Req 8) Add an option to deserialize a "MeshRendererComponent" to the following if-else statement
         if(type == CameraComponent::getID()){
             component = entity->addComponent<CameraComponent>();
         } else if (type == FreeCameraControllerComponent::getID()) {

@@ -46,6 +46,7 @@ set(COMMON_SOURCES
         source/common/application.cpp
         source/common/input/keyboard.hpp
         source/common/input/mouse.hpp
+        source/common/input/mouse.cpp
 
         source/common/asset-loader.cpp
         source/common/asset-loader.hpp
@@ -72,13 +73,12 @@ set(COMMON_SOURCES
         source/common/material/material.hpp
         source/common/material/material.cpp
 
-        source/common/ecs/component.hpp
-        source/common/ecs/transform.hpp
-        source/common/ecs/transform.cpp
-        source/common/ecs/entity.hpp
-        source/common/ecs/entity.cpp
-        source/common/ecs/world.hpp
-        source/common/ecs/world.cpp
+        source/common/entities/transform.hpp
+        source/common/entities/transform.cpp
+        source/common/entities/entity.hpp
+        source/common/entities/entity.cpp
+        source/common/entities/world.hpp
+        source/common/entities/world.cpp
 
         source/common/components/camera.hpp
         source/common/components/camera.cpp
@@ -89,16 +89,19 @@ set(COMMON_SOURCES
         source/common/components/movement.hpp
         source/common/components/movement.cpp
         source/common/components/component-deserializer.hpp
+        source/common/components/component.hpp
 
         source/common/systems/forward-renderer.hpp
         source/common/systems/forward-renderer.cpp
         source/common/systems/free-camera-controller.hpp
         source/common/systems/movement.hpp
+
 )
 
 # Define the directories in which to search for the included headers
 include_directories(
         source/common
+        source/states
         vendor/glfw/include
         vendor/glm
         vendor/imgui
@@ -127,6 +130,8 @@ set(STATES_SOURCES
 # For each example, we add an executable target
 # Each target compiles one example source file and the common & vendor source files
 # Then we link GLFW with each target
+
+
 add_executable(GAME_APPLICATION source/main.cpp ${STATES_SOURCES} ${COMMON_SOURCES} ${VENDOR_SOURCES})
 target_link_libraries(GAME_APPLICATION glfw)
 target_link_libraries(GAME_APPLICATION OpenGL::GL)
