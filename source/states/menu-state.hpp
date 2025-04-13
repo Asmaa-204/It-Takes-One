@@ -48,6 +48,8 @@ class Menustate: public our::State {
     std::array<Button, 2> buttons;
 
     void onInitialize() override {
+
+
         // First, we create a material for the menu's background
         menuMaterial = new our::TexturedMaterial();
         // Here, we load the shader that will be used to draw the background
@@ -59,6 +61,11 @@ class Menustate: public our::State {
         menuMaterial->texture = our::texture_utils::loadImage("assets/textures/menu.png");
         // Initially, the menu material will be black, then it will fade in
         menuMaterial->tint = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
+
+        // Initalize the sample
+        menuMaterial->sampler = new our::Sampler();
+        menuMaterial->sampler->set(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        menuMaterial->sampler->set(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
         // Second, we create a material to highlight the hovered buttons
         highlightMaterial = new our::TintedMaterial();
