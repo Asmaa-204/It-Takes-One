@@ -52,8 +52,8 @@ class Menustate: public our::State {
         menuMaterial = new our::TexturedMaterial();
         // Here, we load the shader that will be used to draw the background
         menuMaterial->shader = new our::ShaderProgram();
-        menuMaterial->shader->attach("assets/shaders/textured.vert", GL_VERTEX_SHADER);
-        menuMaterial->shader->attach("assets/shaders/textured.frag", GL_FRAGMENT_SHADER);
+        menuMaterial->shader->attach("assets/shaders/basic.vert", GL_VERTEX_SHADER);
+        menuMaterial->shader->attach("assets/shaders/basic.frag", GL_FRAGMENT_SHADER);
         menuMaterial->shader->link();
         // Then we load the menu texture
         menuMaterial->texture = our::texture_utils::loadImage("assets/textures/menu.png");
@@ -151,6 +151,7 @@ class Menustate: public our::State {
         // The local to world (model) matrix of the background which is just a scaling matrix to make the menu cover the whole
         // window. Note that we defind the scale in pixels.
         glm::mat4 M = glm::scale(glm::mat4(1.0f), glm::vec3(size.x, size.y, 1.0f));
+        glm::vec3 cameraEye = glm::vec3(mousePosition, 0.0f);
 
         // First, we apply the fading effect.
         time += (float)deltaTime;
@@ -159,7 +160,7 @@ class Menustate: public our::State {
         // Notice that I don't clear the screen first, since I assume that the menu rectangle will draw over the whole
         // window anyway.
         menuMaterial->setup();
-        menuMaterial->shader->set("transform", VP*M);
+        menuMaterial->shader->set("transform", VP * M);
         rectangle->draw();
 
         // For every button, check if the mouse is inside it. If the mouse is inside, we draw the highlight rectangle over it.

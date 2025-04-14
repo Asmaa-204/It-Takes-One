@@ -162,6 +162,7 @@ namespace our {
         //TODO: (Req 9) Modify the following line such that "cameraForward" contains a vector pointing the camera forward direction
         // HINT: See how you wrote the CameraComponent::getViewMatrix, it should help you solve this one
         glm::vec3 cameraForward =glm::vec3(camera->getOwner()->getLocalToWorldMatrix() * glm::vec4(0.0, 0.0, -1.0f, 0.0));
+        glm::vec3 cameraEye =glm::vec3(camera->getOwner()->getLocalToWorldMatrix() * glm::vec4(0.0, 0.0, 0.0f, 1.0));
         std::sort(transparentCommands.begin(), transparentCommands.end(), [cameraForward](const RenderCommand& first, const RenderCommand& second){
             //TODO: (Req 9) Finish this function
             // HINT: the following return should return true "first" should be drawn before "second". 
@@ -195,7 +196,9 @@ namespace our {
         // Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command            
         for(auto& command : opaqueCommands){
             command.material->setup();
-            command.material->shader->set("transform", PV * command.localToWorld);
+            command.material->shader->set("model_transform", command.localToWorld);
+            command.material->shader->set("pv_transform", PV);
+            command.material->shader->set("camera_eye", cameraEye);
             command.mesh->draw();
         }   
 
@@ -216,7 +219,9 @@ namespace our {
                 0.0f, 0.0f, 1.0f, 1.0f
             );
             //TODO: (Req 10) set the "transform" uniform
-            skyMaterial->shader->set("transform", alwaysBehindTransform * PV * skyModelMatrix);
+            skyMaterial->shader->set("model_transform", skyModelMatrix);
+            skyMaterial->shader->set("pv_transform", alwaysBehindTransform * PV);
+            skyMaterial->shader->set("camera_eye", cameraEye);
             //TODO: (Req 10) draw the sky sphere
             skySphere->draw();
         }
@@ -224,7 +229,9 @@ namespace our {
         // Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
         for(auto& command : transparentCommands){
             command.material->setup();
-            command.material->shader->set("transform", PV * command.localToWorld);
+            command.material->shader->set("model_transform", command.localToWorld);
+            command.material->shader->set("pv_transform", PV);
+            command.material->shader->set("camera_eye", cameraEye);
             command.mesh->draw();
         }
 
