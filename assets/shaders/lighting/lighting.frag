@@ -196,8 +196,7 @@ void main()
             result += processSpotLight(lights[i], info, fs_in.frag_pos, viewDir);
     }
 
-    result += processPointLight(test_light, info, fs_in.frag_pos, viewDir);
 
-    // result += info.emission;
+    result += info.emission;
     frag_color = vec4(result, 1.0);
 }

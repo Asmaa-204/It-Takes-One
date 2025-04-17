@@ -61,6 +61,7 @@ namespace our{
 
             for(auto& shader: uniqueShaders)
             {
+                shader->use();
                 shader->set("n_lights", int(lights.size()));
                 for(int i = 0; i < lights.size(); i++)
                 {
