@@ -1,6 +1,8 @@
-#include "forward-renderer.hpp"
-#include "../mesh/mesh-utils.hpp"
-#include "../texture/texture-utils.hpp"
+#include <texture/texture-utils.hpp>
+#include <systems/forward-renderer.hpp>
+#include <mesh/mesh-utils.hpp>
+#include <components/light.hpp>
+
 
 #include <iostream>
 
@@ -127,7 +129,9 @@ namespace our {
         CameraComponent* camera = nullptr;
         opaqueCommands.clear();
         transparentCommands.clear();
+
         for(auto entity : world->getEntities()){
+
             // If we hadn't found a camera yet, we look for a camera in this entity
             if(!camera) camera = entity->getComponent<CameraComponent>();
             // If this entity has a mesh renderer component
@@ -148,10 +152,12 @@ namespace our {
             }
         }
 
+    
         // If there is no camera, we return (we cannot render without a camera)
         if(camera == nullptr) return;
 
-        glm::vec3 cameraForward =glm::vec3(camera->getOwner()->getLocalToWorldMatrix() * glm::vec4(0.0, 0.0, -1.0f, 0.0));
+        glm::vec3 cameraForward = glm::vec3(camera->getOwner()->getLocalToWorldMatrix() * glm::vec4(0.0, 0.0, -1.0f, 0.0));
+        
         std::sort(transparentCommands.begin(), transparentCommands.end(), [cameraForward](const RenderCommand& first, const RenderCommand& second){
             float firstDepth = glm::dot(first.center, cameraForward);
             float secondDepth = glm::dot(second.center, cameraForward);
@@ -175,7 +181,9 @@ namespace our {
         // Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command            
         for(auto& command : opaqueCommands){
             command.material->setup();
-            command.material->shader->set("transform", PV * command.localToWorld);
+            command.material->shader->set("model", command.localToWorld);
+            command.material->shader->set("PV", PV);
+            command.material->shader->set("cameraPos", camera->getOwner()->localTransform.position);
             command.mesh->draw();
         }   
 
@@ -198,7 +206,9 @@ namespace our {
         // Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
         for(auto& command : transparentCommands){
             command.material->setup();
-            command.material->shader->set("transform", PV * command.localToWorld);
+            command.material->shader->set("model", command.localToWorld);
+            command.material->shader->set("PV", PV);
+            command.material->shader->set("cameraPos", camera->getOwner()->localTransform.position);
             command.mesh->draw();
         }
 

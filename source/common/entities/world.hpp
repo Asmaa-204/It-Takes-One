@@ -1,6 +1,7 @@
 #pragma once
 
 #include <unordered_set>
+#include <unordered_map>
 #include "entity.hpp"
 
 namespace our {
@@ -8,8 +9,9 @@ namespace our {
     // This class holds a set of entities
     class World {
         std::unordered_set<Entity*> entities; // These are the entities held by this world
-        std::unordered_set<Entity*> markedForRemoval; // These are the entities that are awaiting to be deleted
-                                                      // when deleteMarkedEntities is called
+        std::unordered_set<Entity*> markedForRemoval; // These are the entities that are awaiting to be deleted when deleteMarkedEntities is called
+        std::unordered_map<std::string, std::vector<Entity*>> entitiesByTag;
+
     public:
 
         World() = default;
@@ -33,6 +35,22 @@ namespace our {
         // This returns and immutable reference to the set of all entites in the world.
         const std::unordered_set<Entity*>& getEntities() {
             return entities;
+        }
+
+        const std::vector<Entity*>& getEntitiesByTag(const std::string& tag) 
+        {
+            return entitiesByTag[tag];
+        }
+
+        void addEntitiyToTag(const std::string& tag, Entity* entity)
+        {
+            if(!entity || tag == "")
+                return;
+
+            if(entitiesByTag.count(tag))
+                entitiesByTag[tag].push_back(entity);
+            else
+                entitiesByTag[tag] = {entity};
         }
 
         // This marks an entity for removal by adding it to the "markedForRemoval" set.

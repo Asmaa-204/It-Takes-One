@@ -22,6 +22,9 @@ namespace our {
         // Reads the data of the component from a json object
         // It is abstract since it must be overriden by derived components
         virtual void deserialize(const nlohmann::json& data) = 0;
+
+        virtual std::string getid() { return "Component";}
+
         // Returns the owner of this component
         Entity* getOwner() const { return owner; }
         // Define a virtual destructor

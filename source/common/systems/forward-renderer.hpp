@@ -4,6 +4,7 @@
 #include <entities/world.hpp>
 #include <components/camera.hpp>
 #include <components/mesh-renderer.hpp>
+#include <components/light.hpp>
 #include <asset-loader.hpp>
 
 #include <glad/gl.h>
@@ -22,6 +23,7 @@ namespace our
         Mesh* mesh;
         Material* material;
     };
+
 
     // A forward renderer is a renderer that draw the object final color directly to the framebuffer
     // In other words, the fragment shader in the material should output the color that we should see on the screen

@@ -14,6 +14,8 @@ namespace our {
         // The ID of this component type is "Movement"
         static std::string getID() { return "Movement"; }
 
+        virtual std::string getid() { return "Movement";}
+
         // Reads linearVelocity & angularVelocity from the given json object
         void deserialize(const nlohmann::json& data) override;
     };

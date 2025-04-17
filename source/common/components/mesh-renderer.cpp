@@ -1,5 +1,6 @@
 #include <components/mesh-renderer.hpp>
 #include <asset-loader.hpp>
+#include <iostream>
 
 namespace our {
     // Receives the mesh & material from the AssetLoader by the names given in the json object

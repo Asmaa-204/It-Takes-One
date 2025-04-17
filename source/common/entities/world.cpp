@@ -1,4 +1,5 @@
 #include "world.hpp"
+#include <iostream>
 
 namespace our {
 
@@ -17,6 +18,11 @@ namespace our {
             if(entityData.contains("children"))
             {
                 deserialize(entityData["children"], entity);
+            }
+
+            for(Component* c : entity->components)
+            {
+                addEntitiyToTag(c->getid(), entity);
             }
         }
     }

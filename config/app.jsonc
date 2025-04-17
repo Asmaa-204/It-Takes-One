@@ -1,6 +1,6 @@
 {
-    "debug": false,
-    "start-scene": "menu",
+    "debug": true,
+    "start-scene": "play",
     "window":
     {
         "title":"Default Game Window",
@@ -24,6 +24,10 @@
                 "textured":{
                     "vs":"assets/shaders/textured.vert",
                     "fs":"assets/shaders/textured.frag"
+                },
+                "lighting":{
+                    "vs":"assets/shaders/lighting/lighting.vert",
+                    "fs":"assets/shaders/lighting/lighting.frag"
                 }
             },
             "textures":{

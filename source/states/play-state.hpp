@@ -4,8 +4,9 @@
 
 #include <entities/world.hpp>
 #include <systems/forward-renderer.hpp>
-#include <systems/input.hpp>
+#include <systems/Input.hpp>
 #include <systems/movement.hpp>
+#include <systems/light.hpp>
 #include <asset-loader.hpp>
 
 // This state shows how to use the ECS framework and deserialization.
@@ -15,7 +16,8 @@ class Playstate: public our::State {
     our::ForwardRenderer renderer;
     our::InputSystem inputSystem;
     our::MovementSystem movementSystem;
-
+    our::LightSystem lightingSystem;
+    
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
         auto& config = getApp()->getConfig()["scene"];
@@ -40,6 +42,7 @@ class Playstate: public our::State {
         inputSystem.update(&world, (float)deltaTime);
 
         // And finally we use the renderer system to draw the scene
+        lightingSystem.update(&world, (float)deltaTime);
         renderer.update(&world, (float)deltaTime);
 
         // Get a reference to the keyboard object

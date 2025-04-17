@@ -1,10 +1,11 @@
 #pragma once
 
-#include "entities/entity.hpp"
-#include "camera.hpp"
-#include "mesh-renderer.hpp"
-#include "free-camera-controller.hpp"
-#include "movement.hpp"
+#include <entities/entity.hpp>
+#include <components/camera.hpp>
+#include <components/mesh-renderer.hpp>
+#include <components/free-camera-controller.hpp>
+#include <components/movement.hpp>
+#include <components/light.hpp>
 
 namespace our {
 
@@ -21,7 +22,10 @@ namespace our {
             component = entity->addComponent<MovementComponent>();
         } else if (type == MeshRendererComponent::getID()) {
             component = entity->addComponent<MeshRendererComponent>();
+        } else if (type == LightComponent::getID()){
+            component = entity->addComponent<LightComponent>();
         }
+
         if(component) component->deserialize(data);
     }
 
