@@ -29,3 +29,6 @@ compile_commands.json
 
 # Cached data
 .cache/
+
+# GLB files
+glb_assets/
