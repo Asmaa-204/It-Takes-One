@@ -1,0 +1,428 @@
+{
+    "debug": false,
+    "start-scene": "menu",
+    "window":
+    {
+        "title":"Default Game Window",
+        "size":{
+            "width":1280,
+            "height":720
+        },
+        "fullscreen": false
+    },
+    "scene": {
+        "renderer":{},
+        "assets":{
+            "shaders":{
+                "tinted":{
+                    "vs":"assets/shaders/tinted.vert",
+                    "fs":"assets/shaders/tinted.frag"
+                },
+                "textured":{
+                    "vs":"assets/shaders/textured.vert",
+                    "fs":"assets/shaders/textured.frag"
+                },
+                "lighting": {
+                    "vs": "assets/shaders/lighting/lighting.vert",
+                    "fs": "assets/shaders/lighting/lighting.frag"
+                },
+                "white":{
+                    "vs": "assets/shaders/lighting/lighting.vert",
+                    "fs": "assets/shaders/lighting/white.frag"
+                }
+            },
+            "textures":{
+                "moon": "assets/textures/moon.jpg",
+                "grass": "assets/textures/grass_ground_d.jpg",
+                "wood": "assets/textures/wood.jpg",
+                "glass": "assets/textures/glass-panels.png",
+                "monkey": "assets/textures/monkey.png",
+                "star-wars-box": "assets/textures/star-wars-box.jpg",
+                "monk": "assets/textures/monk-texture.png",
+                "ground": "assets/textures/ground.png",
+                "rock-1": "assets/textures/rock-1.png",
+                "rock-2": "assets/textures/rock-2.png",
+                "rock-3": "assets/textures/rock-3.png",
+                "tree-cone": "assets/textures/tree-cone.png",
+                "tree-bulk": "assets/textures/tree-bulk.png",
+                "tree-trunk": "assets/textures/tree-trunk.png",
+                "tree-trunk-2": "assets/textures/tree-trunk-2.png",
+                "box-specular": "assets/textures/box/specular.png",
+                "box-diffuse": "assets/textures/box/diffuse.png",
+                "box-emissive": "assets/textures/box/emission.png"
+            },
+            "meshes":{
+                "cube": "assets/models/cube.obj",
+                "monkey": "assets/models/monkey.obj",
+                "plane": "assets/models/plane.obj",
+                "sphere": "assets/models/sphere.obj",
+                "star-wars-box": "assets/models/star-wars-box.obj",
+                "monk": "assets/models/monk.obj",
+                "ground": "assets/models/ground.obj",
+                "rock-1": "assets/models/rock-1.obj",
+                "rock-2": "assets/models/rock-2.obj",
+                "rock-3": "assets/models/rock-3.obj",
+                "tree-cone": "assets/models/tree-cone.obj",
+                "tree-bulk": "assets/models/tree-bulk.obj",
+                "tree-trunk": "assets/models/tree-trunk.obj",
+                "tree-trunk-2": "assets/models/tree-trunk-2.obj"
+            },
+            "samplers":{
+                "default":{},
+                "pixelated":{
+                    "MAG_FILTER": "GL_NEAREST"
+                }
+            },
+            "materials":{
+                "metal":{
+                    "type": "tinted",
+                    "shader": "tinted",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [0.45, 0.4, 0.5, 1]
+                },
+                "glass":{
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        },
+                        "blending":{
+                            "enabled": true,
+                            "sourceFactor": "GL_SRC_ALPHA",
+                            "destinationFactor": "GL_ONE_MINUS_SRC_ALPHA"
+                        },
+                        "depthMask": false
+                    },
+                    "transparent": true,
+                    "tint": [1, 1, 1, 1],
+                    "texture": "glass",
+                    "sampler": "pixelated"
+
+                },
+                "grass":{
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "grass",
+                    "sampler": "default",
+                    "transparent": false
+                },
+                "monkey":{
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "monkey",
+                    "sampler": "default",
+                    "transparent": false
+                },
+                "moon":{
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "moon",
+                    "sampler": "default",
+                    "transparent": false
+                },
+                "star-wars-box":{
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "star-wars-box",
+                    "sampler": "default",
+                    "transparent": false
+                },
+                "monk":{
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "monk",
+                    "sampler": "default",
+                    "transparent": false
+                },
+                "ground":{
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "ground",
+                    "sampler": "default",
+                    "transparent": false
+                },
+                "rock-1": {
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "rock-1",
+                    "sampler": "default",
+                    "transparent": false
+                },
+                "rock-2": {
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "rock-2",
+                    "sampler": "default",
+                    "transparent": false
+                },
+                "rock-3": {
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "rock-3",
+                    "sampler": "default",
+                    "transparent": false
+                },
+                "tree-cone": {
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "tree-cone",
+                    "sampler": "default",
+                    "transparent": false
+                },
+                "tree-trunk": {
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "tree-trunk",
+                    "sampler": "default",
+                    "transparent": false
+                },
+                "tree-trunk-2": {
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "tree-trunk-2",
+                    "sampler": "default",
+                    "transparent": false
+                },
+                "tree-bulk": {
+                    "type": "textured",
+                    "shader": "textured",
+                    "pipelineState": {
+                        "faceCulling":{
+                            "enabled": false
+                        },
+                        "depthTesting":{
+                            "enabled": true
+                        }
+                    },
+                    "tint": [1, 1, 1, 1],
+                    "texture": "tree-bulk",
+                    "sampler": "default",
+                    "transparent": false
+                },
+                "box": {
+                    "type": "lit",
+                    "shader": "lighting",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "diffuseMap": "box-diffuse",
+                    "specularMap": "box-specular",
+                    "emissionMap": "box-emissive",
+                    "sampler": "default",
+                    "shininess": 32,
+                    "transparent": false
+                }
+            }
+        },
+        "world":[
+            {
+                "position": [0, 0, 10],
+                "components": [
+                    {
+                        "type": "Camera"
+                    },
+                    {
+                        "type": "Free Camera Controller"
+                    }
+                ],
+                "children": [
+                    {
+                        "position": [1, -1, -1],
+                        "rotation": [45, 45, 0],
+                        "scale": [0.1, 0.1, 1.0],
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "cube",
+                                "material": "metal"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "ground",
+                        "material": "ground"
+                    }
+                ],
+                "children": [
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "tree-trunk-2",
+                                "material": "tree-trunk-2"
+                            }
+                        ]
+                    },
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "tree-bulk",
+                                "material": "tree-bulk"
+                            }
+                        ]
+                    },
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "rock-3",
+                                "material": "rock-3"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "position": [0, 5, 5],
+                "scale": [0.1, 0.1, 0.1],
+                "components": [
+                  {
+                    "type": "Mesh Renderer",
+                    "mesh": "cube",
+                    "material": "metal"
+                  },
+                  {
+                    "type": "Light",
+                    "light_type": 3,
+                    "ambient": [1, 1, 1],
+                    "diffuse": [0.5, 0.5, 0.5],
+                    "specular": [1.0, 1.0, 1.0],
+                    "constant": 1.0,
+                    "linear": 0,
+                    "quadratic": 0
+                  }
+                ]
+            }
+        ]
+    }
+}
