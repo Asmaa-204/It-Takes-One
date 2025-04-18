@@ -8,7 +8,7 @@
 #include <vector>
 #include <unordered_map>
 
-our::Mesh* our::mesh_utils::loadOBJ(const std::string& filename) {
+our::Mesh* our::mesh_utils::loadOBJ(const std::string& filename, bool isDynamic) {
 
     // The data that we will use to initialize our mesh
     std::vector<our::Vertex> vertices;
@@ -81,7 +81,7 @@ our::Mesh* our::mesh_utils::loadOBJ(const std::string& filename) {
         }
     }
 
-    return new our::Mesh(vertices, elements);
+    return new our::Mesh(vertices, elements, isDynamic);
 }
 
 // Create a sphere (the vertex order in the triangles are CCW from the outside)
