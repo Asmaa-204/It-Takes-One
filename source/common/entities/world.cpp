@@ -56,6 +56,13 @@ namespace our
                 physicsWorld->addRigidBody(rigidBody->getRigidBody());
             }
         }
+
+        debugDrawer = new DebugDrawer();
+        debugDrawer->initialize();
+        debugDrawer->setDebugMode(0);
+        debugDrawer->ToggleDebugFlag(btIDebugDraw::DBG_DrawWireframe);
+
+        physicsWorld->setDebugDrawer(debugDrawer);
     }
 
     void World::shutdownPhysics()

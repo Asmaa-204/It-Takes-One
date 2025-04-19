@@ -3,6 +3,7 @@
 #include <unordered_set>
 #include <unordered_map>
 #include "entity.hpp"
+#include "debugDrawer/debugDrawer.hpp"
 
 #include <BulletDynamics/Dynamics/btDynamicsWorld.h>
 #include <btBulletDynamicsCommon.h>
@@ -21,6 +22,8 @@ namespace our {
         btCollisionDispatcher* dispatcher;
         btBroadphaseInterface* broadPhase;
         btCollisionConfiguration* collisionConfiguration;
+
+        DebugDrawer* debugDrawer;
     public:
 
         World(): physicsWorld(nullptr), solver(nullptr), dispatcher(nullptr), broadPhase(nullptr), collisionConfiguration(nullptr) {};
