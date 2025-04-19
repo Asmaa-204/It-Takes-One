@@ -4,6 +4,8 @@
 #include <unordered_map>
 #include "entity.hpp"
 
+#include <BulletDynamics/Dynamics/btDynamicsWorld.h>
+
 namespace our {
 
     // This class holds a set of entities
@@ -12,6 +14,12 @@ namespace our {
         std::unordered_set<Entity*> markedForRemoval; // These are the entities that are awaiting to be deleted when deleteMarkedEntities is called
         std::unordered_map<std::string, std::vector<Entity*>> entitiesByTag;
 
+        // The physics world responsible for all game physics and its componenets
+        btDynamicsWorld* physicsWorld;
+        btConstraintSolver* solver;
+        btCollisionDispatcher* dispatcher;
+        btBroadphaseInterface* broadPhase;
+        btCollisionConfiguration* collisionConfiguration;
     public:
 
         World() = default;
@@ -53,6 +61,9 @@ namespace our {
                 entitiesByTag[tag] = {entity};
         }
 
+        void initializePhysics();
+        void shutdownPhysics();
+
         // This marks an entity for removal by adding it to the "markedForRemoval" set.
         // The elements in the "markedForRemoval" set will be removed and deleted when "deleteMarkedEntities" is called.
         void markForRemoval(Entity* entity){
@@ -80,6 +91,7 @@ namespace our {
 
         ~World(){
             clear();
+            shutdownPhysics();
         }
 
         // The world should not be copyable

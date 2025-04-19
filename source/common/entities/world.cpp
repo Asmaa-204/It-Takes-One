@@ -27,4 +27,24 @@ namespace our {
         }
     }
 
+    void World::initializePhysics() {
+        // create the collision configuration
+        collisionConfiguration = new btDefaultCollisionConfiguration();
+        // create the dispatcher
+        dispatcher = new btCollisionDispatcher(collisionConfiguration);
+        // create the broadphase
+        broadPhase = new btDbvtBroadphase();
+        // create the constraint solver
+        solver = new btSequentialImpulseConstraintSolver();
+        // create the world
+        physicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadPhase, solver, collisionConfiguration);
+    }
+
+    void World::shutdownPhysics() {
+        delete physicsWorld;
+        delete solver;
+        delete broadPhase;
+        delete dispatcher;
+        delete collisionConfiguration;
+    }
 }
