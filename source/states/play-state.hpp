@@ -7,6 +7,7 @@
 #include <systems/Input.hpp>
 #include <systems/movement.hpp>
 #include <systems/light.hpp>
+#include <systems/physics.hpp>
 #include <asset-loader.hpp>
 
 // This state shows how to use the ECS framework and deserialization.
@@ -17,6 +18,7 @@ class Playstate: public our::State {
     our::InputSystem inputSystem;
     our::MovementSystem movementSystem;
     our::LightSystem lightingSystem;
+    our::PhysicsSystem physicsSystem;
     
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
@@ -28,6 +30,7 @@ class Playstate: public our::State {
         // If we have a world in the scene config, we use it to populate our world
         if(config.contains("world")){
             world.deserialize(config["world"]);
+            world.initializePhysics();
         }
         // We initialize the camera controller system since it needs a pointer to the app
         inputSystem.enter(getApp());
@@ -41,8 +44,11 @@ class Playstate: public our::State {
         movementSystem.update(&world, (float)deltaTime);
         inputSystem.update(&world, (float)deltaTime);
 
-        // And finally we use the renderer system to draw the scene
         lightingSystem.update(&world, (float)deltaTime);
+
+        // Apply physics to the world
+        physicsSystem.update(&world, (float)deltaTime);
+        // And finally we use the renderer system to draw the scene
         renderer.update(&world, (float)deltaTime);
 
         // Get a reference to the keyboard object
