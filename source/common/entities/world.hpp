@@ -5,6 +5,7 @@
 #include "entity.hpp"
 
 #include <BulletDynamics/Dynamics/btDynamicsWorld.h>
+#include <btBulletDynamicsCommon.h>
 
 namespace our {
 
@@ -22,7 +23,7 @@ namespace our {
         btCollisionConfiguration* collisionConfiguration;
     public:
 
-        World() = default;
+        World(): physicsWorld(nullptr), solver(nullptr), dispatcher(nullptr), broadPhase(nullptr), collisionConfiguration(nullptr) {};
 
         // This will deserialize a json array of entities and add the new entities to the current world
         // If parent pointer is not null, the new entities will be have their parent set to that given pointer
@@ -43,6 +44,11 @@ namespace our {
         // This returns and immutable reference to the set of all entites in the world.
         const std::unordered_set<Entity*>& getEntities() {
             return entities;
+        }
+
+        btDynamicsWorld* getPhysicsWorld()
+        {
+            return physicsWorld;
         }
 
         const std::vector<Entity*>& getEntitiesByTag(const std::string& tag) 
