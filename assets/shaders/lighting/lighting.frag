@@ -186,7 +186,7 @@ void main()
 
     vec3 viewDir = normalize(cameraPos - fs_in.frag_pos);
 
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < n_lights; i++)
     {
         if (lights[i].type == POINT)
             result += processPointLight(lights[i], info, fs_in.frag_pos, viewDir);

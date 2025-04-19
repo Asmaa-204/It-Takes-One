@@ -15,6 +15,7 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)    # Don't build Examples
 set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)           # Don't build Installation Information
 set(GLFW_USE_HYBRID_HPG ON CACHE BOOL "" FORCE)     # Add variables to use High Performance Graphics Card if available
 add_subdirectory(vendor/glfw)                       # Build the GLFW project to use later as a library
+add_subdirectory(vendor/bullet)                     # Build the bullet3D physics library
 
 
 # Detect the OS and set GLAD source accordingly
@@ -38,7 +39,7 @@ set(IMGUI_SOURCES
 )
 
 # Combine all vendor source files together into a single variable
-set(VENDOR_SOURCES ${GLAD_SOURCE} ${IMGUI_SOURCES})
+set(VENDOR_SOURCES ${GLAD_SOURCE} ${IMGUI_SOURCES} vendor/bullet/src)
 
 # A variable with all our source files that are common between executable targets (examples)
 set(COMMON_SOURCES
@@ -59,6 +60,8 @@ set(COMMON_SOURCES
         source/common/mesh/mesh.hpp
         source/common/mesh/mesh-utils.hpp
         source/common/mesh/mesh-utils.cpp
+        source/common/mesh/shape-utils.hpp
+        source/common/mesh/shape-utils.cpp
 
         source/common/texture/sampler.hpp
         source/common/texture/sampler.cpp
@@ -92,12 +95,18 @@ set(COMMON_SOURCES
         source/common/components/component.hpp
         source/common/components/light.hpp
         source/common/components/light.cpp
+        source/common/components/rigid-body.hpp
+        source/common/components/rigid-body.cpp
 
         source/common/systems/forward-renderer.hpp
         source/common/systems/forward-renderer.cpp
         source/common/systems/Input.hpp
         source/common/systems/movement.hpp
         source/common/systems/light.hpp
+        source/common/systems/physics.hpp
+
+        source/common/debugDrawer/debugDrawer.hpp
+        source/common/debugDrawer/debugDrawer.cpp
 )
 
 # Define the directories in which to search for the included headers
@@ -108,6 +117,7 @@ include_directories(
         vendor/glm
         vendor/imgui
         vendor/utils
+        vendor/bullet/src
 )
 
 
@@ -136,4 +146,4 @@ set(STATES_SOURCES
 
 add_executable(GAME_APPLICATION source/main.cpp ${STATES_SOURCES} ${COMMON_SOURCES} ${VENDOR_SOURCES})
 target_link_libraries(GAME_APPLICATION glfw)
-target_link_libraries(GAME_APPLICATION OpenGL::GL)
+target_link_libraries(GAME_APPLICATION OpenGL::GL BulletDynamics BulletCollision LinearMath)

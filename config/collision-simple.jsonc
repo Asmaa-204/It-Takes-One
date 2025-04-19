@@ -1,0 +1,182 @@
+{
+  "debug": false,
+  "start-scene": "menu",
+  "window": {
+    "title": "Default Game Window",
+    "size": {
+      "width": 1280,
+      "height": 720
+    },
+    "fullscreen": false
+  },
+  "scene": {
+    "renderer": {},
+    "assets": {
+      "shaders": {
+        "tinted": {
+          "vs": "assets/shaders/tinted.vert",
+          "fs": "assets/shaders/tinted.frag"
+        },
+        "textured": {
+          "vs": "assets/shaders/textured.vert",
+          "fs": "assets/shaders/textured.frag"
+        },
+        "lighting": {
+          "vs": "assets/shaders/lighting/lighting.vert",
+          "fs": "assets/shaders/lighting/lighting.frag"
+        },
+        "white": {
+          "vs": "assets/shaders/lighting/lighting.vert",
+          "fs": "assets/shaders/lighting/white.frag"
+        }
+      },
+      "textures": {
+        "star-wars-box": "assets/textures/star-wars-box.jpg"
+      },
+      "meshes": {
+        "cube": { "path": "assets/models/cube.obj", "isDynamic": true },
+        "star-wars-box": {"path": "assets/models/star-wars-box.obj", "isDynamic": true}
+      },
+      "samplers": {
+        "default": {},
+        "pixelated": {
+          "MAG_FILTER": "GL_NEAREST"
+        }
+      },
+      "materials": {
+        "metal": {
+          "type": "tinted",
+          "shader": "tinted",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1]
+          // "tint": [0.45, 0.4, 0.5, 1]
+        },
+        "star-wars-box":{
+            "type": "textured",
+            "shader": "textured",
+            "pipelineState": {
+                "faceCulling":{
+                    "enabled": false
+                },
+                "depthTesting":{
+                    "enabled": true
+                }
+            },
+            "tint": [1, 1, 1, 1],
+            "texture": "star-wars-box",
+            "sampler": "default",
+            "transparent": false
+        }
+      }
+    },
+    "world": [
+      {
+        "position": [0, 0, 10],
+        "components": [
+          {
+            "type": "Camera"
+          },
+          {
+            "type": "Free Camera Controller"
+          }
+        ]
+        // "children": [
+        //   {
+        //     "position": [1, -1, -1],
+        //     "rotation": [45, 45, 0],
+        //     "scale": [0.1, 0.1, 1.0],
+        //     "components": [
+        //       {
+        //         "type": "Mesh Renderer",
+        //         "mesh": "cube",
+        //         "material": "metal"
+        //       }
+        //     ]
+        //   }
+        // ]
+      },
+      {
+        "position": [0, 5, 5],
+        // "scale": [0.1, 0.1, 0.1],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "star-wars-box",
+            "material": "star-wars-box"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 1.2
+          }
+        ]
+      },
+      {
+        "position": [0, 10, 5],
+        // "scale": [0.1, 0.1, 0.1],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "star-wars-box",
+            "material": "star-wars-box"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 1.2
+          }
+        ]
+      },
+      {
+        "position": [0, 15, 5],
+        // "scale": [0.1, 0.1, 0.1],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "star-wars-box",
+            "material": "star-wars-box"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 1.2
+          }
+        ]
+      },
+      {
+        "position": [0, 20, 5],
+        // "scale": [0.1, 0.1, 0.1],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "star-wars-box",
+            "material": "star-wars-box"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 1.2
+          }
+        ]
+      },
+      {
+        "position": [0, -2, 5],
+        "scale": [4, 0.1, 4],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "cube",
+            "material": "metal"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      }
+    ]
+  }
+}

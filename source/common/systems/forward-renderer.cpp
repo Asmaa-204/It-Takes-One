@@ -212,6 +212,8 @@ namespace our {
             command.mesh->draw();
         }
 
+        // world->getPhysicsWorld()->debugDrawWorld();
+
         // If there is a postprocess material, apply postprocessing
         if(postprocessMaterial){
             glBindFramebuffer(GL_FRAMEBUFFER, 0);

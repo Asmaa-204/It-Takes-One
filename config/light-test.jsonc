@@ -1,132 +1,192 @@
 {
-    "debug": false,
-    "start-scene": "play",
-    "window": {
-      "title": "Light Test",
-      "size": {
-        "width": 1280,
-        "height": 720
-      },
-      "fullscreen": false
+  "debug": false,
+  "start-scene": "play",
+  "window": {
+    "title": "Light Test",
+    "size": {
+      "width": 1280,
+      "height": 720
     },
-    "scene": {
-      "renderer": {
-        "sky": "assets/textures/sky.jpg",
-        "postprocess": "assets/shaders/postprocess/vignette.frag"
+    "fullscreen": false
+  },
+  "scene": {
+    "renderer": {
+      "sky": "assets/textures/sky.jpg",
+      "postprocess": "assets/shaders/postprocess/vignette.frag"
+    },
+    "assets": {
+      "shaders": {
+        "tinted": {
+          "vs": "assets/shaders/tinted.vert",
+          "fs": "assets/shaders/tinted.frag"
+        },
+        "textured": {
+          "vs": "assets/shaders/textured.vert",
+          "fs": "assets/shaders/textured.frag"
+        },
+        "lighting": {
+          "vs": "assets/shaders/lighting/lighting.vert",
+          "fs": "assets/shaders/lighting/lighting.frag"
+        },
+        "white": {
+          "vs": "assets/shaders/lighting/lighting.vert",
+          "fs": "assets/shaders/lighting/white.frag"
+        }
       },
-      "assets": {
-        "shaders": {
-            "tinted":{
-                "vs":"assets/shaders/tinted.vert",
-                "fs":"assets/shaders/tinted.frag"
+      "textures": {
+        "box-specular": "assets/textures/box/specular.png",
+        "box-diffuse": "assets/textures/box/diffuse.png",
+        "box-emissive": "assets/textures/box/emission.png"
+      },
+      "meshes": {
+        "cube": {"path": "assets/models/cube.obj", "isDynamic": false },
+        "monkey": {"path": "assets/models/monkey.obj", "isDynamic": false },
+        "plane": {"path": "assets/models/plane.obj", "isDynamic": false },
+        "sphere": {"path": "assets/models/sphere.obj", "isDynamic": false }
+      },
+      "samplers": {
+        "default": {}
+      },
+      "materials": {
+        "box": {
+          "type": "lit",
+          "shader": "lighting",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
             },
-            "textured":{
-                "vs":"assets/shaders/textured.vert",
-                "fs":"assets/shaders/textured.frag"
-            },
-            "lighting": {
-                "vs": "assets/shaders/lighting/lighting.vert",
-                "fs": "assets/shaders/lighting/lighting.frag"
-            },
-            "white":{
-                "vs": "assets/shaders/lighting/lighting.vert",
-                "fs": "assets/shaders/lighting/white.frag"
+            "depthTesting": {
+              "enabled": true
             }
-        },
-        "textures": {
-          "box-specular": "assets/textures/box/specular.png",
-          "box-diffuse": "assets/textures/box/diffuse.png",
-          "box-emissive": "assets/textures/box/emission.png"
-        },
-        "meshes": {
-          "cube": "assets/models/cube.obj",
-          "monkey": "assets/models/monkey.obj",
-          "plane": "assets/models/plane.obj",
-          "sphere": "assets/models/sphere.obj"
-        },
-        "samplers": {
-          "default": {}
-        },
-        "materials": {
-          "box": {
-            "type": "lit",
-            "shader": "lighting",
-            "pipelineState": {
-              "faceCulling": {
-                "enabled": false
-              },
-              "depthTesting": {
-                "enabled": true
-              }
-            },
-            "diffuseMap": "box-diffuse",
-            "specularMap": "box-specular",
-            "emissionMap": "box-emissive",
-            "sampler": "default",
-            "shininess": 32,
-            "transparent": false
           },
-          "metal":{
-            "type": "tinted",
-            "shader": "white",
-            "pipelineState": {
-                "faceCulling":{
-                    "enabled": false
-                },
-                "depthTesting":{
-                    "enabled": true
-                }
+          "diffuseMap": "box-diffuse",
+          "specularMap": "box-specular",
+          "emissionMap": "box-emissive",
+          "sampler": "default",
+          "shininess": 32,
+          "transparent": false
+        },
+        "metal": {
+          "type": "tinted",
+          "shader": "white",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
             },
-            "tint": [1, 1, 1, 1]
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1]
+        }
+      }
+    },
+    "world": [
+      {
+        "position": [5, 5, 5],
+        "rotation": [0, 0, 0],
+        "scale": [1, 1, 1],
+        "components": [
+          {
+            "type": "Camera"
+          },
+          {
+            "type": "Free Camera Controller"
+          },
+          {
+            "type": "Light",
+            "light_type": 2,
+            "ambient": [0.5, 0.5, 0.5],
+            "diffuse": [1.0, 1.0, 1.0],
+            "specular": [1.0, 1.0, 1.0],
+            "innerCutoff": 15,
+            "outerCutoff": 25,
+            "constant": 1.0,
+            "linear": 0.09,
+            "quadratic": 0.032
           }
-        }
+        ]
       },
-      "world": [
-        {
-          "position": [0, 0, 10],
-          "components": [
-            {
-              "type": "Camera"
-            },
-            {
-              "type": "Free Camera Controller"
-            }
-          ]
-        },
-        {
-          "position": [0, 0, 2],
-          "rotation": [0, 45, 45],
-          "scale": [2, 2, 2],
-          "components": [
-            {
-              "type": "Mesh Renderer",
-              "mesh": "cube",
-              "material": "box"
-            }
-          ]
-        },
-        {
-          "position": [0, 5, 5],
-          "scale": [0.1, 0.1, 0.1],
-          "components": [
-            {
-              "type": "Mesh Renderer",
-              "mesh": "cube",
-              "material": "metal"
-            },
-            {
-              "type": "Light",
-              "light_type": 3,
-              "ambient": [1, 1, 1],
-              "diffuse": [0.5, 0.5, 0.5],
-              "specular": [1.0, 1.0, 1.0],
-              "constant": 1.0,
-              "linear": 0,
-              "quadratic": 0
-            }
-          ]
-        }
-      ]
-    }
+
+      // Spaced-out cubes
+      {
+        "position": [5, 5, 0],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "cube",
+            "material": "box"
+          }
+        ]
+      },
+      {
+        "position": [5, 0, 2],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "cube",
+            "material": "box"
+          }
+        ]
+      },
+      {
+        "position": [5, 5, 0],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "cube",
+            "material": "box"
+          }
+        ]
+      },
+      {
+        "position": [0, 5, 5],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "cube",
+            "material": "box"
+          }
+        ]
+      },
+
+      // Point light object
+      {
+        "position": [5, 5, 5],
+        "scale": [0.5, 0.5, 0.5],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "cube",
+            "material": "metal"
+          },
+          {
+            "type": "Light",
+            "light_type": 3,
+            "ambient": [0.1, 0.1, 0.1],
+            "diffuse": [0.5, 0.5, 0.5],
+            "specular": [0.5, 0.5, 0.5],
+            "constant": 1.0,
+            "linear": 0.0,
+            "quadratic": 0.0
+          }
+        ]
+      },
+
+      // Directional light
+      {
+        "position": [0, 10, 0],
+        "components": [
+          {
+            "type": "Light",
+            "light_type": 1,
+            "ambient": [0.05, 0.05, 0.05],
+            "diffuse": [0.4, 0.4, 0.4],
+            "specular": [0.5, 0.5, 0.5],
+            "direction": [-0.5, -1, -0.5]
+          }
+        ]
+      }
+    ]
   }
-  
+}

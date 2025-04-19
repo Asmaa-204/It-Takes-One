@@ -3,6 +3,10 @@
 #include <unordered_set>
 #include <unordered_map>
 #include "entity.hpp"
+#include "debugDrawer/debugDrawer.hpp"
+
+#include <BulletDynamics/Dynamics/btDynamicsWorld.h>
+#include <btBulletDynamicsCommon.h>
 
 namespace our {
 
@@ -12,9 +16,17 @@ namespace our {
         std::unordered_set<Entity*> markedForRemoval; // These are the entities that are awaiting to be deleted when deleteMarkedEntities is called
         std::unordered_map<std::string, std::vector<Entity*>> entitiesByTag;
 
+        // The physics world responsible for all game physics and its componenets
+        btDynamicsWorld* physicsWorld;
+        btConstraintSolver* solver;
+        btCollisionDispatcher* dispatcher;
+        btBroadphaseInterface* broadPhase;
+        btCollisionConfiguration* collisionConfiguration;
+
+        DebugDrawer* debugDrawer;
     public:
 
-        World() = default;
+        World(): physicsWorld(nullptr), solver(nullptr), dispatcher(nullptr), broadPhase(nullptr), collisionConfiguration(nullptr) {};
 
         // This will deserialize a json array of entities and add the new entities to the current world
         // If parent pointer is not null, the new entities will be have their parent set to that given pointer
@@ -37,6 +49,11 @@ namespace our {
             return entities;
         }
 
+        btDynamicsWorld* getPhysicsWorld()
+        {
+            return physicsWorld;
+        }
+
         const std::vector<Entity*>& getEntitiesByTag(const std::string& tag) 
         {
             return entitiesByTag[tag];
@@ -52,6 +69,9 @@ namespace our {
             else
                 entitiesByTag[tag] = {entity};
         }
+
+        void initializePhysics();
+        void shutdownPhysics();
 
         // This marks an entity for removal by adding it to the "markedForRemoval" set.
         // The elements in the "markedForRemoval" set will be removed and deleted when "deleteMarkedEntities" is called.
@@ -80,6 +100,7 @@ namespace our {
 
         ~World(){
             clear();
+            shutdownPhysics();
         }
 
         // The world should not be copyable

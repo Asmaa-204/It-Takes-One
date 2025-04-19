@@ -6,6 +6,7 @@
 #include <components/free-camera-controller.hpp>
 #include <components/movement.hpp>
 #include <components/light.hpp>
+#include <components/rigid-body.hpp>
 
 namespace our {
 
@@ -24,6 +25,8 @@ namespace our {
             component = entity->addComponent<MeshRendererComponent>();
         } else if (type == LightComponent::getID()){
             component = entity->addComponent<LightComponent>();
+        } else if (type == RigidBodyComponent::getID()) {
+            component = entity->addComponent<RigidBodyComponent>();
         }
 
         if(component) component->deserialize(data);

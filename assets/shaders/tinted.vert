@@ -7,10 +7,13 @@ out Varyings {
     vec4 color;
 } vs_out;
 
-uniform mat4 transform;
+uniform mat4 model;
+uniform mat4 PV;
 
 void main(){
     //TODO: (Req 7) Change the next line to apply the transformation matrix
+    mat4 transform = PV * model;
+    
     gl_Position = transform * vec4(position, 1.0);
     vs_out.color = color;
 }
