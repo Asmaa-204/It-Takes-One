@@ -44,10 +44,7 @@ namespace our {
 
         btVector3 localInertia(0,0,0);
         if (mass != 0.0f && shape->getShapeType() != TRIANGLE_MESH_SHAPE_PROXYTYPE) {
-            std::cout << "line: " << __LINE__ << '\n';
-            std::cout << shape <<'\n';
             shape->calculateLocalInertia(mass, localInertia);
-            std::cout << "line: " << __LINE__ << '\n';
         }
 
         // create the rigid body construction
