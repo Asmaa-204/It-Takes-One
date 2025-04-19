@@ -9,6 +9,7 @@
 #include <systems/system.hpp>
 #include <entities/world.hpp>
 #include <components/movement.hpp>
+#include <components/rigid-body.hpp>
 
 
 namespace our
@@ -33,9 +34,29 @@ namespace our
                 // If the movement component exists
                 if(movement)
                 {
-                    // Change the position and rotation based on the linear & angular velocity and delta time.
-                    entity->localTransform.position += deltaTime * movement->linearVelocity;
-                    entity->localTransform.rotation += deltaTime * movement->angularVelocity;
+                    RigidBodyComponent* rigidBody = entity->getComponent<RigidBodyComponent>();
+                    
+                    // move the rigid body if the entity has a rigid body componenet
+                    if (rigidBody) {
+                        rigidBody->getRigidBody()->activate();
+                        
+                        rigidBody->getRigidBody()->setLinearVelocity(btVector3(
+                            deltaTime * movement->linearVelocity.x,
+                            deltaTime * movement->linearVelocity.y,
+                            deltaTime * movement->linearVelocity.z
+                        ));
+                        
+                        rigidBody->getRigidBody()->setAngularVelocity(btVector3(
+                            deltaTime * movement->angularVelocity.x,
+                            deltaTime * movement->angularVelocity.y,
+                            deltaTime * movement->angularVelocity.z
+                        ));
+
+                    } else {
+                        // Change the position and rotation based on the linear & angular velocity and delta time.
+                        entity->localTransform.position += deltaTime * movement->linearVelocity;
+                        entity->localTransform.rotation += deltaTime * movement->angularVelocity;
+                    }
                 }
             }
         }
