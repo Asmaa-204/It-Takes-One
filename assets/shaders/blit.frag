@@ -1,12 +1,3 @@
-#version 330
-
-// The texture to draw on the screen
-uniform sampler2D tex;
-
-// Read "assets/shaders/fullscreen.vert" to know what "tex_coord" holds;
-in vec2 tex_coord;
-out vec4 frag_color;
-
-void main(){
-    frag_color = texture(tex, tex_coord);
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:7d789a20292d7aab925d82860b9fb1312f3b516a08e05607a7f279a5e5ebc262
+size 256
