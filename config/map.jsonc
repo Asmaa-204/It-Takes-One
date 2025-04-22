@@ -1,0 +1,2673 @@
+{
+  "debug": false,
+  "start-scene": "menu",
+  "window": {
+    "title": "Default Game Window",
+    "size": {
+      "width": 1280,
+      "height": 720
+    },
+    "fullscreen": false
+  },
+  "scene": {
+    "renderer": {},
+    "assets": {
+      "shaders": {
+        "tinted": {
+          "vs": "assets/shaders/tinted.vert",
+          "fs": "assets/shaders/tinted.frag"
+        },
+        "textured": {
+          "vs": "assets/shaders/textured.vert",
+          "fs": "assets/shaders/textured.frag"
+        },
+        "lighting": {
+          "vs": "assets/shaders/lighting/lighting.vert",
+          "fs": "assets/shaders/lighting/lighting.frag"
+        },
+        "white": {
+          "vs": "assets/shaders/lighting/lighting.vert",
+          "fs": "assets/shaders/lighting/white.frag"
+        }
+      },
+      "textures": {
+        "map-general": "assets/textures/map/map_general.png",
+        "map-ground-1": "assets/textures/map/map_ground_1.png",
+        "map-ground-2": "assets/textures/map/map_ground_2.png"
+      },
+      "meshes": {
+        "floor-1": {
+          "path": "assets/models/map/floor_1.obj",
+          "isDynamic": false
+        },
+        "tree-3-2": {
+          "path": "assets/models/map/tree_3_2.obj",
+          "isDynamic": false
+        },
+        "floor-edges-11": {
+          "path": "assets/models/map/floor_edges_11.obj",
+          "isDynamic": false
+        },
+        "7-stone-stairs-10-2": {
+          "path": "assets/models/map/7_stone_stairs_10_2.obj",
+          "isDynamic": false
+        },
+        "fence-2-13": {
+          "path": "assets/models/map/fence_2_13.obj",
+          "isDynamic": false
+        },
+        "12-stone-stairs-13-3": {
+          "path": "assets/models/map/12_stone_stairs_13_3.obj",
+          "isDynamic": false
+        },
+        "floor-8": {
+          "path": "assets/models/map/floor_8.obj",
+          "isDynamic": false
+        },
+        "floor-2": {
+          "path": "assets/models/map/floor_2.obj",
+          "isDynamic": false
+        },
+        "tree-3-1": {
+          "path": "assets/models/map/tree_3_1.obj",
+          "isDynamic": false
+        },
+        "2-stairs-3": {
+          "path": "assets/models/map/2_stairs_3.obj",
+          "isDynamic": false
+        },
+        "floor-edges-2": {
+          "path": "assets/models/map/floor_edges_2.obj",
+          "isDynamic": false
+        },
+        "tree-6-4": {
+          "path": "assets/models/map/tree_6_4.obj",
+          "isDynamic": false
+        },
+        "floor-edges-7": {
+          "path": "assets/models/map/floor_edges_7.obj",
+          "isDynamic": false
+        },
+        "4-stairs-8": {
+          "path": "assets/models/map/4_stairs_8.obj",
+          "isDynamic": false
+        },
+        "floor-7": {
+          "path": "assets/models/map/floor_7.obj",
+          "isDynamic": false
+        },
+        "fence-2-9": {
+          "path": "assets/models/map/fence_2_9.obj",
+          "isDynamic": false
+        },
+        "floor-edges-6": {
+          "path": "assets/models/map/floor_edges_6.obj",
+          "isDynamic": false
+        },
+        "12-stone-stairs-13-4": {
+          "path": "assets/models/map/12_stone_stairs_13_4.obj",
+          "isDynamic": false
+        },
+        "fence-2-5": {
+          "path": "assets/models/map/fence_2_5.obj",
+          "isDynamic": false
+        },
+        "5-stone-stairs-9-3": {
+          "path": "assets/models/map/5_stone_stairs_9_3.obj",
+          "isDynamic": false
+        },
+        "7-stone-stairs-10-4": {
+          "path": "assets/models/map/7_stone_stairs_10_4.obj",
+          "isDynamic": false
+        },
+        "4-stairs-6": {
+          "path": "assets/models/map/4_stairs_6.obj",
+          "isDynamic": false
+        },
+        "tree-2-2": {
+          "path": "assets/models/map/tree_2_2.obj",
+          "isDynamic": false
+        },
+        "floor-10": {
+          "path": "assets/models/map/floor_10.obj",
+          "isDynamic": false
+        },
+        "fence-2-6": {
+          "path": "assets/models/map/fence_2_6.obj",
+          "isDynamic": false
+        },
+        "5-stone-stairs-9-2": {
+          "path": "assets/models/map/5_stone_stairs_9_2.obj",
+          "isDynamic": false
+        },
+        "tree-1-1": {
+          "path": "assets/models/map/tree_1_1.obj",
+          "isDynamic": false
+        },
+        "5-stone-stairs-9-4": {
+          "path": "assets/models/map/5_stone_stairs_9_4.obj",
+          "isDynamic": false
+        },
+        "floor-3": {
+          "path": "assets/models/map/floor_3.obj",
+          "isDynamic": false
+        },
+        "3-stairs-5": {
+          "path": "assets/models/map/3_stairs_5.obj",
+          "isDynamic": false
+        },
+        "tree-13-1": {
+          "path": "assets/models/map/tree_13_1.obj",
+          "isDynamic": false
+        },
+        "tree-5-1": {
+          "path": "assets/models/map/tree_5_1.obj",
+          "isDynamic": false
+        },
+        "fence-2-7": {
+          "path": "assets/models/map/fence_2_7.obj",
+          "isDynamic": false
+        },
+        "floor-edges-10": {
+          "path": "assets/models/map/floor_edges_10.obj",
+          "isDynamic": false
+        },
+        "floor-11": {
+          "path": "assets/models/map/floor_11.obj",
+          "isDynamic": false
+        },
+        "floor-13": {
+          "path": "assets/models/map/floor_13.obj",
+          "isDynamic": false
+        },
+        "floor-edges-1": {
+          "path": "assets/models/map/floor_edges_1.obj",
+          "isDynamic": false
+        },
+        "fence-2-10": {
+          "path": "assets/models/map/fence_2_10.obj",
+          "isDynamic": false
+        },
+        "2-stairs-4": {
+          "path": "assets/models/map/2_stairs_4.obj",
+          "isDynamic": false
+        },
+        "tree-6-3": {
+          "path": "assets/models/map/tree_6_3.obj",
+          "isDynamic": false
+        },
+        "fence-2-8": {
+          "path": "assets/models/map/fence_2_8.obj",
+          "isDynamic": false
+        },
+        "floor-edges-13": {
+          "path": "assets/models/map/floor_edges_13.obj",
+          "isDynamic": false
+        },
+        "7-stairs-12": {
+          "path": "assets/models/map/7_stairs_12.obj",
+          "isDynamic": false
+        },
+        "12-stone-stairs-13-5": {
+          "path": "assets/models/map/12_stone_stairs_13_5.obj",
+          "isDynamic": false
+        },
+        "7-stone-stairs-10-3": {
+          "path": "assets/models/map/7_stone_stairs_10_3.obj",
+          "isDynamic": false
+        },
+        "stone-circle-4": {
+          "path": "assets/models/map/stone_circle_4.obj",
+          "isDynamic": false
+        },
+        "12-stone-stairs-13-6": {
+          "path": "assets/models/map/12_stone_stairs_13_6.obj",
+          "isDynamic": false
+        },
+        "2-stone-stairs-11-5": {
+          "path": "assets/models/map/2_stone_stairs_11_5.obj",
+          "isDynamic": false
+        },
+        "tree-gate-1": {
+          "path": "assets/models/map/tree_gate_1.obj",
+          "isDynamic": false
+        },
+        "fence-2-1": {
+          "path": "assets/models/map/fence_2_1.obj",
+          "isDynamic": false
+        },
+        "10-stairs-14": {
+          "path": "assets/models/map/10_stairs_14.obj",
+          "isDynamic": false
+        },
+        "fence-2-2": {
+          "path": "assets/models/map/fence_2_2.obj",
+          "isDynamic": false
+        },
+        "floor-edges-9": {
+          "path": "assets/models/map/floor_edges_9.obj",
+          "isDynamic": false
+        },
+        "floor-5": {
+          "path": "assets/models/map/floor_5.obj",
+          "isDynamic": false
+        },
+        "fence-2-3": {
+          "path": "assets/models/map/fence_2_3.obj",
+          "isDynamic": false
+        },
+        "2-stone-stairs-11-1": {
+          "path": "assets/models/map/2_stone_stairs_11_1.obj",
+          "isDynamic": false
+        },
+        "floor-6": {
+          "path": "assets/models/map/floor_6.obj",
+          "isDynamic": false
+        },
+        "floor-edges-15": {
+          "path": "assets/models/map/floor_edges_15.obj",
+          "isDynamic": false
+        },
+        "tree-6-6": {
+          "path": "assets/models/map/tree_6_6.obj",
+          "isDynamic": false
+        },
+        "floor-edges-12": {
+          "path": "assets/models/map/floor_edges_12.obj",
+          "isDynamic": false
+        },
+        "tree-6-1": {
+          "path": "assets/models/map/tree_6_1.obj",
+          "isDynamic": false
+        },
+        "fence-2-14": {
+          "path": "assets/models/map/fence_2_14.obj",
+          "isDynamic": false
+        },
+        "tree-9-1": {
+          "path": "assets/models/map/tree_9_1.obj",
+          "isDynamic": false
+        },
+        "floor-edges-8": {
+          "path": "assets/models/map/floor_edges_8.obj",
+          "isDynamic": false
+        },
+        "floor-edges-4": {
+          "path": "assets/models/map/floor_edges_4.obj",
+          "isDynamic": false
+        },
+        "floor-15": {
+          "path": "assets/models/map/floor_15.obj",
+          "isDynamic": false
+        },
+        "2-stone-stairs-11-4": {
+          "path": "assets/models/map/2_stone_stairs_11_4.obj",
+          "isDynamic": false
+        },
+        "fence-2-12": {
+          "path": "assets/models/map/fence_2_12.obj",
+          "isDynamic": false
+        },
+        "tree-1-2": {
+          "path": "assets/models/map/tree_1_2.obj",
+          "isDynamic": false
+        },
+        "2-stone-stairs-11-2": {
+          "path": "assets/models/map/2_stone_stairs_11_2.obj",
+          "isDynamic": false
+        },
+        "12-stone-stairs-13-1": {
+          "path": "assets/models/map/12_stone_stairs_13_1.obj",
+          "isDynamic": false
+        },
+        "tree-6-2": {
+          "path": "assets/models/map/tree_6_2.obj",
+          "isDynamic": false
+        },
+        "1-stairs-2": {
+          "path": "assets/models/map/1_stairs_2.obj",
+          "isDynamic": false
+        },
+        "tree-2-1": {
+          "path": "assets/models/map/tree_2_1.obj",
+          "isDynamic": false
+        },
+        "fence-2-4": {
+          "path": "assets/models/map/fence_2_4.obj",
+          "isDynamic": false
+        },
+        "tree-6-5": {
+          "path": "assets/models/map/tree_6_5.obj",
+          "isDynamic": false
+        },
+        "fence-2-15": {
+          "path": "assets/models/map/fence_2_15.obj",
+          "isDynamic": false
+        },
+        "floor-edges-14": {
+          "path": "assets/models/map/floor_edges_14.obj",
+          "isDynamic": false
+        },
+        "2-stairs-7": {
+          "path": "assets/models/map/2_stairs_7.obj",
+          "isDynamic": false
+        },
+        "floor-4": {
+          "path": "assets/models/map/floor_4.obj",
+          "isDynamic": false
+        },
+        "floor-12": {
+          "path": "assets/models/map/floor_12.obj",
+          "isDynamic": false
+        },
+        "2-stone-stairs-11-3": {
+          "path": "assets/models/map/2_stone_stairs_11_3.obj",
+          "isDynamic": false
+        },
+        "floor-9": {
+          "path": "assets/models/map/floor_9.obj",
+          "isDynamic": false
+        },
+        "fence-2-16": {
+          "path": "assets/models/map/fence_2_16.obj",
+          "isDynamic": false
+        },
+        "fence-2-11": {
+          "path": "assets/models/map/fence_2_11.obj",
+          "isDynamic": false
+        },
+        "floor-14": {
+          "path": "assets/models/map/floor_14.obj",
+          "isDynamic": false
+        },
+        "floor-edges-5": {
+          "path": "assets/models/map/floor_edges_5.obj",
+          "isDynamic": false
+        },
+        "12-stone-stairs-13-2": {
+          "path": "assets/models/map/12_stone_stairs_13_2.obj",
+          "isDynamic": false
+        },
+        "7-stone-stairs-10-1": {
+          "path": "assets/models/map/7_stone_stairs_10_1.obj",
+          "isDynamic": false
+        },
+        "floor-edges-3": {
+          "path": "assets/models/map/floor_edges_3.obj",
+          "isDynamic": false
+        },
+        "tree-9-2": {
+          "path": "assets/models/map/tree_9_2.obj",
+          "isDynamic": false
+        },
+        "5-stone-stairs-9-1": {
+          "path": "assets/models/map/5_stone_stairs_9_1.obj",
+          "isDynamic": false
+        }
+      },
+      "samplers": {
+        "default": {},
+        "pixelated": {
+          "MAG_FILTER": "GL_NEAREST"
+        }
+      },
+      "materials": {
+        "map-general": {
+          "type": "textured",
+          "shader": "textured",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "texture": "map-general",
+          "sampler": "default",
+          "transparent": true,
+          "specularColor": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "shininess": 20.000006,
+          "emissiveColor": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "refractionIndex": 1.3
+        },
+        "map-ground-1": {
+          "type": "textured",
+          "shader": "textured",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "texture": "map-ground-1",
+          "sampler": "default",
+          "transparent": true,
+          "specularColor": [
+            0.5,
+            0.5,
+            0.5
+          ],
+          "shininess": 0.0,
+          "emissiveColor": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "refractionIndex": 1.3
+        },
+        "map-ground-2": {
+          "type": "textured",
+          "shader": "textured",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "texture": "map-ground-2",
+          "sampler": "default",
+          "transparent": true,
+          "specularColor": [
+            0.5,
+            0.5,
+            0.5
+          ],
+          "shininess": 0.0,
+          "emissiveColor": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "refractionIndex": 1.3
+        }
+      }
+    },
+    "world": [
+      {
+        "position": [
+          0,
+          0,
+          10
+        ],
+        "components": [
+          {
+            "type": "Camera"
+          },
+          {
+            "type": "Free Camera Controller"
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-1",
+            "material": "map-ground-1"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "tree-3-2",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-edges-11",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "7-stone-stairs-10-2",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "fence-2-13",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "12-stone-stairs-13-3",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-8",
+            "material": "map-ground-1"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-2",
+            "material": "map-ground-2"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "tree-3-1",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "2-stairs-3",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-edges-2",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "tree-6-4",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-edges-7",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "4-stairs-8",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-7",
+            "material": "map-ground-2"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "fence-2-9",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-edges-6",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "12-stone-stairs-13-4",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "fence-2-5",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "5-stone-stairs-9-3",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "7-stone-stairs-10-4",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "4-stairs-6",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "tree-2-2",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-10",
+            "material": "map-ground-2"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "fence-2-6",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "5-stone-stairs-9-2",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "tree-1-1",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "5-stone-stairs-9-4",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-3",
+            "material": "map-ground-1"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "3-stairs-5",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "tree-13-1",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "tree-5-1",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "fence-2-7",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-edges-10",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-11",
+            "material": "map-ground-1"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-13",
+            "material": "map-ground-1"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-edges-1",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "fence-2-10",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "2-stairs-4",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-1",
+            "material": "map-ground-1"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "tree-6-3",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "fence-2-8",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-edges-13",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "7-stairs-12",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "12-stone-stairs-13-5",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "7-stone-stairs-10-3",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "stone-circle-4",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "12-stone-stairs-13-6",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "2-stone-stairs-11-5",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "tree-gate-1",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "fence-2-1",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "10-stairs-14",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "fence-2-2",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-edges-9",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-5",
+            "material": "map-ground-1"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "fence-2-3",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "2-stone-stairs-11-1",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-6",
+            "material": "map-ground-2"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-edges-15",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "tree-6-6",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-edges-12",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "tree-6-1",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "fence-2-14",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "tree-9-1",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-edges-8",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-edges-4",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-15",
+            "material": "map-ground-1"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "2-stone-stairs-11-4",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "fence-2-12",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "tree-1-2",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "2-stone-stairs-11-2",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "12-stone-stairs-13-1",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "tree-6-2",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "1-stairs-2",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "tree-2-1",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "fence-2-4",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "tree-6-5",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "fence-2-15",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-edges-14",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "2-stairs-7",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-4",
+            "material": "map-ground-1"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-12",
+            "material": "map-ground-1"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "2-stone-stairs-11-3",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-9",
+            "material": "map-ground-2"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "fence-2-16",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "fence-2-11",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-14",
+            "material": "map-ground-2"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-edges-5",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "12-stone-stairs-13-2",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "7-stone-stairs-10-1",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "floor-edges-3",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "tree-9-2",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "5-stone-stairs-9-1",
+            "material": "map-general"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      }
+    ]
+  }
+}

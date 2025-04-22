@@ -1,27 +1,3 @@
-#version 330
-
-// The texture holding the scene pixels
-uniform sampler2D tex;
-
-// Read "assets/shaders/fullscreen.vert" to know what "tex_coord" holds;
-in vec2 tex_coord;
-out vec4 frag_color;
-
-// How far (in the texture space) is the distance (on the x-axis) between
-// the pixels from which the red/green (or green/blue) channels are sampled
-#define STRENGTH 0.005
-
-// Chromatic aberration mimics some old cameras where the lens disperses light
-// differently based on its wavelength. In this shader, we will implement a
-// cheap version of that effect 
-
-void main(){
-    //TODO: Modify this shader to apply chromatic abberation
-    // To apply this effect, we only read the green channel from the correct pixel (as defined by tex_coord)
-    // To get the red channel, we move by amount STRENGTH to the left then sample another pixel from which we take the red channel
-    // To get the blue channel, we move by amount STRENGTH to the right then sample another pixel from which we take the blue channel
-    float green = texture(tex, tex_coord).g;
-    float red = texture(tex, vec2(tex_coord.x - STRENGTH, tex_coord.y)).r;
-    float blue = texture(tex, vec2(tex_coord.x + STRENGTH, tex_coord.y)).b;
-    frag_color = vec4(red, green, blue, 1.0f);
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:eb4d2e8b2563beb4fb2e9ed7be33ade4e0d87d272ae35afc5c9213770b36e14a
+size 1273
