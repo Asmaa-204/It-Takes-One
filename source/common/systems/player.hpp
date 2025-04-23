@@ -76,8 +76,8 @@ namespace our {
 
             // Calculate the camera position based on the mesh center
             glm::vec3 cameraPosition = meshCenter;
-            cameraPosition.z += cameraDistance; // Offset along the Z-axis
-            cameraPosition.y += cameraHeight;  // Offset along the Y-axis
+            cameraPosition.z += cameraDistance;
+            cameraPosition.y += cameraHeight;
 
             // Set the camera position
             cameraEntity->localTransform.position = cameraPosition;
