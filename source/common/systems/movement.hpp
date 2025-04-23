@@ -39,18 +39,25 @@ namespace our
                     // move the rigid body if the entity has a rigid body componenet
                     if (rigidBody) {
                         rigidBody->getRigidBody()->activate();
-                        
-                        rigidBody->getRigidBody()->setLinearVelocity(btVector3(
+
+                        btVector3 currentLinearVelocity = rigidBody->getRigidBody()->getLinearVelocity();
+                        btVector3 updatedLinearVelocity = currentLinearVelocity + btVector3(
                             deltaTime * movement->linearVelocity.x,
                             deltaTime * movement->linearVelocity.y,
                             deltaTime * movement->linearVelocity.z
-                        ));
+                        );
                         
-                        rigidBody->getRigidBody()->setAngularVelocity(btVector3(
+                        rigidBody->getRigidBody()->setLinearVelocity(updatedLinearVelocity);
+                        
+
+                        btVector3 currentAngularVelocity = rigidBody->getRigidBody()->getAngularVelocity();
+                        btVector3 updatedAngularVelocity = currentAngularVelocity + btVector3(
                             deltaTime * movement->angularVelocity.x,
                             deltaTime * movement->angularVelocity.y,
                             deltaTime * movement->angularVelocity.z
-                        ));
+                        );
+
+                        rigidBody->getRigidBody()->setAngularVelocity(updatedAngularVelocity);
 
                     } else {
                         // Change the position and rotation based on the linear & angular velocity and delta time.

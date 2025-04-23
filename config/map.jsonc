@@ -1,6 +1,6 @@
 {
   "debug": false,
-  "start-scene": "play",
+  "start-scene": "menu",
   "window": {
     "title": "Default Game Window",
     "size": {
@@ -537,8 +537,8 @@
       {
         "position": [
           0,
-          5,
-          10
+          2,
+          -3
         ],
         "components": [
           {
@@ -2703,9 +2703,13 @@
             "angularVelocity": [0.0, 0.0, 0.0]
           },
           {
+            "type": "Rigid Body",
+            "mass": 1.0
+          },
+          {
             "type": "Player",
-            "movementSpeed": [5.0, 5.0, 5.0],
-            "jumpForce": 10.0
+            "movementSpeed": [20.0, 20.0, 20.0],
+            "jumpForce": 40.0
           }
         ]
       }
