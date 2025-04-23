@@ -97,6 +97,7 @@ set(COMMON_SOURCES
         source/common/components/light.cpp
         source/common/components/rigid-body.hpp
         source/common/components/rigid-body.cpp
+        source/common/components/player.hpp
 
         source/common/systems/forward-renderer.hpp
         source/common/systems/forward-renderer.cpp
@@ -104,6 +105,7 @@ set(COMMON_SOURCES
         source/common/systems/movement.hpp
         source/common/systems/light.hpp
         source/common/systems/physics.hpp
+        source/common/systems/player.hpp
 
         source/common/debugDrawer/debugDrawer.hpp
         source/common/debugDrawer/debugDrawer.cpp

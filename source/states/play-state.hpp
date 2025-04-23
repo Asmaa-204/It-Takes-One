@@ -8,6 +8,7 @@
 #include <systems/movement.hpp>
 #include <systems/light.hpp>
 #include <systems/physics.hpp>
+#include <systems/player.hpp>
 #include <asset-loader.hpp>
 
 // This state shows how to use the ECS framework and deserialization.
@@ -19,6 +20,7 @@ class Playstate: public our::State {
     our::MovementSystem movementSystem;
     our::LightSystem lightingSystem;
     our::PhysicsSystem physicsSystem;
+    our::PlayerSystem playerSystem;
     
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
@@ -34,6 +36,7 @@ class Playstate: public our::State {
         }
         // We initialize the camera controller system since it needs a pointer to the app
         inputSystem.enter(getApp());
+        playerSystem.enter(getApp());
         // Then we initialize the renderer
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer"]);
@@ -48,6 +51,8 @@ class Playstate: public our::State {
 
         // Apply physics to the world
         physicsSystem.update(&world, (float)deltaTime);
+
+        playerSystem.update(&world, (float)deltaTime);
         // And finally we use the renderer system to draw the scene
         renderer.update(&world, (float)deltaTime);
 

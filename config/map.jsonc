@@ -1,6 +1,6 @@
 {
   "debug": false,
-  "start-scene": "menu",
+  "start-scene": "play",
   "window": {
     "title": "Default Game Window",
     "size": {
@@ -33,9 +33,14 @@
       "textures": {
         "map-general": "assets/textures/map/map_general.png",
         "map-ground-1": "assets/textures/map/map_ground_1.png",
-        "map-ground-2": "assets/textures/map/map_ground_2.png"
+        "map-ground-2": "assets/textures/map/map_ground_2.png",
+        "jazz": "assets/textures/body.png"
       },
       "meshes": {
+        "jazz" : {
+          "path": "assets/models/jazz.obj",
+          "isDynamic": true
+        },
         "floor-1": {
           "path": "assets/models/map/floor_1.obj",
           "isDynamic": false
@@ -510,6 +515,21 @@
             0.0
           ],
           "refractionIndex": 1.3
+        },
+        "jazz": {
+          "type": "textured",
+          "shader": "textured",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          "texture": "jazz",
+          "sampler": "default"
         }
       }
     },
@@ -517,7 +537,7 @@
       {
         "position": [
           0,
-          0,
+          5,
           10
         ],
         "components": [
@@ -2665,6 +2685,27 @@
           {
             "type": "Rigid Body",
             "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [0, 0, 1],
+        "scale": [10, 10, 10],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "jazz",
+            "material": "jazz"
+          },
+          {
+            "type": "Movement",
+            "linearVelocity": [0.0, 0.0, 0.0],
+            "angularVelocity": [0.0, 0.0, 0.0]
+          },
+          {
+            "type": "Player",
+            "movementSpeed": [5.0, 5.0, 5.0],
+            "jumpForce": 10.0
           }
         ]
       }
