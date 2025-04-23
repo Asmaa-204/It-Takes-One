@@ -10,6 +10,7 @@
 #include <entities/world.hpp>
 #include <components/movement.hpp>
 #include <components/rigid-body.hpp>
+#include <components/player.hpp>
 
 
 namespace our
@@ -31,6 +32,7 @@ namespace our
             {
                 // Get the movement component if it exists
                 MovementComponent* movement = entity->getComponent<MovementComponent>();
+                PlayerComponent* player = entity->getComponent<PlayerComponent>();
                 // If the movement component exists
                 if(movement)
                 {
@@ -49,15 +51,16 @@ namespace our
                         
                         rigidBody->getRigidBody()->setLinearVelocity(updatedLinearVelocity);
                         
-
-                        btVector3 currentAngularVelocity = rigidBody->getRigidBody()->getAngularVelocity();
-                        btVector3 updatedAngularVelocity = currentAngularVelocity + btVector3(
-                            deltaTime * movement->angularVelocity.x,
-                            deltaTime * movement->angularVelocity.y,
-                            deltaTime * movement->angularVelocity.z
-                        );
-
-                        rigidBody->getRigidBody()->setAngularVelocity(updatedAngularVelocity);
+                        //disable rotational movements for player
+                        if(!player) {
+                            btVector3 currentAngularVelocity = rigidBody->getRigidBody()->getAngularVelocity();
+                            btVector3 updatedAngularVelocity = currentAngularVelocity + btVector3(
+                                deltaTime * movement->angularVelocity.x,
+                                deltaTime * movement->angularVelocity.y,
+                                deltaTime * movement->angularVelocity.z
+                            );
+                            rigidBody->getRigidBody()->setAngularVelocity(updatedAngularVelocity);
+                        }
 
                     } else {
                         // Change the position and rotation based on the linear & angular velocity and delta time.

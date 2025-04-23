@@ -2708,7 +2708,7 @@
           },
           {
             "type": "Player",
-            "movementSpeed": [20.0, 20.0, 20.0],
+            "movementSpeed": [10.0, 10.0, 10.0],
             "jumpForce": 40.0
           }
         ]

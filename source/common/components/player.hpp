@@ -1,7 +1,11 @@
 #pragma once
 
+#include <entities/entity.hpp>
 #include <components/component.hpp>
+#include <components/mesh-renderer.hpp>
 #include <glm/glm.hpp>
+
+#include <iostream>
 
 namespace our {
 
@@ -9,6 +13,26 @@ namespace our {
     public:
         glm::vec3 movementSpeed = glm::vec3(5.0f, 5.0f, 5.0f);
         float jumpForce = 10.0f;
+
+        //retrieve the mesh center
+        glm::vec3 getMeshCenter() const {
+            auto owner = getOwner();
+            if (!owner) return glm::vec3(0.0f);
+
+            //retrieve the MeshRendererComponent
+            MeshRendererComponent* meshRenderer = owner->getComponent<MeshRendererComponent>();
+            if (!meshRenderer || !meshRenderer->mesh) return glm::vec3(0.0f);
+
+            //get the local center of the mesh
+            glm::vec3 localCenter = meshRenderer->mesh->getCenter();
+
+            //transform the local center to world space using the entity's transform
+            glm::mat4 localToWorld = owner->getLocalToWorldMatrix();
+            glm::vec3 worldCenter = glm::vec3(localToWorld * glm::vec4(localCenter, 1.0f));
+
+            return worldCenter;
+        }
+
 
         // Deserialize the component from JSON
         void deserialize(const nlohmann::json& data) override {

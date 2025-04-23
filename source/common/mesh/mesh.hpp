@@ -20,6 +20,8 @@ namespace our {
         // We need to remember the number of elements that will be draw by glDrawElements 
         GLsizei elementCount;
         btCollisionShape* shape;
+        glm::vec3 center;
+
     public:
 
         // The constructor takes two vectors:
@@ -35,6 +37,13 @@ namespace our {
             // remember to store the number of elements in "elementCount" since you will need it for drawing
             // For the attribute locations, use the constants defined above: ATTRIB_LOC_POSITION, ATTRIB_LOC_COLOR, etc
             elementCount = elements.size();
+
+            //calculate the center of the mesh
+            center = glm::vec3(0.0f);
+            for(const auto& vertex: vertices) {
+                center += vertex.position;
+            }
+            center /= float(vertices.size());
 
             // Generate and bind a vertex array to store both the data of the buffer and layout
             glGenVertexArrays(1, &VAO);
@@ -79,6 +88,9 @@ namespace our {
             glDrawElements(GL_TRIANGLES, elementCount, GL_UNSIGNED_INT, nullptr);
             glBindVertexArray(0);
         }
+
+        // returns the center of the mesh
+        glm::vec3 getCenter() const { return center; }
 
         // this function should delete the vertex & element buffers and the vertex array object
         ~Mesh(){

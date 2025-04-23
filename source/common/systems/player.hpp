@@ -5,6 +5,7 @@
 #include <components/movement.hpp>
 #include <components/rigid-body.hpp>
 #include <components/player.hpp>
+#include <components/camera.hpp>
 #include <application.hpp>
 
 namespace our {
@@ -22,7 +23,7 @@ namespace our {
                 MovementComponent* movement = entity->getComponent<MovementComponent>();
                 RigidBodyComponent* rigidBody = entity->getComponent<RigidBodyComponent>();
 
-                
+                if (player) updateCameraPosition(world, player);
                 if (player && movement) handlePlayerInput(player, movement, rigidBody, deltaTime);
             }
         }
@@ -41,6 +42,52 @@ namespace our {
             movement->linearVelocity = linearVelocity;
             movement->angularVelocity = angularVelocity;
         }
-    };
 
+        void updateCameraPosition(World* world, PlayerComponent* player) {
+            // Find the camera entity
+            CameraComponent* camera = nullptr;
+            Entity* cameraEntity = nullptr;
+
+            for (auto entity : world->getEntities()) {
+                camera = entity->getComponent<CameraComponent>();
+                if (camera) {
+                    cameraEntity = entity;
+                    break;
+                }
+            }
+
+            if (!camera || !cameraEntity) return;
+
+            // Get player's position
+            Entity* playerEntity = player->getOwner();
+            glm::vec3 playerPosition = playerEntity->localTransform.position;
+
+            glm::vec3 meshCenter = player->getMeshCenter();
+
+            // Get player's transformation matrix
+            glm::mat4 playerTransform = playerEntity->getLocalToWorldMatrix();
+
+            // // Extract forward and up vectors
+            glm::vec3 playerForward = glm::normalize(glm::vec3(playerTransform * glm::vec4(0.0f, 0.0f, -1.0f, 0.0f)));
+            
+            // Camera offset
+            float cameraDistance = 5.0f;
+            float cameraHeight = 2.0f;
+
+            // Calculate the camera position based on the mesh center
+            glm::vec3 cameraPosition = meshCenter;
+            cameraPosition.z += cameraDistance; // Offset along the Z-axis
+            cameraPosition.y += cameraHeight;  // Offset along the Y-axis
+
+            // Set the camera position
+            cameraEntity->localTransform.position = cameraPosition;
+
+            // Make the camera look at the mesh center
+            glm::vec3 cameraDirection = glm::normalize(meshCenter - cameraPosition);
+            glm::vec3 upVector = glm::vec3(0.0f, 1.0f, 0.0f); // Up vector for the camera
+
+            // Set the camera rotation
+            cameraEntity->localTransform.rotation = glm::eulerAngles(glm::quatLookAt(cameraDirection, upVector));
+        }
+    };
 }
