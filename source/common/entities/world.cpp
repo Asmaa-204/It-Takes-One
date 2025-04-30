@@ -44,25 +44,6 @@ namespace our
         solver = new btSequentialImpulseConstraintSolver();
         // create the world
         physicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadPhase, solver, collisionConfiguration);
-
-        // physicsWorld->setGravity(btVector3(0, -9.8f, 0)); // Standard gravity
-
-        for (auto entity : entities)
-        {
-            RigidBodyComponent *rigidBody = entity->getComponent<RigidBodyComponent>();
-
-            if (rigidBody)
-            {
-                physicsWorld->addRigidBody(rigidBody->getRigidBody());
-            }
-        }
-
-        debugDrawer = new DebugDrawer();
-        debugDrawer->initialize();
-        debugDrawer->setDebugMode(0);
-        debugDrawer->ToggleDebugFlag(btIDebugDraw::DBG_DrawWireframe);
-
-        physicsWorld->setDebugDrawer(debugDrawer);
     }
 
     void World::shutdownPhysics()
