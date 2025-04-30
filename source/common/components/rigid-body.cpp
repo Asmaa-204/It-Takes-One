@@ -1,4 +1,5 @@
 #include <components/rigid-body.hpp>
+#include <entities/world.hpp>
 #include <deserialize-utils.hpp>
 #include <entities/entity.hpp>
 #include <components/mesh-renderer.hpp>
@@ -54,6 +55,8 @@ namespace our {
 
         // create the rigid body
 	    rigidBody = new btRigidBody(cInfo);
+
+        owner->getWorld()->getPhysicsWorld()->addRigidBody(rigidBody);
     }    
 
     btCollisionShape* RigidBodyComponent::deepCopyCollisionShape(const btCollisionShape* original) {
