@@ -36,7 +36,9 @@
         "map-ground-2": "assets/textures/map/map_ground_2.png",
         // "bullet": "assets/textures/bullet_m.png",
         "bullet": "assets/textures/bullet_spike.png",
-        "jazz": "assets/textures/body.png"
+        // "jazz": "assets/textures/body.png",
+        "jazz": "assets/textures/monk-texture.png",
+        "sbox": "assets/textures/star-wars-box.jpg"
       },
       "meshes": {
         "bullet": {
@@ -45,7 +47,12 @@
           "isDynamic": true
         },
         "jazz": {
-          "path": "assets/models/jazz.obj",
+          // "path": "assets/models/jazz.obj",
+          "path": "assets/models/monk.obj",
+          "isDynamic": true
+        },
+        "sbox": {
+          "path": "assets/models/star-wars-box.obj",
           "isDynamic": true
         },
         "floor-1": {
@@ -424,6 +431,26 @@
         }
       },
       "materials": {
+        "sbox": {
+          "type": "textured",
+          "shader": "textured",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          "texture": "sbox",
+          "sampler": "default",
+          "transparent": false,
+          "specularColor": [0.5, 0.5, 0.5],
+          "shininess": 0.0,
+          "emissiveColor": [0.0, 0.0, 0.0],
+          "refractionIndex": 1.3
+        },
         "bullet": {
           "type": "textured",
           "shader": "textured",
@@ -1930,7 +1957,7 @@
       },
       {
         "position": [0, 0, 1],
-        "scale": [10, 10, 10],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1950,6 +1977,25 @@
             "type": "Player",
             "movementSpeed": [10.0, 10.0, 10.0],
             "jumpForce": 40.0
+          }
+        ]
+      },
+      {
+        "position": [1, 1, 2],
+        "scale": [1, 1, 1],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "sbox",
+            "material": "sbox"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 1.0
+          }, 
+          {
+            "type": "Health",
+            "maxHealth": 5
           }
         ]
       }

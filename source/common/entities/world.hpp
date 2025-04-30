@@ -7,6 +7,7 @@
 
 #include <BulletDynamics/Dynamics/btDynamicsWorld.h>
 #include <btBulletDynamicsCommon.h>
+#include <components/rigid-body.hpp>
 
 namespace our
 {
@@ -17,6 +18,7 @@ namespace our
         std::unordered_set<Entity *> entities;         // These are the entities held by this world
         std::unordered_set<Entity *> markedForRemoval; // These are the entities that are awaiting to be deleted when deleteMarkedEntities is called
         std::unordered_map<std::string, std::vector<Entity *>> entitiesByTag;
+        std::unordered_map<btRigidBody *, Entity *> rigidBodies; // This is a map of all the rigid bodies in the world
 
         // The physics world responsible for all game physics and its componenets
         btDynamicsWorld *physicsWorld;
@@ -51,6 +53,21 @@ namespace our
         const std::unordered_set<Entity *> &getEntities()
         {
             return entities;
+        }
+
+        Entity *getEntityByRigidBody(btRigidBody *body)
+        {
+            if (rigidBodies.count(body))
+                return rigidBodies[body];
+            return nullptr;
+        }
+
+        const void addRigidBody(btRigidBody *body, Entity *entity)
+        {
+            if (body && entity)
+            {
+                rigidBodies[body] = entity;
+            }
         }
 
         btDynamicsWorld *getPhysicsWorld()
@@ -92,15 +109,39 @@ namespace our
             for (auto entity : markedForRemoval)
             {
                 entities.erase(entity);
+                // loop on the entitysByTag and remove the entity from all the tags
+                clearMarkedEntity(entity);
+
                 delete entity;
             }
             markedForRemoval.clear();
+        }
+
+        void clearMarkedEntity(Entity *entity)
+        {
+            for (auto &pair : entitiesByTag)
+            {
+                auto &taggedEntities = pair.second;
+                taggedEntities.erase(std::remove(taggedEntities.begin(), taggedEntities.end(), entity), taggedEntities.end());
+            }
+
+            // remove the entity from the rigidBodies map
+            auto rbc = entity->getComponent<RigidBodyComponent>();
+            if (!rbc)
+                return;
+            auto rigidBody = rbc->getRigidBody();
+            auto it = rigidBodies.find(rigidBody);
+            if (it != rigidBodies.end())
+            {
+                rigidBodies.erase(it);
+            }
         }
 
         void clear()
         {
             for (auto entity : entities)
             {
+                clearMarkedEntity(entity);
                 delete entity;
             }
             entities.clear();

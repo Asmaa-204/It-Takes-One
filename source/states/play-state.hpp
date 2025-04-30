@@ -10,7 +10,10 @@
 #include <systems/physics.hpp>
 #include <systems/player.hpp>
 #include <systems/shooting.hpp>
+#include <systems/health.hpp>
 #include <asset-loader.hpp>
+
+#include <iostream>
 
 // This state shows how to use the ECS framework and deserialization.
 class Playstate: public our::State {
@@ -23,6 +26,7 @@ class Playstate: public our::State {
     our::PhysicsSystem physicsSystem;
     our::PlayerSystem playerSystem;
     our::ShootingSystem shootingSystem;
+    our::HealthSystem healthSystem;
     
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
@@ -60,7 +64,11 @@ class Playstate: public our::State {
         playerSystem.update(&world, (float)deltaTime);
         // And finally we use the renderer system to draw the scene
         renderer.update(&world, (float)deltaTime);
-
+        
+        // Check for collisions and apply damage to the entities
+        healthSystem.update(&world, (float)deltaTime);
+        world.deleteMarkedEntities();
+        
         // Get a reference to the keyboard object
         auto& keyboard = getApp()->getKeyboard();
 

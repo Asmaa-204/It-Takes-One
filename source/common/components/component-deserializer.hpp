@@ -8,6 +8,7 @@
 #include <components/light.hpp>
 #include <components/rigid-body.hpp>
 #include <components/player.hpp>
+#include <components/health.hpp>
 
 #include <iostream>
 
@@ -32,6 +33,8 @@ namespace our {
             component = entity->addComponent<RigidBodyComponent>();
         } else if (type == PlayerComponent::getID()) {
             component = entity->addComponent<PlayerComponent>();
+        } else if (type == HealthComponent::getID()) {
+            component = entity->addComponent<HealthComponent>();
         }
 
         if(component) component->deserialize(data);

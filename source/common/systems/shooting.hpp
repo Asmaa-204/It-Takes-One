@@ -3,6 +3,7 @@
 #include <entities/world.hpp>
 #include <components/player.hpp>
 #include <components/rigid-body.hpp>
+#include <components/health.hpp>
 #include <application.hpp>
 
 #include <iostream>
@@ -14,7 +15,7 @@ namespace our
         Application* app = nullptr;
         double elapsedTime = 0.0;
         const double fireRate = 1/5.0; // Time in seconds between shots
-        const double bulletSpeed = 50.0; // Speed of the bullet in units per second
+        const double bulletSpeed = 23.0; // Speed of the bullet in units per second
     public:
 
         void enter(Application* app) {
@@ -71,15 +72,19 @@ namespace our
             meshRenderer->mesh = AssetLoader<Mesh>::get("bullet");
             meshRenderer->material = AssetLoader<Material>::get("bullet");
 
+            // add a health component
+            HealthComponent* health = bullet->addComponent<HealthComponent>();
+            health->setDefaultHealth(-1);
+            health->resetHealth();
+
             // create the rigid body component
             RigidBodyComponent* rigidBody = bullet->addComponent<RigidBodyComponent>();
             rigidBody->createRigidBody(.1f);
 
             // disable gravity for the bullets
-            rigidBody->getRigidBody()->setGravity(btVector3(0, 0, 0));
-            // set the bullet's linear damping to 0.0f
+            // rigidBody->getRigidBody()->setGravity(btVector3(0, 0, 0));
 
-            cameraForward.y = 0.0f; // set y to 0.0f to avoid the bullet going up
+            cameraForward.y = 0.1f; // set y to 0.0f to avoid the bullet going up
             cameraForward = glm::normalize(cameraForward);
 
             // set the bullet's linear velocity to the camera's forward vector

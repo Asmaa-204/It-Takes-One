@@ -62,6 +62,7 @@ namespace our {
 	    rigidBody = new btRigidBody(cInfo);
 
         owner->getWorld()->getPhysicsWorld()->addRigidBody(rigidBody);
+        owner->getWorld()->addRigidBody(rigidBody, owner);
     }
 
     btCollisionShape* RigidBodyComponent::deepCopyCollisionShape(const btCollisionShape* original) {
