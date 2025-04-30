@@ -1977,6 +1977,10 @@
             "type": "Player",
             "movementSpeed": [10.0, 10.0, 10.0],
             "jumpForce": 40.0
+          }, 
+          {
+            "type": "Health",
+            "maxHealth": 10
           }
         ]
       },
