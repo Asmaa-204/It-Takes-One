@@ -27,7 +27,7 @@ namespace our
 
             for (Component *c : entity->components)
             {
-                addEntitiyToTag(c->getid(), entity);
+                addEntityToTag(c->getid(), entity);
             }
         }
     }

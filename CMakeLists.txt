@@ -106,6 +106,7 @@ set(COMMON_SOURCES
         source/common/systems/light.hpp
         source/common/systems/physics.hpp
         source/common/systems/player.hpp
+        source/common/systems/shooting.hpp
 
         source/common/debugDrawer/debugDrawer.hpp
         source/common/debugDrawer/debugDrawer.cpp

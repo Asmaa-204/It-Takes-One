@@ -14,6 +14,11 @@ namespace our {
 
         float mass = data.value("mass", 0.0f);
 
+        createRigidBody(mass);
+    }   
+    
+    void RigidBodyComponent::createRigidBody(float mass) {
+
         Entity* owner = this->getOwner();
         Transform localTransform = owner->localTransform;
 
@@ -57,7 +62,7 @@ namespace our {
 	    rigidBody = new btRigidBody(cInfo);
 
         owner->getWorld()->getPhysicsWorld()->addRigidBody(rigidBody);
-    }    
+    }
 
     btCollisionShape* RigidBodyComponent::deepCopyCollisionShape(const btCollisionShape* original) {
         if (!original) return nullptr;

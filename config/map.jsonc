@@ -34,10 +34,17 @@
         "map-general": "assets/textures/map/map_general.png",
         "map-ground-1": "assets/textures/map/map_ground_1.png",
         "map-ground-2": "assets/textures/map/map_ground_2.png",
+        // "bullet": "assets/textures/bullet_m.png",
+        "bullet": "assets/textures/bullet_spike.png",
         "jazz": "assets/textures/body.png"
       },
       "meshes": {
-        "jazz" : {
+        "bullet": {
+          // "path": "assets/models/bullet_m.obj",
+          "path": "assets/models/bullet_spike.obj",
+          "isDynamic": true
+        },
+        "jazz": {
           "path": "assets/models/jazz.obj",
           "isDynamic": true
         },
@@ -417,6 +424,26 @@
         }
       },
       "materials": {
+        "bullet": {
+          "type": "textured",
+          "shader": "textured",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          "texture": "bullet",
+          "sampler": "default",
+          "transparent": false,
+          "specularColor": [0.5, 0.5, 0.5],
+          "shininess": 0.0,
+          "emissiveColor": [0.0, 0.0, 0.0],
+          "refractionIndex": 1.3
+        },
         "map-general": {
           "type": "textured",
           "shader": "textured",
@@ -428,26 +455,13 @@
               "enabled": true
             }
           },
-          "tint": [
-            1,
-            1,
-            1,
-            1
-          ],
+          "tint": [1, 1, 1, 1],
           "texture": "map-general",
           "sampler": "default",
           "transparent": true,
-          "specularColor": [
-            1.0,
-            1.0,
-            1.0
-          ],
+          "specularColor": [1.0, 1.0, 1.0],
           "shininess": 20.000006,
-          "emissiveColor": [
-            0.0,
-            0.0,
-            0.0
-          ],
+          "emissiveColor": [0.0, 0.0, 0.0],
           "refractionIndex": 1.3
         },
         "map-ground-1": {
@@ -461,26 +475,13 @@
               "enabled": true
             }
           },
-          "tint": [
-            1,
-            1,
-            1,
-            1
-          ],
+          "tint": [1, 1, 1, 1],
           "texture": "map-ground-1",
           "sampler": "default",
           "transparent": true,
-          "specularColor": [
-            0.5,
-            0.5,
-            0.5
-          ],
+          "specularColor": [0.5, 0.5, 0.5],
           "shininess": 0.0,
-          "emissiveColor": [
-            0.0,
-            0.0,
-            0.0
-          ],
+          "emissiveColor": [0.0, 0.0, 0.0],
           "refractionIndex": 1.3
         },
         "map-ground-2": {
@@ -494,26 +495,13 @@
               "enabled": true
             }
           },
-          "tint": [
-            1,
-            1,
-            1,
-            1
-          ],
+          "tint": [1, 1, 1, 1],
           "texture": "map-ground-2",
           "sampler": "default",
           "transparent": true,
-          "specularColor": [
-            0.5,
-            0.5,
-            0.5
-          ],
+          "specularColor": [0.5, 0.5, 0.5],
           "shininess": 0.0,
-          "emissiveColor": [
-            0.0,
-            0.0,
-            0.0
-          ],
+          "emissiveColor": [0.0, 0.0, 0.0],
           "refractionIndex": 1.3
         },
         "jazz": {
@@ -535,11 +523,7 @@
     },
     "world": [
       {
-        "position": [
-          0,
-          2,
-          -3
-        ],
+        "position": [0, 2, -3],
         "components": [
           {
             "type": "Camera"
@@ -550,16 +534,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -573,16 +549,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -596,16 +564,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -619,16 +579,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -642,16 +594,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -665,16 +609,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -688,16 +624,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -711,16 +639,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -734,16 +654,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -757,16 +669,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -780,16 +684,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -803,16 +699,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -826,16 +714,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -849,16 +729,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -872,16 +744,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -895,16 +759,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -918,16 +774,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -941,16 +789,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -964,16 +804,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -987,16 +819,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1010,16 +834,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1033,16 +849,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1056,16 +864,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1079,16 +879,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1102,16 +894,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1125,16 +909,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1148,16 +924,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1171,16 +939,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1194,16 +954,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1217,16 +969,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1240,16 +984,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1263,16 +999,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1286,16 +1014,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1309,16 +1029,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1332,16 +1044,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1355,16 +1059,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1378,16 +1074,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1401,16 +1089,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1424,16 +1104,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1447,16 +1119,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1470,16 +1134,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1493,16 +1149,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1516,16 +1164,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1539,16 +1179,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1562,16 +1194,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1585,16 +1209,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1608,16 +1224,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1631,16 +1239,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1654,16 +1254,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1677,16 +1269,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1700,16 +1284,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1723,16 +1299,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1746,16 +1314,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1769,16 +1329,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1792,16 +1344,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1815,16 +1359,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1838,16 +1374,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1861,16 +1389,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1884,16 +1404,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1907,16 +1419,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1930,16 +1434,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1953,16 +1449,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1976,16 +1464,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -1999,16 +1479,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2022,16 +1494,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2045,16 +1509,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2068,16 +1524,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2091,16 +1539,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2114,16 +1554,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2137,16 +1569,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2160,16 +1584,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2183,16 +1599,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2206,16 +1614,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2229,16 +1629,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2252,16 +1644,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2275,16 +1659,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2298,16 +1674,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2321,16 +1689,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2344,16 +1704,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2367,16 +1719,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2390,16 +1734,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2413,16 +1749,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2436,16 +1764,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2459,16 +1779,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2482,16 +1794,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2505,16 +1809,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2528,16 +1824,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2551,16 +1839,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2574,16 +1854,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2597,16 +1869,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2620,16 +1884,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2643,16 +1899,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2666,16 +1914,8 @@
         ]
       },
       {
-        "position": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          1,
-          1,
-          1
-        ],
+        "position": [0, 0, 0],
+        "scale": [1, 1, 1],
         "components": [
           {
             "type": "Mesh Renderer",

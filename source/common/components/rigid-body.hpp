@@ -18,13 +18,15 @@ namespace our {
         btCollisionShape* deepCopyCollisionShape(const btCollisionShape* original);
     public:
         
-
+        
         static std::string getID() { return "Rigid Body"; }
-
+        
         virtual std::string getid() { return "Rigid Body";}
-
+        
         // Reads light parameters from the given json object
         void deserialize(const nlohmann::json& data) override;
+
+        void createRigidBody(float mass);
         inline btRigidBody* getRigidBody() { return rigidBody; }
     };
 }
