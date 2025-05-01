@@ -30,6 +30,9 @@ class Playstate: public our::State {
     our::HealthSystem healthSystem;
     our::SoundSystem soundSystem;
 
+    ALuint backgroundMusicSource = 0;
+    bool isMusicPlaying = false;
+
     float soundTimer = 0.0f;
     const float SOUND_INTERVAL = 1.0f;
     
@@ -53,7 +56,14 @@ class Playstate: public our::State {
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer"]);
     
-        soundSystem.loadSound("background", "/home/asmaa/Desktop/It-Takes-One/assets/sounds/background.wav");
+        soundSystem.loadSound("background-music", "/home/asmaa/Desktop/It-Takes-One/assets/sounds/background-music.wav");
+        backgroundMusicSource = soundSystem.createLoopingSource("background-music");
+        
+        // Start playing once
+        if (!isMusicPlaying) {
+            soundSystem.playSource(backgroundMusicSource);
+            isMusicPlaying = true;
+        }
     }
 
     void onDraw(double deltaTime) override {
@@ -75,13 +85,6 @@ class Playstate: public our::State {
         // Check for collisions and apply damage to the entities
         healthSystem.update(&world, (float)deltaTime);
         world.deleteMarkedEntities();
-
-        // Update sound timer
-        soundTimer += deltaTime;
-        if (soundTimer >= SOUND_INTERVAL) {
-            soundSystem.playSound("effect");
-            soundTimer = 0.0f;
-        }
         
         // Get a reference to the keyboard object
         auto& keyboard = getApp()->getKeyboard();
@@ -99,6 +102,11 @@ class Playstate: public our::State {
         inputSystem.exit();
         // Clear the world
         world.clear();
+        // Stop the music
+        if (backgroundMusicSource) {
+            soundSystem.stopSource(backgroundMusicSource);
+            alDeleteSources(1, &backgroundMusicSource);
+        }
         // and we delete all the loaded assets to free memory on the RAM and the VRAM
         our::clearAllAssets();
     }

@@ -80,7 +80,7 @@ namespace our {
             glm::vec3 playerPosition = playerEntity->localTransform.position;
 
             // // Extract forward and up vectors
-            glm::vec3 playerForward = glm::normalize(glm::vec3(playerTransform * glm::vec4(0.0f, 0.0f, -1.0f, 0.0f)));
+            glm::vec3 playerForward = glm::normalize(glm::vec3(playerTransform * glm::vec4(0.0f, 0.0f, 1.0f, 0.0f)));
             
             // Camera offset
             float cameraDistance = 2.0f;

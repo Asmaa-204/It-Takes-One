@@ -108,5 +108,38 @@ namespace our {
             alSourcei(source, AL_BUFFER, it->second);
             alSourcePlay(source);
         }
+
+        ALuint createLoopingSource(const std::string& soundName) {
+            auto it = soundBuffers.find(soundName);
+            if (it == soundBuffers.end()) {
+                std::cerr << "Sound not found: " << soundName << std::endl;
+                return 0;
+            }
+
+            ALuint source;
+            alGenSources(1, &source);
+            sources.push_back(source);
+
+            // Configure source for background music
+            alSourcef(source, AL_PITCH, 1.0f);
+            alSourcef(source, AL_GAIN, 0.5f);  // 50% volume
+            alSource3f(source, AL_POSITION, 0.0f, 0.0f, 0.0f);
+            alSourcei(source, AL_LOOPING, AL_TRUE);  // Enable looping
+            alSourcei(source, AL_BUFFER, it->second);
+
+            return source;
+        }
+
+        void playSource(ALuint source) {
+            if (source) {
+                alSourcePlay(source);
+            }
+        }
+
+        void stopSource(ALuint source) {
+            if (source) {
+                alSourceStop(source);
+            }
+        }
     };
 }
