@@ -34,11 +34,11 @@
         "map-general": "assets/textures/map/map_general.png",
         "map-ground-1": "assets/textures/map/map_ground_1.png",
         "map-ground-2": "assets/textures/map/map_ground_2.png",
-        "jazz": "assets/textures/body.png"
+        "jazz": "assets/textures/Space_Bunny_Warrior_0430115232_texture.png"
       },
       "meshes": {
         "jazz" : {
-          "path": "assets/models/jazz.obj",
+          "path": "assets/models/Space_Bunny_Warrior_0430115232_texture.obj",
           "isDynamic": true
         },
         "floor-1": {

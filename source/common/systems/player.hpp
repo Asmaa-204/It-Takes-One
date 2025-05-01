@@ -59,35 +59,42 @@ namespace our {
             if (!camera || !cameraEntity) return;
 
             // Get player's position
-            Entity* playerEntity = player->getOwner();
-            glm::vec3 playerPosition = playerEntity->localTransform.position;
-
-            glm::vec3 meshCenter = player->getMeshCenter();
+            Entity *playerEntity = player->getOwner();
 
             // Get player's transformation matrix
             glm::mat4 playerTransform = playerEntity->getLocalToWorldMatrix();
 
+            glm::vec3 playerPosition = playerEntity->localTransform.position;
+
             // // Extract forward and up vectors
-            glm::vec3 playerForward = glm::normalize(glm::vec3(playerTransform * glm::vec4(0.0f, 0.0f, -1.0f, 0.0f)));
+            glm::vec3 playerForward = glm::normalize(glm::vec3(playerTransform * glm::vec4(0.0f, 0.0f, 1.0f, 0.0f)));
             
             // Camera offset
-            float cameraDistance = 5.0f;
+            float cameraDistance = 2.0f;
             float cameraHeight = 2.0f;
 
             // Calculate the camera position based on the mesh center
-            glm::vec3 cameraPosition = meshCenter;
-            cameraPosition.z += cameraDistance;
+            glm::vec3 cameraPosition = playerPosition - playerForward;
+
+            cameraPosition.z -= cameraDistance;
             cameraPosition.y += cameraHeight;
+
 
             // Set the camera position
             cameraEntity->localTransform.position = cameraPosition;
 
-            // Make the camera look at the mesh center
-            glm::vec3 cameraDirection = glm::normalize(meshCenter - cameraPosition);
-            glm::vec3 upVector = glm::vec3(0.0f, 1.0f, 0.0f); // Up vector for the camera
-
+            
+            glm::vec3 upVector = glm::vec3(0.0f, 1.0f, 0.0f);
             // Set the camera rotation
-            cameraEntity->localTransform.rotation = glm::eulerAngles(glm::quatLookAt(cameraDirection, upVector));
+            cameraEntity->localTransform.rotation = glm::eulerAngles(glm::quatLookAt(playerForward, upVector));
+            glm::vec4 cameraLookAt = camera->getViewMatrix() * glm::vec4(0, 0, -1, 0);
+
+
+            std::cout << "player forward: " << playerForward.x << ", " << playerForward.y << ", " << playerForward.z;
+            std::cout << "\nCamera now looks at: " << cameraLookAt.x << ", " << cameraLookAt.y << ", " << cameraLookAt.z;
+            std::cout << "\ncamera position: " << cameraPosition.x << ", " << cameraPosition.y << ", " << cameraPosition.z;
+            std::cout << "\nplayer center: " << playerPosition.x << ", " << playerPosition.y << ", " << playerPosition.z;
+            std::cout << "\n============================\n";
         }
     };
 }
