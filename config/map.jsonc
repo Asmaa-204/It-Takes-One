@@ -37,7 +37,7 @@
         // "bullet": "assets/textures/bullet_m.png",
         "bullet": "assets/textures/bullet_spike.png",
         // "jazz": "assets/textures/body.png",
-        "jazz": "assets/textures/monk-texture.png",
+        "jazz": "assets/textures/jazz.png",
         "sbox": "assets/textures/star-wars-box.jpg"
       },
       "meshes": {
@@ -48,7 +48,7 @@
         },
         "jazz": {
           // "path": "assets/models/jazz.obj",
-          "path": "assets/models/monk.obj",
+          "path": "assets/models/jazz2.obj",
           "isDynamic": true
         },
         "sbox": {

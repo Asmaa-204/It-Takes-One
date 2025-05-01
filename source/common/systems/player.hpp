@@ -32,14 +32,21 @@ namespace our {
 
     private:
         SoundSystem soundSystem;
+        float jumpSoundCooldown = 0.0f;
+        const float JUMP_SOUND_DURATION = 0.5f; // Adjust this value based on your jump sound length
 
         void initializeSounds() {
             // Load your sound files
-            soundSystem.loadSound("background", "/home/asmaa/Desktop/It-Takes-One/assets/sounds/background.wav");
+            soundSystem.loadSound("jump", "/home/asmaa/Desktop/It-Takes-One/assets/sounds/jump.wav");
             // soundSystem.loadSound("walk", "assets/sounds/walk.wav");
         }
 
         void handlePlayerInput(PlayerComponent* player, MovementComponent* movement, RigidBodyComponent* rigidBody, float deltaTime) {
+            // Update cooldown timer
+            if (jumpSoundCooldown > 0.0f) {
+                jumpSoundCooldown -= deltaTime;
+            }
+
             glm::vec3 linearVelocity = glm::vec3(0.0f);
             glm::vec3 angularVelocity = glm::vec3(0.0f);
                         
@@ -49,7 +56,12 @@ namespace our {
             if (app->getKeyboard().isPressed(GLFW_KEY_D)) linearVelocity.x += player->movementSpeed.x;
             if (app->getKeyboard().isPressed(GLFW_KEY_SPACE)) {
                 linearVelocity.y += player->jumpForce;
-                // soundSystem.playSound("jump");
+                
+                // Only play sound if cooldown has expired
+                if (jumpSoundCooldown <= 0.0f) {
+                    soundSystem.playSound("jump");
+                    jumpSoundCooldown = JUMP_SOUND_DURATION;
+                }
             }
 
             movement->linearVelocity = linearVelocity;

@@ -56,6 +56,7 @@ class Playstate: public our::State {
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer"]);
     
+        // Play background music
         soundSystem.loadSound("background-music", "/home/asmaa/Desktop/It-Takes-One/assets/sounds/background-music.wav");
         backgroundMusicSource = soundSystem.createLoopingSource("background-music");
         
