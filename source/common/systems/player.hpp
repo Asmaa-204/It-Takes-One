@@ -7,6 +7,7 @@
 #include <components/player.hpp>
 #include <components/camera.hpp>
 #include <application.hpp>
+#include <systems/sound.hpp>
 
 namespace our {
 
@@ -16,6 +17,7 @@ namespace our {
     public:
         void enter(Application* app) {
             this->app = app;
+            initializeSounds();
         }
         void update(World* world, float deltaTime) override {
             for (auto entity : world->getEntities()) {
@@ -29,6 +31,14 @@ namespace our {
         }
 
     private:
+        SoundSystem soundSystem;
+
+        void initializeSounds() {
+            // Load your sound files
+            soundSystem.loadSound("background", "/home/asmaa/Desktop/It-Takes-One/assets/sounds/background.wav");
+            // soundSystem.loadSound("walk", "assets/sounds/walk.wav");
+        }
+
         void handlePlayerInput(PlayerComponent* player, MovementComponent* movement, RigidBodyComponent* rigidBody, float deltaTime) {
             glm::vec3 linearVelocity = glm::vec3(0.0f);
             glm::vec3 angularVelocity = glm::vec3(0.0f);
@@ -37,7 +47,10 @@ namespace our {
             if (app->getKeyboard().isPressed(GLFW_KEY_S)) linearVelocity.z -= player->movementSpeed.z;
             if (app->getKeyboard().isPressed(GLFW_KEY_A)) linearVelocity.x -= player->movementSpeed.x;
             if (app->getKeyboard().isPressed(GLFW_KEY_D)) linearVelocity.x += player->movementSpeed.x;
-            if (app->getKeyboard().isPressed(GLFW_KEY_SPACE)) linearVelocity.y += player->jumpForce;
+            if (app->getKeyboard().isPressed(GLFW_KEY_SPACE)) {
+                linearVelocity.y += player->jumpForce;
+                // soundSystem.playSound("jump");
+            }
 
             movement->linearVelocity = linearVelocity;
             movement->angularVelocity = angularVelocity;
@@ -67,7 +80,7 @@ namespace our {
             glm::vec3 playerPosition = playerEntity->localTransform.position;
 
             // // Extract forward and up vectors
-            glm::vec3 playerForward = glm::normalize(glm::vec3(playerTransform * glm::vec4(0.0f, -1.0f, 0.0f, 0.0f)));
+            glm::vec3 playerForward = glm::normalize(glm::vec3(playerTransform * glm::vec4(0.0f, 0.0f, -1.0f, 0.0f)));
             
             // Camera offset
             float cameraDistance = 2.0f;
@@ -84,17 +97,10 @@ namespace our {
             cameraEntity->localTransform.position = cameraPosition;
 
             
-            glm::vec3 upVector = glm::vec3(0.0f, 0.0f, 1.0f);
+            glm::vec3 upVector = glm::vec3(0.0f, 1.0f, 0.0f);
             // Set the camera rotation
             cameraEntity->localTransform.rotation = glm::eulerAngles(glm::quatLookAt(playerForward, upVector));
             glm::vec4 cameraLookAt = camera->getViewMatrix() * glm::vec4(0, 0, -1, 0);
-
-
-            std::cout << "player forward: " << playerForward.x << ", " << playerForward.y << ", " << playerForward.z;
-            std::cout << "\nCamera now looks at: " << cameraLookAt.x << ", " << cameraLookAt.y << ", " << cameraLookAt.z;
-            std::cout << "\ncamera position: " << cameraPosition.x << ", " << cameraPosition.y << ", " << cameraPosition.z;
-            std::cout << "\nplayer center: " << playerPosition.x << ", " << playerPosition.y << ", " << playerPosition.z;
-            std::cout << "\n============================\n";
         }
     };
 }

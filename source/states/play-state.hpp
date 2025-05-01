@@ -12,6 +12,7 @@
 #include <systems/shooting.hpp>
 #include <systems/health.hpp>
 #include <asset-loader.hpp>
+#include <systems/sound.hpp>
 
 #include <iostream>
 
@@ -27,6 +28,10 @@ class Playstate: public our::State {
     our::PlayerSystem playerSystem;
     our::ShootingSystem shootingSystem;
     our::HealthSystem healthSystem;
+    our::SoundSystem soundSystem;
+
+    float soundTimer = 0.0f;
+    const float SOUND_INTERVAL = 1.0f;
     
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
@@ -47,6 +52,8 @@ class Playstate: public our::State {
         // Then we initialize the renderer
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer"]);
+    
+        soundSystem.loadSound("background", "/home/asmaa/Desktop/It-Takes-One/assets/sounds/background.wav");
     }
 
     void onDraw(double deltaTime) override {
@@ -68,6 +75,13 @@ class Playstate: public our::State {
         // Check for collisions and apply damage to the entities
         healthSystem.update(&world, (float)deltaTime);
         world.deleteMarkedEntities();
+
+        // Update sound timer
+        soundTimer += deltaTime;
+        if (soundTimer >= SOUND_INTERVAL) {
+            soundSystem.playSound("effect");
+            soundTimer = 0.0f;
+        }
         
         // Get a reference to the keyboard object
         auto& keyboard = getApp()->getKeyboard();
