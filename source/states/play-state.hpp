@@ -9,7 +9,11 @@
 #include <systems/light.hpp>
 #include <systems/physics.hpp>
 #include <systems/player.hpp>
+#include <systems/shooting.hpp>
+#include <systems/health.hpp>
 #include <asset-loader.hpp>
+
+#include <iostream>
 
 // This state shows how to use the ECS framework and deserialization.
 class Playstate: public our::State {
@@ -21,6 +25,8 @@ class Playstate: public our::State {
     our::LightSystem lightingSystem;
     our::PhysicsSystem physicsSystem;
     our::PlayerSystem playerSystem;
+    our::ShootingSystem shootingSystem;
+    our::HealthSystem healthSystem;
     
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
@@ -37,6 +43,7 @@ class Playstate: public our::State {
         // We initialize the camera controller system since it needs a pointer to the app
         inputSystem.enter(getApp());
         playerSystem.enter(getApp());
+        shootingSystem.enter(getApp());
         // Then we initialize the renderer
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer"]);
@@ -47,6 +54,8 @@ class Playstate: public our::State {
         movementSystem.update(&world, (float)deltaTime);
         inputSystem.update(&world, (float)deltaTime);
 
+        shootingSystem.update(&world, (float)deltaTime);
+
         lightingSystem.update(&world, (float)deltaTime);
 
         // Apply physics to the world
@@ -55,7 +64,11 @@ class Playstate: public our::State {
         playerSystem.update(&world, (float)deltaTime);
         // And finally we use the renderer system to draw the scene
         renderer.update(&world, (float)deltaTime);
-
+        
+        // Check for collisions and apply damage to the entities
+        healthSystem.update(&world, (float)deltaTime);
+        world.deleteMarkedEntities();
+        
         // Get a reference to the keyboard object
         auto& keyboard = getApp()->getKeyboard();
 

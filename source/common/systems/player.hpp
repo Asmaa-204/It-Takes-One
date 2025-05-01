@@ -67,7 +67,7 @@ namespace our {
             glm::vec3 playerPosition = playerEntity->localTransform.position;
 
             // // Extract forward and up vectors
-            glm::vec3 playerForward = glm::normalize(glm::vec3(playerTransform * glm::vec4(0.0f, 0.0f, 1.0f, 0.0f)));
+            glm::vec3 playerForward = glm::normalize(glm::vec3(playerTransform * glm::vec4(0.0f, -1.0f, 0.0f, 0.0f)));
             
             // Camera offset
             float cameraDistance = 2.0f;
@@ -84,7 +84,7 @@ namespace our {
             cameraEntity->localTransform.position = cameraPosition;
 
             
-            glm::vec3 upVector = glm::vec3(0.0f, 1.0f, 0.0f);
+            glm::vec3 upVector = glm::vec3(0.0f, 0.0f, 1.0f);
             // Set the camera rotation
             cameraEntity->localTransform.rotation = glm::eulerAngles(glm::quatLookAt(playerForward, upVector));
             glm::vec4 cameraLookAt = camera->getViewMatrix() * glm::vec4(0, 0, -1, 0);

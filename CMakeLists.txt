@@ -98,6 +98,8 @@ set(COMMON_SOURCES
         source/common/components/rigid-body.hpp
         source/common/components/rigid-body.cpp
         source/common/components/player.hpp
+        source/common/components/health.cpp
+        source/common/components/health.hpp
 
         source/common/systems/forward-renderer.hpp
         source/common/systems/forward-renderer.cpp
@@ -106,6 +108,8 @@ set(COMMON_SOURCES
         source/common/systems/light.hpp
         source/common/systems/physics.hpp
         source/common/systems/player.hpp
+        source/common/systems/shooting.hpp
+        source/common/systems/health.hpp
 
         source/common/debugDrawer/debugDrawer.hpp
         source/common/debugDrawer/debugDrawer.cpp
