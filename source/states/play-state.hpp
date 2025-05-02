@@ -28,15 +28,16 @@ class Playstate: public our::State {
     our::PlayerSystem playerSystem;
     our::ShootingSystem shootingSystem;
     our::HealthSystem healthSystem;
-    our::SoundSystem soundSystem;
-
+    our::SoundSystem* soundSystem = nullptr; 
+    
     ALuint backgroundMusicSource = 0;
     bool isMusicPlaying = false;
-
-    float soundTimer = 0.0f;
-    const float SOUND_INTERVAL = 1.0f;
     
     void onInitialize() override {
+        soundSystem = &getApp()->getSound();
+        std::cout << "Sound system initialized" << endl;
+        // Stop menu soundtrack 
+        soundSystem->stopSound("intro-music");
         // First of all, we get the scene configuration from the app config
         auto& config = getApp()->getConfig()["scene"];
         // If we have assets in the scene config, we deserialize them
@@ -57,12 +58,12 @@ class Playstate: public our::State {
         renderer.initialize(size, config["renderer"]);
     
         // Play background music
-        soundSystem.loadSound("background-music", "/home/asmaa/Desktop/It-Takes-One/assets/sounds/background-music.wav");
-        backgroundMusicSource = soundSystem.createLoopingSource("background-music");
+        soundSystem->loadSound("background-music", "assets/sounds/background-music.wav");
+        backgroundMusicSource = soundSystem->createLoopingSource("background-music");
         
         // Start playing once
         if (!isMusicPlaying) {
-            soundSystem.playSource(backgroundMusicSource);
+            soundSystem->playSource(backgroundMusicSource);
             isMusicPlaying = true;
         }
     }
@@ -105,7 +106,7 @@ class Playstate: public our::State {
         world.clear();
         // Stop the music
         if (backgroundMusicSource) {
-            soundSystem.stopSource(backgroundMusicSource);
+            soundSystem->stopSource(backgroundMusicSource);
             alDeleteSources(1, &backgroundMusicSource);
         }
         // and we delete all the loaded assets to free memory on the RAM and the VRAM

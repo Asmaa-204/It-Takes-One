@@ -109,10 +109,27 @@ namespace our {
             alSourcePlay(source);
         }
 
-        ALuint createLoopingSource(const std::string& soundName) {
-            auto it = soundBuffers.find(soundName);
+        void stopSound(const std::string& name) {
+            std::cout << "Stopping sound: " << name << std::endl;
+            auto it = soundBuffers.find(name);
+            if (it != soundBuffers.end()) {
+                std::cout << "Found a source: " << name << std::endl;
+                // Find all sources using this buffer and stop them
+                for (ALuint source : sources) {
+                    ALint buffer;
+                    alGetSourcei(source, AL_BUFFER, &buffer);
+                    if (buffer == it->second) {
+                        alSourceStop(source);
+                        std::cout << "Stopped sound: " << name << std::endl;
+                    }
+                }
+            }
+        }
+
+        ALuint createLoopingSource(const std::string& name) {
+            auto it = soundBuffers.find(name);
             if (it == soundBuffers.end()) {
-                std::cerr << "Sound not found: " << soundName << std::endl;
+                std::cerr << "Sound not found: " << name << std::endl;
                 return 0;
             }
 
@@ -140,6 +157,12 @@ namespace our {
             if (source) {
                 alSourceStop(source);
             }
+        }
+
+        void deleteSource(ALuint source) {
+            alSourceStop(source);
+            alDeleteSources(1, &source);
+            sources.erase(std::remove(sources.begin(), sources.end(), source), sources.end());
         }
     };
 }

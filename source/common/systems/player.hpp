@@ -17,6 +17,7 @@ namespace our {
     public:
         void enter(Application* app) {
             this->app = app;
+            this->soundSystem = app->getSound();
             initializeSounds();
         }
         void update(World* world, float deltaTime) override {
