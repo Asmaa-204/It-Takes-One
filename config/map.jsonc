@@ -34,21 +34,17 @@
         "map-general": "assets/textures/map/map_general.png",
         "map-ground-1": "assets/textures/map/map_ground_1.png",
         "map-ground-2": "assets/textures/map/map_ground_2.png",
-        // "bullet": "assets/textures/bullet_m.png",
         "bullet": "assets/textures/bullet_spike.png",
-        // "jazz": "assets/textures/body.png",
-        "jazz": "assets/textures/monk-texture.png",
+        "jazz": "assets/textures/bunny.png",
         "sbox": "assets/textures/star-wars-box.jpg"
       },
       "meshes": {
         "bullet": {
-          // "path": "assets/models/bullet_m.obj",
           "path": "assets/models/bullet_spike.obj",
           "isDynamic": true
         },
         "jazz": {
-          // "path": "assets/models/jazz.obj",
-          "path": "assets/models/monk.obj",
+          "path": "assets/models/bunny-light-light.obj",
           "isDynamic": true
         },
         "sbox": {

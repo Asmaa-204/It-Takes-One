@@ -38,7 +38,7 @@ namespace our {
 
         void initializeSounds() {
             // Load your sound files
-            soundSystem.loadSound("jump", "/home/asmaa/Desktop/It-Takes-One/assets/sounds/jump.wav");
+            soundSystem.loadSound("jump", "assets/sounds/jump.wav");
             // soundSystem.loadSound("walk", "assets/sounds/walk.wav");
         }
 
