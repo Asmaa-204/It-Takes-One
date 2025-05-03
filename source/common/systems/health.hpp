@@ -23,7 +23,7 @@ namespace our
         Application *app = nullptr;
         SoundSystem soundSystem;
         double elapsedTime = 0.0;
-        const double damageRate = 1/5.0; // Time in seconds between shots
+        const double damageRate = 1 / 5.0; // Time in seconds between shots
 
     public:
         void enter(Application *app)
@@ -39,7 +39,8 @@ namespace our
             elapsedTime += deltaTime;
 
             // check if the elapsed time is less than the fire rate
-            if (elapsedTime < damageRate) return;
+            if (elapsedTime < damageRate)
+                return;
             // reset the elapsed time
             elapsedTime = 0.0;
 
@@ -81,8 +82,8 @@ namespace our
             if (health1 && health2)
             {
                 // print the health of the entities
-                std::cout << "Entity 1 Health: " << health1->getCurrentHealth() << std::endl;
-                std::cout << "Entity 2 Health: " << health2->getCurrentHealth() << std::endl;
+                std::cout << "Entity 1 IS Player? " << health1->getOwner()->getComponent<PlayerComponent>() << " Health: " << health1->getCurrentHealth() << std::endl;
+                std::cout << "Entity 2 IS Player? " << health2->getOwner()->getComponent<PlayerComponent>() << " Health: " <<  health2->getCurrentHealth() << std::endl;
                 // reduce the health of the entities
                 health1->takeDamage(1);
                 health2->takeDamage(1);
@@ -90,12 +91,14 @@ namespace our
                 damagePlayer(world, entity1, entity2);
 
                 // check if the entities are alive
-                destroyEntity(world, entity1, health1);
-                destroyEntity(world, entity2, health2);
+                if (!health1->isAlive())
+                    destroyEntity(world, entity1);
+                if (!health2->isAlive())
+                    destroyEntity(world, entity2);
             }
         }
 
-        void damagePlayer(World * world, Entity *entity1, Entity *entity2)
+        void damagePlayer(World *world, Entity *entity1, Entity *entity2)
         {
             // get the player component of the entity
             PlayerComponent *player = entity1->getComponent<PlayerComponent>();
@@ -131,26 +134,28 @@ namespace our
                 soundSystem.playSound("ouch");
 
                 // set the players speed to the camera's forward vector
-                rigidBody->getRigidBody()->setLinearVelocity(btVector3(cameraForward.x, cameraForward.y, cameraForward.z) * 7.0f);
-                std::cout << "RIGID BODY MOVED\n";
+                rigidBody->getRigidBody()->setLinearVelocity(btVector3(cameraForward.x, cameraForward.y, cameraForward.z) * 5.0f);
             }
         }
 
-        void destroyEntity(World *world, Entity *entity, HealthComponent *health)
+        void destroyEntity(World *world, Entity *entity)
         {
-            if (!health->isAlive())
+            if (entity->getComponent<PlayerComponent>())
             {
-                // destroy entity2
-                entity->getWorld()->markForRemoval(entity);
-                // delete the rigid body from the pyhsics world
-                btRigidBody *body = entity->getComponent<RigidBodyComponent>()->getRigidBody();
-                if (body)
-                {
-                    world->getPhysicsWorld()->removeRigidBody(body);
-                    delete body->getCollisionShape();
-                    delete body->getMotionState();
-                    delete body;
-                }
+                // if the entity is a player, change the state to menu
+                app->changeState("play");
+                return;
+            }
+            // destroy entity2
+            entity->getWorld()->markForRemoval(entity);
+            // delete the rigid body from the pyhsics world
+            btRigidBody *body = entity->getComponent<RigidBodyComponent>()->getRigidBody();
+            if (body)
+            {
+                world->getPhysicsWorld()->removeRigidBody(body);
+                delete body->getCollisionShape();
+                delete body->getMotionState();
+                delete body;
             }
         }
     };

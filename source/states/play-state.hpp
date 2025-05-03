@@ -36,6 +36,11 @@ class Playstate: public our::State {
     void onInitialize() override {
         soundSystem = &getApp()->getSound();
         std::cout << "Sound system initialized" << endl;
+
+        // Reset music state
+        isMusicPlaying = false;
+        backgroundMusicSource = 0;
+
         // Stop menu soundtrack 
         soundSystem->stopSound("intro-music");
         // First of all, we get the scene configuration from the app config
@@ -59,6 +64,7 @@ class Playstate: public our::State {
         renderer.initialize(size, config["renderer"]);
     
         // Play background music
+        cout << "Loading background music" << endl;
         soundSystem->loadSound("background-music", "assets/sounds/background-music.wav");
         backgroundMusicSource = soundSystem->createLoopingSource("background-music");
         
