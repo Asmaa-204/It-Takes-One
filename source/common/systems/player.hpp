@@ -34,12 +34,11 @@ namespace our {
     private:
         SoundSystem soundSystem;
         float jumpSoundCooldown = 0.0f;
-        const float JUMP_SOUND_DURATION = 0.5f; // Adjust this value based on your jump sound length
+        const float JUMP_SOUND_DURATION = 0.5f;
 
         void initializeSounds() {
             // Load your sound files
             soundSystem.loadSound("jump", "assets/sounds/jump.wav");
-            // soundSystem.loadSound("walk", "assets/sounds/walk.wav");
         }
 
         void handlePlayerInput(PlayerComponent* player, MovementComponent* movement, RigidBodyComponent* rigidBody, float deltaTime) {
@@ -113,7 +112,6 @@ namespace our {
             glm::vec3 upVector = glm::vec3(0.0f, 1.0f, 0.0f);
             // Set the camera rotation
             cameraEntity->localTransform.rotation = glm::eulerAngles(glm::quatLookAt(playerForward, upVector));
-            glm::vec4 cameraLookAt = camera->getViewMatrix() * glm::vec4(0, 0, -1, 0);
         }
     };
 }

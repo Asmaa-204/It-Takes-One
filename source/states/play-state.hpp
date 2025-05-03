@@ -53,6 +53,7 @@ class Playstate: public our::State {
         inputSystem.enter(getApp());
         playerSystem.enter(getApp());
         shootingSystem.enter(getApp());
+        healthSystem.enter(getApp());
         // Then we initialize the renderer
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer"]);

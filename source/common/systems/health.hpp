@@ -1,23 +1,39 @@
 #pragma once
 
+#include <systems/system.hpp>
+#include <systems/sound.hpp>
+
 #include <entities/world.hpp>
 #include <entities/entity.hpp>
+
 #include <components/rigid-body.hpp>
 #include <components/health.hpp>
-#include <glm/glm.hpp>
 #include <components/player.hpp>
 #include <components/camera.hpp>
+
+#include <glm/glm.hpp>
+#include <application.hpp>
 
 #include <iostream>
 
 namespace our
 {
-    class HealthSystem : System
+    class HealthSystem : public System
     {
+        Application *app = nullptr;
+        SoundSystem soundSystem;
         double elapsedTime = 0.0;
         const double damageRate = 1/5.0; // Time in seconds between shots
+
     public:
-        void update(World *world, float deltaTime) override
+        void enter(Application *app)
+        {
+            this->app = app;
+            soundSystem = app->getSound();
+            soundSystem.loadSound("ouch", "assets/sounds/ouch.wav");
+        }
+
+        void update(World *world, float deltaTime)
         {
             // update the elapsed time
             elapsedTime += deltaTime;
@@ -112,9 +128,11 @@ namespace our
                 if (!rigidBody)
                     return;
 
+                soundSystem.playSound("ouch");
+
                 // set the players speed to the camera's forward vector
                 rigidBody->getRigidBody()->setLinearVelocity(btVector3(cameraForward.x, cameraForward.y, cameraForward.z) * 7.0f);
-
+                std::cout << "RIGID BODY MOVED\n";
             }
         }
 
@@ -137,4 +155,4 @@ namespace our
         }
     };
 
-} // namespace our
+}
