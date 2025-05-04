@@ -1,5 +1,6 @@
 #include <components/camera.hpp>
 #include <entities/entity.hpp>
+#include <entities/world.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp> 
 
@@ -24,11 +25,21 @@ namespace our {
         auto owner = getOwner();
         auto M = owner->getLocalToWorldMatrix();
 
+        // get the world
+        auto world = owner->getWorld();
+
+        // get the player entity using world get entity by tag
+        auto playerEntity = world->getEntitiesByTag("Player").empty() ? nullptr : world->getEntitiesByTag("Player")[0];
+
+        // get the position from the player entity local transform
+        glm::vec3 playerPos = playerEntity->localTransform.position;
+
         glm::vec3 eye = glm::vec3(M * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));        
-        glm::vec3 center = glm::vec3(M * glm::vec4(0.0f, 0.0f, -1.0f, 1.0f));        
+        // glm::vec3 center = glm::vec3(M * glm::vec4(0.0f, 0.0f, -1.0f, 1.0f));        
         glm::vec3 up = glm::vec3(M * glm::vec4(0.0f, 1.0f, 0.0f, 0.0f));
         
-        return glm::lookAt(eye, center, up);
+        // return glm::lookAt(eye, center, up);
+        return glm::lookAt(eye, playerPos, up);
     }
 
 
