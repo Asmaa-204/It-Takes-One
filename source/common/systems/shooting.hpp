@@ -69,6 +69,7 @@ namespace our
 
             // set the bullet's position to the player's position
             bullet->localTransform.position = playerCenter + cameraForward * 1.5f;
+            bullet->localTransform.position.y += 1.0f;
 
             // set the bullet's rotation to the camera's rotation
             bullet->localTransform.rotation = cameraComponent->getOwner()->localTransform.rotation;
@@ -91,17 +92,19 @@ namespace our
             rigidBody->createRigidBody(.1f);
 
             // disable gravity for the bullets
-            // rigidBody->getRigidBody()->setGravity(btVector3(0, 0, 0));
-
-            cameraForward.y = 0.1f; // set y to 0.0f to avoid the bullet going up
+            // cameraForward.y = 0.0f; // set x to 0.0f to avoid the bullet going sideways
+            // cameraForward = glm::normalize(cameraForward);
+            cameraForward.y = 0.0f; // set y to 0.0f to avoid the bullet going up
             cameraForward = glm::normalize(cameraForward);
-
+            
             // set the bullet's linear velocity to the camera's forward vector
             rigidBody->getRigidBody()->setLinearVelocity(btVector3(
                 cameraForward.x * bulletSpeed,
                 cameraForward.y * bulletSpeed,
                 cameraForward.z * bulletSpeed
             ));
+
+            rigidBody->getRigidBody()->setGravity(btVector3(0, 0, 0));
         }
     };
     

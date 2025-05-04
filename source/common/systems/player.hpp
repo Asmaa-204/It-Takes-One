@@ -42,11 +42,9 @@ namespace our {
 
                 glm::vec3 cameraUp = glm::normalize(glm::vec3(cameraTransform * glm::vec4(0.0f, 1.0f, 0.0f, 0.0f)));
 
-
-
                 if (player) updateCameraPosition(world, cameraEntity, cameraForward, player);
                 if (player && movement) handlePlayerInput(player, cameraForwardFlattened, cameraRight, cameraRight, movement, rigidBody, deltaTime);
-                if (player && rigidBody) checkPlayerFallDeath(entity);
+                if(player && rigidBody) checkPlayerFallDeath(player->getOwner());
             }
         }
 
@@ -61,7 +59,7 @@ namespace our {
             soundSystem.loadSound("jump", "assets/sounds/jump.wav");
         }
 
-        void handlePlayerInput(PlayerComponent* player, MovementComponent* movement, RigidBodyComponent* rigidBody, float deltaTime) {
+        void handlePlayerInput(PlayerComponent* player, glm::vec3 cameraForward, glm::vec3 cameraRight, glm::vec3 cameraUp, MovementComponent* movement, RigidBodyComponent* rigidBody, float deltaTime) {
             // Update cooldown timer
             if (jumpSoundCooldown > 0.0f) {
                 jumpSoundCooldown -= deltaTime;
@@ -72,10 +70,10 @@ namespace our {
 
             float heightAboveGround = getHeightAboveGround(player->getOwner());
                         
-            if (app->getKeyboard().isPressed(GLFW_KEY_W)) linearVelocity.z += player->movementSpeed.z;
-            if (app->getKeyboard().isPressed(GLFW_KEY_S)) linearVelocity.z -= player->movementSpeed.z;
-            if (app->getKeyboard().isPressed(GLFW_KEY_A)) linearVelocity.x -= player->movementSpeed.x;
-            if (app->getKeyboard().isPressed(GLFW_KEY_D)) linearVelocity.x += player->movementSpeed.x;
+            if (app->getKeyboard().isPressed(GLFW_KEY_W)) linearVelocity += player->movementSpeed.z * cameraForward;
+            if (app->getKeyboard().isPressed(GLFW_KEY_S)) linearVelocity -= player->movementSpeed.z * cameraForward;
+            if (app->getKeyboard().isPressed(GLFW_KEY_A)) linearVelocity -= player->movementSpeed.x * cameraRight;
+            if (app->getKeyboard().isPressed(GLFW_KEY_D)) linearVelocity += player->movementSpeed.x * cameraRight;
             if (app->getKeyboard().isPressed(GLFW_KEY_SPACE) && heightAboveGround < MAX_JUMP_HEIGHT) {
                 linearVelocity.y += player->jumpForce;
                 

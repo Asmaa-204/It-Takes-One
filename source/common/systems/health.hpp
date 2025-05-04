@@ -141,7 +141,6 @@ namespace our
         {
             if (entity->getComponent<PlayerComponent>())
             {
-                // if the entity is a player, change the state to menu
                 app->changeState("play");
                 return;
             }

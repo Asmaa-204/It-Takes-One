@@ -8,13 +8,12 @@
 #include <systems/movement.hpp>
 #include <systems/light.hpp>
 #include <systems/physics.hpp>
+#include <systems/sound.hpp>
 #include <systems/player.hpp>
 #include <systems/shooting.hpp>
 #include <systems/health.hpp>
-#include <asset-loader.hpp>
-#include <systems/sound.hpp>
 
-#include <iostream>
+#include <asset-loader.hpp>
 
 #include <iostream>
 
