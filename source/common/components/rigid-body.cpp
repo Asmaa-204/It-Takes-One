@@ -59,8 +59,7 @@ namespace our {
         btRigidBody::btRigidBodyConstructionInfo cInfo(mass, motionState, shape, localInertia);
 
         // create the rigid body
-	    rigidBody = new btRigidBody(cInfo);
-
+	      rigidBody = new btRigidBody(cInfo);
         // restrain damping
         rigidBody->setRestitution(0.0f);
         rigidBody->setDamping(0.1f, 0.0f);

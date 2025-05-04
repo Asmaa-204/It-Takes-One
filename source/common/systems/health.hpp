@@ -1,23 +1,38 @@
 #pragma once
 
+#include <systems/system.hpp>
+#include <systems/sound.hpp>
+
 #include <entities/world.hpp>
 #include <entities/entity.hpp>
+
 #include <components/rigid-body.hpp>
 #include <components/health.hpp>
-#include <glm/glm.hpp>
 #include <components/player.hpp>
 #include <components/camera.hpp>
 
+#include <glm/glm.hpp>
+#include <application.hpp>
 #include <iostream>
 
 namespace our
 {
-    class HealthSystem : System
+    class HealthSystem : public System
     {
+        Application *app = nullptr;
+        SoundSystem soundSystem;
         double elapsedTime = 0.0;
-        const double damageRate = 1/5.0; // Time in seconds between shots
+        const double damageRate = 1 / 5.0; // Time in seconds between shots
+
     public:
-        void update(World *world, float deltaTime) override
+        void enter(Application *app)
+        {
+            this->app = app;
+            soundSystem = app->getSound();
+            soundSystem.loadSound("ouch", "assets/sounds/ouch.wav");
+        }
+
+        void update(World *world, float deltaTime)
         {
             // update the elapsed time
             elapsedTime += deltaTime;
@@ -69,9 +84,6 @@ namespace our
             HealthComponent *health2 = entity2->getComponent<HealthComponent>();
             if (health1 && health2)
             {
-                // print the health of the entities
-                // std::cout << "Entity 1 Health: " << health1->getCurrentHealth() << std::endl;
-                // std::cout << "Entity 2 Health: " << health2->getCurrentHealth() << std::endl;
                 // reduce the health of the entities
                 health1->takeDamage(1);
                 health2->takeDamage(1);
@@ -79,12 +91,14 @@ namespace our
                 damagePlayer(world, entity1, entity2);
 
                 // check if the entities are alive
-                destroyEntity(world, entity1, health1);
-                destroyEntity(world, entity2, health2);
+                if (!health1->isAlive())
+                    destroyEntity(world, entity1);
+                if (!health2->isAlive())
+                    destroyEntity(world, entity2);
             }
         }
 
-        void damagePlayer(World * world, Entity *entity1, Entity *entity2)
+        void damagePlayer(World *world, Entity *entity1, Entity *entity2)
         {
             // get the player component of the entity
             PlayerComponent *player = entity1->getComponent<PlayerComponent>();
@@ -117,29 +131,32 @@ namespace our
                 if (!rigidBody)
                     return;
 
+                soundSystem.playSound("ouch");
                 // set the players speed to the camera's forward vector
-                rigidBody->getRigidBody()->setLinearVelocity(btVector3(cameraForward.x, cameraForward.y, cameraForward.z) * 7.0f);
-
+                rigidBody->getRigidBody()->setLinearVelocity(btVector3(cameraForward.x, cameraForward.y, cameraForward.z) * 5.0f);
             }
         }
 
-        void destroyEntity(World *world, Entity *entity, HealthComponent *health)
+        void destroyEntity(World *world, Entity *entity)
         {
-            if (!health->isAlive())
+            if (entity->getComponent<PlayerComponent>())
             {
-                // destroy entity2
-                entity->getWorld()->markForRemoval(entity);
-                // delete the rigid body from the pyhsics world
-                btRigidBody *body = entity->getComponent<RigidBodyComponent>()->getRigidBody();
-                if (body)
-                {
-                    world->getPhysicsWorld()->removeRigidBody(body);
-                    delete body->getCollisionShape();
-                    delete body->getMotionState();
-                    delete body;
-                }
+                // if the entity is a player, change the state to menu
+                app->changeState("play");
+                return;
+            }
+            // destroy entity2
+            entity->getWorld()->markForRemoval(entity);
+            // delete the rigid body from the pyhsics world
+            btRigidBody *body = entity->getComponent<RigidBodyComponent>()->getRigidBody();
+            if (body)
+            {
+                world->getPhysicsWorld()->removeRigidBody(body);
+                delete body->getCollisionShape();
+                delete body->getMotionState();
+                delete body;
             }
         }
     };
 
-} // namespace our
+}

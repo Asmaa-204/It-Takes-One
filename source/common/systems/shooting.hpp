@@ -4,6 +4,7 @@
 #include <components/player.hpp>
 #include <components/rigid-body.hpp>
 #include <components/health.hpp>
+#include <systems/sound.hpp>
 #include <application.hpp>
 
 #include <iostream>
@@ -13,6 +14,8 @@ namespace our
     class ShootingSystem : System
     {
         Application* app = nullptr;
+        SoundSystem* soundSystem = nullptr;
+      
         double elapsedTime = 0.0;
         const double fireRate = 1/5.0; // Time in seconds between shots
         const double bulletSpeed = 23.0; // Speed of the bullet in units per second
@@ -20,6 +23,8 @@ namespace our
 
         void enter(Application* app) {
             this->app = app;
+            soundSystem = &app->getSound();
+            soundSystem->loadSound("fire", "assets/sounds/fire.wav");
         }
 
         void update(World* world, float deltaTime) override {
@@ -33,6 +38,10 @@ namespace our
             // reset the elapsed time
             elapsedTime = 0.0;
 
+            // play fire sound effect
+            if (soundSystem) {
+                soundSystem->playSound("fire");
+            }
 
             // get the player entity
             Entity* player = world->getEntitiesByTag("Player").front();

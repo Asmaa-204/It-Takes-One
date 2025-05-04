@@ -12,6 +12,7 @@
 
 #include "input/keyboard.hpp"
 #include "input/mouse.hpp"
+#include "systems/sound.hpp"
 
 namespace our {
 
@@ -56,7 +57,7 @@ namespace our {
         
         Keyboard keyboard;                  // Instance of "our" keyboard class that handles keyboard functionalities.
         Mouse mouse;                        // Instance of "our" mouse class that handles mouse functionalities.
-
+        SoundSystem sound;
         nlohmann::json app_config;           // A Json file that contains all application configuration
 
         std::unordered_map<std::string, State*> states;   // This will store all the states that the application can run
@@ -118,9 +119,8 @@ namespace our {
         [[nodiscard]] const Keyboard& getKeyboard() const { return keyboard; }
         Mouse& getMouse() { return mouse; }
         [[nodiscard]] const Mouse& getMouse() const { return mouse; }
-
         [[nodiscard]] const nlohmann::json& getConfig() const { return app_config; }
-
+        SoundSystem& getSound() { return sound; }
         // Get the size of the frame buffer of the window in pixels.
         glm::ivec2 getFrameBufferSize() {
             glm::ivec2 size;

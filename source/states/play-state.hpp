@@ -12,6 +12,9 @@
 #include <systems/shooting.hpp>
 #include <systems/health.hpp>
 #include <asset-loader.hpp>
+#include <systems/sound.hpp>
+
+#include <iostream>
 
 #include <iostream>
 
@@ -27,8 +30,21 @@ class Playstate: public our::State {
     our::PlayerSystem playerSystem;
     our::ShootingSystem shootingSystem;
     our::HealthSystem healthSystem;
+    our::SoundSystem* soundSystem = nullptr; 
+    
+    ALuint backgroundMusicSource = 0;
+    bool isMusicPlaying = false;
     
     void onInitialize() override {
+        soundSystem = &getApp()->getSound();
+        std::cout << "Sound system initialized" << endl;
+
+        // Reset music state
+        isMusicPlaying = false;
+        backgroundMusicSource = 0;
+
+        // Stop menu soundtrack 
+        soundSystem->stopSound("intro-music");
         // First of all, we get the scene configuration from the app config
         auto& config = getApp()->getConfig()["scene"];
         // If we have assets in the scene config, we deserialize them
@@ -44,18 +60,29 @@ class Playstate: public our::State {
         inputSystem.enter(getApp());
         playerSystem.enter(getApp());
         shootingSystem.enter(getApp());
+        healthSystem.enter(getApp());
+
         // Then we initialize the renderer
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer"]);
+    
+        // Play background music
+        cout << "Loading background music" << endl;
+        soundSystem->loadSound("background-music", "assets/sounds/background-music.wav");
+        backgroundMusicSource = soundSystem->createLoopingSource("background-music");
+        
+        // Start playing once
+        if (!isMusicPlaying) {
+            soundSystem->playSource(backgroundMusicSource);
+            isMusicPlaying = true;
+        }
     }
 
     void onDraw(double deltaTime) override {
         // Here, we just run a bunch of systems to control the world logic
         movementSystem.update(&world, (float)deltaTime);
         inputSystem.update(&world, (float)deltaTime);
-
         shootingSystem.update(&world, (float)deltaTime);
-
         lightingSystem.update(&world, (float)deltaTime);
 
         // Apply physics to the world
@@ -85,6 +112,11 @@ class Playstate: public our::State {
         inputSystem.exit();
         // Clear the world
         world.clear();
+        // Stop the music
+        if (backgroundMusicSource) {
+            soundSystem->stopSource(backgroundMusicSource);
+            alDeleteSources(1, &backgroundMusicSource);
+        }
         // and we delete all the loaded assets to free memory on the RAM and the VRAM
         our::clearAllAssets();
     }

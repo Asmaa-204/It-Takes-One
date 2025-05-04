@@ -6,6 +6,7 @@
 #include <texture/texture-utils.hpp>
 #include <material/material.hpp>
 #include <mesh/mesh.hpp>
+#include <systems/sound.hpp>
 
 #include <functional>
 #include <array>
@@ -58,10 +59,15 @@ class Menustate: public our::State {
         menuMaterial->shader->attach("assets/shaders/textured.frag", GL_FRAGMENT_SHADER);
         menuMaterial->shader->link();
         // Then we load the menu texture
-        menuMaterial->texture = our::texture_utils::loadImage("assets/textures/menu.png");
+        menuMaterial->texture = our::texture_utils::loadImage("assets/textures/menu6.png");
         // Initially, the menu material will be black, then it will fade in
         menuMaterial->tint = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
         // Initialize the sampler and set its parameters
+        menuMaterial->sampler = new our::Sampler();
+        menuMaterial->sampler->set(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        menuMaterial->sampler->set(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        // Initalize the sample
         menuMaterial->sampler = new our::Sampler();
         menuMaterial->sampler->set(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         menuMaterial->sampler->set(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -117,6 +123,11 @@ class Menustate: public our::State {
         buttons[1].position = {830.0f, 644.0f};
         buttons[1].size = {400.0f, 33.0f};
         buttons[1].action = [this](){this->getApp()->close();};
+
+        //play intro soundtrack
+        auto& soundSystem = getApp()->getSound();
+        soundSystem.loadSound("intro-music", "assets/sounds/intro.wav");
+        soundSystem.playSound("intro-music");
     }
 
     void onDraw(double deltaTime) override {
