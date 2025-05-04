@@ -36,7 +36,13 @@ namespace our
             int numManifolds = world->getPhysicsWorld()->getDispatcher()->getNumManifolds();
             for (int i = 0; i < numManifolds; i++)
             {
+                if (i >= world->getPhysicsWorld()->getDispatcher()->getNumManifolds()) {
+                    continue; // Skip if the index is no longer valid
+                }
+
                 btPersistentManifold *contactManifold = world->getPhysicsWorld()->getDispatcher()->getManifoldByIndexInternal(i);
+                if (!contactManifold) continue; // Skip invalid manifolds
+
                 const btCollisionObject *colObj0 = contactManifold->getBody0();
                 const btCollisionObject *colObj1 = contactManifold->getBody1();
 
@@ -48,7 +54,6 @@ namespace our
 
                 if (body0 && body1)
                 {
-                    // print the collision information
                     DestroyGameObject(world, world->getEntityByRigidBody(body0), world->getEntityByRigidBody(body1));
                 }
             }
@@ -65,8 +70,8 @@ namespace our
             if (health1 && health2)
             {
                 // print the health of the entities
-                std::cout << "Entity 1 Health: " << health1->getCurrentHealth() << std::endl;
-                std::cout << "Entity 2 Health: " << health2->getCurrentHealth() << std::endl;
+                // std::cout << "Entity 1 Health: " << health1->getCurrentHealth() << std::endl;
+                // std::cout << "Entity 2 Health: " << health2->getCurrentHealth() << std::endl;
                 // reduce the health of the entities
                 health1->takeDamage(1);
                 health2->takeDamage(1);
