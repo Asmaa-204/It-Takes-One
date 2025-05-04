@@ -55,7 +55,6 @@ namespace our {
             glm::vec3 angularVelocity = glm::vec3(0.0f);
 
             float heightAboveGround = getHeightAboveGround(player->getOwner());
-            cout << "height above ground " << heightAboveGround << endl;
                         
             if (app->getKeyboard().isPressed(GLFW_KEY_W)) linearVelocity.z += player->movementSpeed.z;
             if (app->getKeyboard().isPressed(GLFW_KEY_S)) linearVelocity.z -= player->movementSpeed.z;

@@ -53,6 +53,13 @@ namespace our
             int numManifolds = world->getPhysicsWorld()->getDispatcher()->getNumManifolds();
             for (int i = 0; i < numManifolds; i++)
             {
+                if (i >= world->getPhysicsWorld()->getDispatcher()->getNumManifolds()) {
+                    continue;
+                }
+
+                btPersistentManifold *contanctManifold = world->getPhysicsWorld()->getDispatcher()->getManifoldByIndexInternal(i);
+                if(!contanctManifold) continue;
+
                 btPersistentManifold *contactManifold = world->getPhysicsWorld()->getDispatcher()->getManifoldByIndexInternal(i);
                 const btCollisionObject *colObj0 = contactManifold->getBody0();
                 const btCollisionObject *colObj1 = contactManifold->getBody1();
