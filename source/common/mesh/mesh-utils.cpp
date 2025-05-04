@@ -29,9 +29,6 @@ our::Mesh* our::mesh_utils::loadOBJ(const std::string& filename, bool isDynamic)
         std::cerr << "Failed to load obj file \"" << filename << "\" due to error: " << err << std::endl;
         return nullptr;
     }
-    if (!warn.empty()) {
-        std::cout << "WARN while loading obj file \"" << filename << "\": " << warn << std::endl;
-    }
 
     // An obj file can have multiple shapes where each shape can have its own material
     // Ideally, we would load each shape into a separate mesh or store the start and end of it in the element buffer to be able to draw each shape separately

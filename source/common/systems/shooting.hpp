@@ -68,8 +68,7 @@ namespace our
             Entity* bullet = world->add();
 
             // set the bullet's position to the player's position
-            bullet->localTransform.position = playerCenter + cameraForward * 1.5f;
-            bullet->localTransform.position.y += 1.0f;
+            bullet->localTransform.position = playerCenter + glm::vec3(cameraForward.x, 0, cameraForward.z) * 1.5f;
 
             // set the bullet's rotation to the camera's rotation
             bullet->localTransform.rotation = cameraComponent->getOwner()->localTransform.rotation;

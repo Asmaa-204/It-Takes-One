@@ -88,7 +88,6 @@ namespace our {
         void playSound(const std::string& name) {
             auto it = soundBuffers.find(name);
             if (it == soundBuffers.end()) {
-                std::cerr << "Sound not found: " << name << std::endl;
                 return;
             }
 
@@ -110,17 +109,14 @@ namespace our {
         }
 
         void stopSound(const std::string& name) {
-            std::cout << "Stopping sound: " << name << std::endl;
             auto it = soundBuffers.find(name);
             if (it != soundBuffers.end()) {
-                std::cout << "Found a source: " << name << std::endl;
                 // Find all sources using this buffer and stop them
                 for (ALuint source : sources) {
                     ALint buffer;
                     alGetSourcei(source, AL_BUFFER, &buffer);
                     if (buffer == it->second) {
                         alSourceStop(source);
-                        std::cout << "Stopped sound: " << name << std::endl;
                     }
                 }
             }
