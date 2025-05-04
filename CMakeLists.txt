@@ -155,6 +155,7 @@ set(STATES_SOURCES
 
 add_executable(GAME_APPLICATION source/main.cpp ${STATES_SOURCES} ${COMMON_SOURCES} ${VENDOR_SOURCES})
 target_link_libraries(GAME_APPLICATION glfw)
+
 target_link_libraries(GAME_APPLICATION OpenGL::GL BulletDynamics BulletCollision LinearMath)
 target_link_libraries(GAME_APPLICATION 
     ${OPENAL_LIBRARY}

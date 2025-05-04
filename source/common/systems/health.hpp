@@ -13,7 +13,6 @@
 
 #include <glm/glm.hpp>
 #include <application.hpp>
-
 #include <iostream>
 
 namespace our
@@ -39,8 +38,7 @@ namespace our
             elapsedTime += deltaTime;
 
             // check if the elapsed time is less than the fire rate
-            if (elapsedTime < damageRate)
-                return;
+            if (elapsedTime < damageRate) return;
             // reset the elapsed time
             elapsedTime = 0.0;
 
@@ -54,13 +52,12 @@ namespace our
             for (int i = 0; i < numManifolds; i++)
             {
                 if (i >= world->getPhysicsWorld()->getDispatcher()->getNumManifolds()) {
-                    continue;
+                    continue; // Skip if the index is no longer valid
                 }
 
-                btPersistentManifold *contanctManifold = world->getPhysicsWorld()->getDispatcher()->getManifoldByIndexInternal(i);
-                if(!contanctManifold) continue;
-
                 btPersistentManifold *contactManifold = world->getPhysicsWorld()->getDispatcher()->getManifoldByIndexInternal(i);
+                if (!contactManifold) continue; // Skip invalid manifolds
+
                 const btCollisionObject *colObj0 = contactManifold->getBody0();
                 const btCollisionObject *colObj1 = contactManifold->getBody1();
 
@@ -72,7 +69,6 @@ namespace our
 
                 if (body0 && body1)
                 {
-                    // print the collision information
                     DestroyGameObject(world, world->getEntityByRigidBody(body0), world->getEntityByRigidBody(body1));
                 }
             }
@@ -88,9 +84,6 @@ namespace our
             HealthComponent *health2 = entity2->getComponent<HealthComponent>();
             if (health1 && health2)
             {
-                // print the health of the entities
-                std::cout << "Entity 1 IS Player? " << health1->getOwner()->getComponent<PlayerComponent>() << " Health: " << health1->getCurrentHealth() << std::endl;
-                std::cout << "Entity 2 IS Player? " << health2->getOwner()->getComponent<PlayerComponent>() << " Health: " <<  health2->getCurrentHealth() << std::endl;
                 // reduce the health of the entities
                 health1->takeDamage(1);
                 health2->takeDamage(1);
@@ -139,7 +132,6 @@ namespace our
                     return;
 
                 soundSystem.playSound("ouch");
-
                 // set the players speed to the camera's forward vector
                 rigidBody->getRigidBody()->setLinearVelocity(btVector3(cameraForward.x, cameraForward.y, cameraForward.z) * 5.0f);
             }

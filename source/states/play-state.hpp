@@ -16,6 +16,8 @@
 
 #include <iostream>
 
+#include <iostream>
+
 // This state shows how to use the ECS framework and deserialization.
 class Playstate: public our::State {
 
@@ -59,6 +61,7 @@ class Playstate: public our::State {
         playerSystem.enter(getApp());
         shootingSystem.enter(getApp());
         healthSystem.enter(getApp());
+
         // Then we initialize the renderer
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer"]);
@@ -79,9 +82,7 @@ class Playstate: public our::State {
         // Here, we just run a bunch of systems to control the world logic
         movementSystem.update(&world, (float)deltaTime);
         inputSystem.update(&world, (float)deltaTime);
-
         shootingSystem.update(&world, (float)deltaTime);
-
         lightingSystem.update(&world, (float)deltaTime);
 
         // Apply physics to the world
