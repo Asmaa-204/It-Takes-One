@@ -1,18 +1,3 @@
-#version 330 core
-
-in Varyings {
-    vec4 color;
-    vec2 tex_coord;
-} fs_in;
-
-out vec4 frag_color;
-
-uniform vec4 tint;
-uniform sampler2D tex;
-
-void main(){
-    //TODO: (Req 7) Modify the following line to compute the fragment color
-    // by multiplying the tint with the vertex color and with the texture color 
-    vec4 texture_color = texture(tex, fs_in.tex_coord);
-    frag_color = tint * fs_in.color * texture_color;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:f7cdfbf71960c405679485f4fa134b908b52f552a7406b80c85582caab9287bf
+size 322

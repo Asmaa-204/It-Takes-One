@@ -1,7 +1,9 @@
 #pragma once
 
 #include <glad/gl.h>
+#include <btBulletCollisionCommon.h>
 #include "vertex.hpp"
+#include "shape-utils.hpp"
 
 namespace our {
 
@@ -17,6 +19,9 @@ namespace our {
         unsigned int VAO;
         // We need to remember the number of elements that will be draw by glDrawElements 
         GLsizei elementCount;
+        btCollisionShape* shape;
+        glm::vec3 center;
+
     public:
 
         // The constructor takes two vectors:
@@ -26,12 +31,19 @@ namespace our {
         // a vertex buffer to store the vertex data on the VRAM,
         // an element buffer to store the element data on the VRAM,
         // a vertex array object to define how to read the vertex & element buffer during rendering 
-        Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& elements)
+        Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& elements, bool isDynamic = false)
         {
             //POST-TODO: (Req 2) Write this function
             // remember to store the number of elements in "elementCount" since you will need it for drawing
             // For the attribute locations, use the constants defined above: ATTRIB_LOC_POSITION, ATTRIB_LOC_COLOR, etc
             elementCount = elements.size();
+
+            //calculate the center of the mesh
+            center = glm::vec3(0.0f);
+            for(const auto& vertex: vertices) {
+                center += vertex.position;
+            }
+            center /= float(vertices.size());
 
             // Generate and bind a vertex array to store both the data of the buffer and layout
             glGenVertexArrays(1, &VAO);
@@ -63,6 +75,8 @@ namespace our {
 
             // Unbind the Vertex Array after finishing the setup 
             glBindVertexArray(0);
+
+            shape = isDynamic ? generateBtConvexHullShape(vertices) : generateBtBvhTriangleMeshShape(vertices, elements);
         }
 
         // this function should render the mesh
@@ -75,6 +89,9 @@ namespace our {
             glBindVertexArray(0);
         }
 
+        // returns the center of the mesh
+        glm::vec3 getCenter() const { return center; }
+
         // this function should delete the vertex & element buffers and the vertex array object
         ~Mesh(){
             //POST-TODO: (Req 2) Write this function
@@ -83,6 +100,7 @@ namespace our {
             glDeleteBuffers(1, &EBO);
         }
 
+        btCollisionShape* getShape() { return shape; }
         Mesh(Mesh const &) = delete;
         Mesh &operator=(Mesh const &) = delete;
     };

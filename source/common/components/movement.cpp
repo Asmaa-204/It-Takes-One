@@ -1,6 +1,6 @@
-#include "movement.hpp"
-#include "../ecs/entity.hpp"
-#include "../deserialize-utils.hpp"
+#include <components/movement.hpp>
+#include <entities/entity.hpp>
+#include <deserialize-utils.hpp>
 
 namespace our {
     // Reads linearVelocity & angularVelocity from the given json object

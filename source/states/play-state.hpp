@@ -2,20 +2,32 @@
 
 #include <application.hpp>
 
-#include <ecs/world.hpp>
+#include <entities/world.hpp>
 #include <systems/forward-renderer.hpp>
-#include <systems/free-camera-controller.hpp>
+#include <systems/Input.hpp>
 #include <systems/movement.hpp>
+#include <systems/light.hpp>
+#include <systems/physics.hpp>
+#include <systems/player.hpp>
+#include <systems/shooting.hpp>
+#include <systems/health.hpp>
 #include <asset-loader.hpp>
+
+#include <iostream>
 
 // This state shows how to use the ECS framework and deserialization.
 class Playstate: public our::State {
 
     our::World world;
     our::ForwardRenderer renderer;
-    our::FreeCameraControllerSystem cameraController;
+    our::InputSystem inputSystem;
     our::MovementSystem movementSystem;
-
+    our::LightSystem lightingSystem;
+    our::PhysicsSystem physicsSystem;
+    our::PlayerSystem playerSystem;
+    our::ShootingSystem shootingSystem;
+    our::HealthSystem healthSystem;
+    
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
         auto& config = getApp()->getConfig()["scene"];
@@ -25,10 +37,13 @@ class Playstate: public our::State {
         }
         // If we have a world in the scene config, we use it to populate our world
         if(config.contains("world")){
+            world.initializePhysics();
             world.deserialize(config["world"]);
         }
         // We initialize the camera controller system since it needs a pointer to the app
-        cameraController.enter(getApp());
+        inputSystem.enter(getApp());
+        playerSystem.enter(getApp());
+        shootingSystem.enter(getApp());
         // Then we initialize the renderer
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer"]);
@@ -37,10 +52,23 @@ class Playstate: public our::State {
     void onDraw(double deltaTime) override {
         // Here, we just run a bunch of systems to control the world logic
         movementSystem.update(&world, (float)deltaTime);
-        cameraController.update(&world, (float)deltaTime);
-        // And finally we use the renderer system to draw the scene
-        renderer.render(&world);
+        inputSystem.update(&world, (float)deltaTime);
 
+        shootingSystem.update(&world, (float)deltaTime);
+
+        lightingSystem.update(&world, (float)deltaTime);
+
+        // Apply physics to the world
+        physicsSystem.update(&world, (float)deltaTime);
+
+        playerSystem.update(&world, (float)deltaTime);
+        // And finally we use the renderer system to draw the scene
+        renderer.update(&world, (float)deltaTime);
+        
+        // Check for collisions and apply damage to the entities
+        healthSystem.update(&world, (float)deltaTime);
+        world.deleteMarkedEntities();
+        
         // Get a reference to the keyboard object
         auto& keyboard = getApp()->getKeyboard();
 
@@ -54,7 +82,7 @@ class Playstate: public our::State {
         // Don't forget to destroy the renderer
         renderer.destroy();
         // On exit, we call exit for the camera controller system to make sure that the mouse is unlocked
-        cameraController.exit();
+        inputSystem.exit();
         // Clear the world
         world.clear();
         // and we delete all the loaded assets to free memory on the RAM and the VRAM

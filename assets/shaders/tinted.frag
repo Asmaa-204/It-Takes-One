@@ -1,15 +1,3 @@
-#version 330 core
-
-in Varyings {
-    vec4 color;
-} fs_in;
-
-out vec4 frag_color;
-
-uniform vec4 tint;
-
-void main(){
-    //TODO: (Req 7) Modify the following line to compute the fragment color
-    // by multiplying the tint with the vertex color
-    frag_color = tint * fs_in.color;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:4f2f4ef82c710cd61c2d7fbcc2dbb232e6cb118d09cd88edefcd54481311e88d
+size 297

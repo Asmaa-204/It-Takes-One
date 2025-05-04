@@ -1,10 +1,16 @@
 #pragma once
 
-#include "../ecs/entity.hpp"
-#include "camera.hpp"
-#include "mesh-renderer.hpp"
-#include "free-camera-controller.hpp"
-#include "movement.hpp"
+#include <entities/entity.hpp>
+#include <components/camera.hpp>
+#include <components/mesh-renderer.hpp>
+#include <components/free-camera-controller.hpp>
+#include <components/movement.hpp>
+#include <components/light.hpp>
+#include <components/rigid-body.hpp>
+#include <components/player.hpp>
+#include <components/health.hpp>
+
+#include <iostream>
 
 namespace our {
 
@@ -13,7 +19,6 @@ namespace our {
     inline void deserializeComponent(const nlohmann::json& data, Entity* entity){
         std::string type = data.value("type", "");
         Component* component = nullptr;
-        //TODO: (Req 8) Add an option to deserialize a "MeshRendererComponent" to the following if-else statement
         if(type == CameraComponent::getID()){
             component = entity->addComponent<CameraComponent>();
         } else if (type == FreeCameraControllerComponent::getID()) {
@@ -22,7 +27,16 @@ namespace our {
             component = entity->addComponent<MovementComponent>();
         } else if (type == MeshRendererComponent::getID()) {
             component = entity->addComponent<MeshRendererComponent>();
+        } else if (type == LightComponent::getID()){
+            component = entity->addComponent<LightComponent>();
+        } else if (type == RigidBodyComponent::getID()) {
+            component = entity->addComponent<RigidBodyComponent>();
+        } else if (type == PlayerComponent::getID()) {
+            component = entity->addComponent<PlayerComponent>();
+        } else if (type == HealthComponent::getID()) {
+            component = entity->addComponent<HealthComponent>();
         }
+
         if(component) component->deserialize(data);
     }
 

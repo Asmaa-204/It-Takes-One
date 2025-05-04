@@ -189,22 +189,24 @@ int our::Application::run(int run_for_frames) {
 
     gladLoadGL(glfwGetProcAddress);         // Load the OpenGL functions from the driver
 
-    // Print information about the OpenGL context
-    std::cout << "VENDOR          : " << glGetString(GL_VENDOR) << std::endl;
-    std::cout << "RENDERER        : " << glGetString(GL_RENDERER) << std::endl;
-    std::cout << "VERSION         : " << glGetString(GL_VERSION) << std::endl;
-    std::cout << "GLSL VERSION    : " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
 
-#if defined(ENABLE_OPENGL_DEBUG_MESSAGES)
-    // if we have OpenGL debug messages enabled, set the message callback
-    glDebugMessageCallback(opengl_callback, nullptr);
-    // Then enable debug output
-    glEnable(GL_DEBUG_OUTPUT);
-    // Then make the output synchronized to the OpenGL commands.
-    // This will make sure that OpenGL and the main thread are synchronized such that message callback is called as soon
-    // as the command causing it is called. This is useful for debugging but slows down the code execution.
-    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-#endif
+    if(app_config["debug"])
+    {
+        // Print information about the OpenGL context
+        std::cout << "VENDOR          : " << glGetString(GL_VENDOR) << std::endl;
+        std::cout << "RENDERER        : " << glGetString(GL_RENDERER) << std::endl;
+        std::cout << "VERSION         : " << glGetString(GL_VERSION) << std::endl;
+        std::cout << "GLSL VERSION    : " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+
+        glDebugMessageCallback(opengl_callback, nullptr);
+        // Then enable debug output
+        glEnable(GL_DEBUG_OUTPUT);
+        // Then make the output synchronized to the OpenGL commands.
+        // This will make sure that OpenGL and the main thread are synchronized such that message callback is called as soon
+        // as the command causing it is called. This is useful for debugging but slows down the code execution.
+        glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+    }
+
 
     setupCallbacks();
     keyboard.enable(window);

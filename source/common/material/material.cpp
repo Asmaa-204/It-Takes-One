@@ -59,4 +59,38 @@ namespace our {
         sampler = AssetLoader<Sampler>::get(data.value("sampler", ""));
     }
 
+
+    void LitMaterial::setup() const 
+    {    
+        Material::setup();
+
+        glActiveTexture(GL_TEXTURE0);
+        diffuseMap->bind();
+        sampler->bind(0);
+
+        glActiveTexture(GL_TEXTURE1);
+        specularMap->bind();
+        sampler->bind(1);
+
+        glActiveTexture(GL_TEXTURE2);
+        emissionMap->bind();
+        sampler->bind(2);
+
+        shader->set("material.diffuse", 0);
+        shader->set("material.specular", 1);
+        shader->set("material.emission", 2);
+        shader->set("material.shininess", shininess);
+    }
+
+    void LitMaterial::deserialize(const nlohmann::json& data)
+    {
+        Material::deserialize(data);
+        if(!data.is_object()) return;
+        diffuseMap = AssetLoader<Texture2D>::get(data.value("diffuseMap", ""));
+        specularMap = AssetLoader<Texture2D>::get(data.value("specularMap", ""));
+        emissionMap = AssetLoader<Texture2D>::get(data.value("emissionMap", ""));  
+        shininess = data.value("shininess", 0.0f);
+        sampler = AssetLoader<Sampler>::get(data.value("sampler", ""));
+    }
+
 }

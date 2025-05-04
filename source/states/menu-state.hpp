@@ -48,6 +48,8 @@ class Menustate: public our::State {
     std::array<Button, 2> buttons;
 
     void onInitialize() override {
+
+
         // First, we create a material for the menu's background
         menuMaterial = new our::TexturedMaterial();
         // Here, we load the shader that will be used to draw the background
@@ -60,6 +62,11 @@ class Menustate: public our::State {
         // Initially, the menu material will be black, then it will fade in
         menuMaterial->tint = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
         // Initialize the sampler and set its parameters
+        menuMaterial->sampler = new our::Sampler();
+        menuMaterial->sampler->set(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        menuMaterial->sampler->set(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        // Initalize the sample
         menuMaterial->sampler = new our::Sampler();
         menuMaterial->sampler->set(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         menuMaterial->sampler->set(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -159,7 +166,8 @@ class Menustate: public our::State {
         // Notice that I don't clear the screen first, since I assume that the menu rectangle will draw over the whole
         // window anyway.
         menuMaterial->setup();
-        menuMaterial->shader->set("transform", VP*M);
+        menuMaterial->shader->set("model", M);
+        menuMaterial->shader->set("PV", VP);
         rectangle->draw();
 
         // For every button, check if the mouse is inside it. If the mouse is inside, we draw the highlight rectangle over it.

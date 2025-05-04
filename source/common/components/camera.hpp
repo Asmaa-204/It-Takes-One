@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../ecs/component.hpp"
+#include <components/component.hpp>
 
 #include <glm/mat4x4.hpp>
 
@@ -23,6 +23,8 @@ namespace our {
 
         // The ID of this component type is "Camera"
         static std::string getID() { return "Camera"; }
+
+        virtual std::string getid() { return "Camera";}
 
         // Reads camera parameters from the given json object
         void deserialize(const nlohmann::json& data) override;

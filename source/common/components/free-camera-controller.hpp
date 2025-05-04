@@ -1,8 +1,11 @@
 #pragma once
 
-#include "../ecs/component.hpp"
-
 #include <glm/glm.hpp> 
+
+#include <components/component.hpp>
+#include <entities/entity.hpp>
+#include <deserialize-utils.hpp>
+
 
 namespace our {
 
@@ -27,3 +30,4 @@ namespace our {
     };
 
 }
+

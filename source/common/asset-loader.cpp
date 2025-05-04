@@ -67,8 +67,10 @@ namespace our {
     void AssetLoader<Mesh>::deserialize(const nlohmann::json& data) {
         if(data.is_object()){
             for(auto& [name, desc] : data.items()){
-                std::string path = desc.get<std::string>();
-                assets[name] = mesh_utils::loadOBJ(path);
+                std::string path = desc.value("path", "");
+                if (path == "") continue;
+                bool isDynamic = desc.value("isDynamic", false);
+                assets[name] = mesh_utils::loadOBJ(path, isDynamic);
             }
         }
     };

@@ -63,6 +63,8 @@ namespace our {
         State * currentState = nullptr;         // This will store the current scene that is being run
         State * nextState = nullptr;            // If it is requested to go to another scene, this will contain a pointer to that scene
 
+        bool debug;                             // Enable opengl debug messages or disable it
+
         
         // Virtual functions to be overrode and change the default behaviour of the application
         // according to the example needs.

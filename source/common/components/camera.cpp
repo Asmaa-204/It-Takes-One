@@ -1,5 +1,6 @@
-#include "camera.hpp"
-#include "../ecs/entity.hpp"
+#include <components/camera.hpp>
+#include <entities/entity.hpp>
+#include <entities/world.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp> 
 
@@ -23,33 +24,27 @@ namespace our {
     glm::mat4 CameraComponent::getViewMatrix() const {
         auto owner = getOwner();
         auto M = owner->getLocalToWorldMatrix();
-        //TODO: (Req 8) Complete this function
-        //HINT:
-        // In the camera space:
-        // - eye is the origin (0,0,0)
-        // - center is any point on the line of sight. So center can be any point (0,0,z) where z < 0. For simplicity, we let center be (0,0,-1)
-        // - up is the direction (0,1,0)
-        // but to use glm::lookAt, we need eye, center and up in the world state.
-        // Since M (see above) transforms from the camera to thw world space, you can use M to compute:
-        // - the eye position which is the point (0,0,0) but after being transformed by M
-        // - the center position which is the point (0,0,-1) but after being transformed by M
-        // - the up direction which is the vector (0,1,0) but after being transformed by M
-        // then you can use glm::lookAt
+
+        // get the world
+        auto world = owner->getWorld();
+
+        // get the player entity using world get entity by tag
+        auto playerEntity = world->getEntitiesByTag("Player").empty() ? nullptr : world->getEntitiesByTag("Player")[0];
+
+        // get the position from the player entity local transform
+        glm::vec3 playerPos = playerEntity->localTransform.position;
+
         glm::vec3 eye = glm::vec3(M * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));        
-        glm::vec3 center = glm::vec3(M * glm::vec4(0.0f, 0.0f, -1.0f, 1.0f));        
+        // glm::vec3 center = glm::vec3(M * glm::vec4(0.0f, 0.0f, -1.0f, 1.0f));        
         glm::vec3 up = glm::vec3(M * glm::vec4(0.0f, 1.0f, 0.0f, 0.0f));
         
-        return glm::lookAt(eye, center, up);
+        // return glm::lookAt(eye, center, up);
+        return glm::lookAt(eye, playerPos, up);
     }
 
-    // Creates and returns the camera projection matrix
-    // "viewportSize" is used to compute the aspect ratio
+
     glm::mat4 CameraComponent::getProjectionMatrix(glm::ivec2 viewportSize) const {
-        //TODO: (Req 8) Wrtie this function
-        // NOTE: The function glm::ortho can be used to create the orthographic projection matrix
-        // It takes left, right, bottom, top. Bottom is -orthoHeight/2 and Top is orthoHeight/2.
-        // Left and Right are the same but after being multiplied by the aspect ratio
-        // For the perspective camera, you can use glm::perspective
+
         float aspectRatio = static_cast<float>(viewportSize.x) / static_cast<float>(viewportSize.y);
 
         if(cameraType == CameraType::ORTHOGRAPHIC) {

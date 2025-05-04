@@ -1,16 +1,3 @@
-#version 330 core
-
-layout(location = 0) in vec3 position;
-layout(location = 1) in vec4 color;
-
-out Varyings {
-    vec4 color;
-} vs_out;
-
-uniform mat4 transform;
-
-void main(){
-    //TODO: (Req 7) Change the next line to apply the transformation matrix
-    gl_Position = transform * vec4(position, 1.0);
-    vs_out.color = color;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:2a4a7aa81d47c11c7a8feb334f9acd4cd353270acac00f5ec19e388d54487e75
+size 400
