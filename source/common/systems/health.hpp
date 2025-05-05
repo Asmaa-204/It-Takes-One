@@ -10,6 +10,7 @@
 #include <components/health.hpp>
 #include <components/player.hpp>
 #include <components/camera.hpp>
+#include <components/bullet.hpp>
 
 #include <glm/glm.hpp>
 #include <application.hpp>
@@ -82,30 +83,38 @@ namespace our
             // get the health components of the entities
             HealthComponent *health1 = entity1->getComponent<HealthComponent>();
             HealthComponent *health2 = entity2->getComponent<HealthComponent>();
+            // get the player components of the entities
+            PlayerComponent *player1 = entity1->getComponent<PlayerComponent>();
+            PlayerComponent *player2 = entity2->getComponent<PlayerComponent>();
+            // get the bullet component of the entities
+            BulletComponent *bullet1 = entity1->getComponent<BulletComponent>();
+            BulletComponent *bullet2 = entity2->getComponent<BulletComponent>();
+
             if (health1 && health2)
             {
-                // reduce the health of the entities
-                health1->takeDamage(1);
-                health2->takeDamage(1);
+                bool isThereBullets = bullet1 || bullet2;
+                damagePlayer(world, entity1, entity2, isThereBullets);
+                // reduce the health of the entities if the other entity is not a player
+                if((player1 && !bullet2) || (!player1 && !player2)) health1->takeDamage(1);
+                if((player2 && !bullet1) || (!player2 && !player1)) health2->takeDamage(1);
 
-                damagePlayer(world, entity1, entity2);
 
                 // check if the entities are alive
-                if (!health1->isAlive())
+                if (!health1->isAlive() && !player2 )
                     destroyEntity(world, entity1);
-                if (!health2->isAlive())
+                if (!health2->isAlive() && !player1)
                     destroyEntity(world, entity2);
             }
         }
 
-        void damagePlayer(World *world, Entity *entity1, Entity *entity2)
+        void damagePlayer(World *world, Entity *entity1, Entity *entity2, bool isThereBullets)
         {
             // get the player component of the entity
             PlayerComponent *player = entity1->getComponent<PlayerComponent>();
             if (!player)
                 player = entity2->getComponent<PlayerComponent>();
 
-            if (player)
+            if (player && !isThereBullets)
             {
                 // get the camera entity
                 Entity *cameraEntity = world->getEntitiesByTag("Camera").front();

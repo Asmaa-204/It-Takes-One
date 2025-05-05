@@ -4,6 +4,7 @@
 #include <components/player.hpp>
 #include <components/rigid-body.hpp>
 #include <components/health.hpp>
+#include <components/bullet.hpp>
 #include <systems/sound.hpp>
 #include <application.hpp>
 
@@ -85,6 +86,9 @@ namespace our
             HealthComponent* health = bullet->addComponent<HealthComponent>();
             health->setDefaultHealth(-1);
             health->resetHealth();
+
+            // add a bullet component   
+            BulletComponent* bulletComponent = bullet->addComponent<BulletComponent>();
 
             // create the rigid body component
             RigidBodyComponent* rigidBody = bullet->addComponent<RigidBodyComponent>();
