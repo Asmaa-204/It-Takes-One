@@ -33,7 +33,7 @@ namespace our
             PlayerComponent *playerComponent = playerEntity->getComponent<PlayerComponent>();
             MovementComponent *movement = playerEntity->getComponent<MovementComponent>();
             RigidBodyComponent *rigidBody = playerEntity->getComponent<RigidBodyComponent>();
-            
+
             Entity *cameraEntity = world->getEntitiesByTag("Camera").empty() ? nullptr : world->getEntitiesByTag("Camera")[0];
             glm::mat4 cameraTransform = cameraEntity->getLocalToWorldMatrix();
 
@@ -62,7 +62,7 @@ namespace our
         float jumpSoundCooldown = 0.0f;
         const float JUMP_SOUND_DURATION = 0.5f;
         const float DEATH_HEIGHT_THRESHOLD = -5.0f;
-        const float MAX_JUMP_HEIGHT = 1.0f;
+        const float MAX_JUMP_HEIGHT = 0.3f;
 
         void initializeSounds()
         {
@@ -82,14 +82,10 @@ namespace our
 
             float heightAboveGround = getHeightAboveGround(player->getOwner());
 
-            if (app->getKeyboard().isPressed(GLFW_KEY_W))
-                linearVelocity += player->movementSpeed.z * cameraForward;
-            if (app->getKeyboard().isPressed(GLFW_KEY_S))
-                linearVelocity -= player->movementSpeed.z * cameraForward;
-            if (app->getKeyboard().isPressed(GLFW_KEY_A))
-                linearVelocity -= player->movementSpeed.x * cameraRight;
-            if (app->getKeyboard().isPressed(GLFW_KEY_D))
-                linearVelocity += player->movementSpeed.x * cameraRight;
+            if (app->getKeyboard().isPressed(GLFW_KEY_W)) linearVelocity += player->movementSpeed.z * cameraForward;
+            if (app->getKeyboard().isPressed(GLFW_KEY_S)) linearVelocity -= player->movementSpeed.z * cameraForward;
+            if (app->getKeyboard().isPressed(GLFW_KEY_A)) linearVelocity -= player->movementSpeed.x * cameraRight;
+            if (app->getKeyboard().isPressed(GLFW_KEY_D)) linearVelocity += player->movementSpeed.x * cameraRight;
             if (app->getKeyboard().isPressed(GLFW_KEY_SPACE) && heightAboveGround < MAX_JUMP_HEIGHT)
             {
                 linearVelocity.y += player->jumpForce;
@@ -120,7 +116,7 @@ namespace our
             // Get player's transformation matrix
             glm::mat4 playerTransform = playerEntity->getLocalToWorldMatrix();
 
-            // // Extract forward and up vectors
+            // Extract forward vector
             glm::vec3 playerForward = glm::normalize(glm::vec3(playerTransform * glm::vec4(0.0f, 0.0f, -1.0f, 0.0f)));
 
             // Camera offset
@@ -139,8 +135,6 @@ namespace our
         {
             if (!rigidBody)
                 return;
-
-            // // set the entity's local transformation
             
             btTransform worldTransform;
 
@@ -161,7 +155,6 @@ namespace our
             
             playerEntity->localTransform.rotation.x = worldTransform.getRotation().getX();
             playerEntity->localTransform.rotation.y = y + M_PI;
-            // playerEntity->localTransform.rotation.y = worldTransform.getRotation().getY();
             playerEntity->localTransform.rotation.z = worldTransform.getRotation().getZ();
         }
 
