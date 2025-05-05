@@ -85,11 +85,13 @@ class Playstate: public our::State {
         physicsSystem.update(&world, (float)deltaTime);
 
         playerSystem.update(&world, (float)deltaTime);
-        // And finally we use the renderer system to draw the scene
-        renderer.update(&world, (float)deltaTime);
         
         // Check for collisions and apply damage to the entities
         healthSystem.update(&world, (float)deltaTime);
+
+        // And finally we use the renderer system to draw the scene
+        renderer.update(&world, (float)deltaTime);
+        
         world.deleteMarkedEntities();
         
         // Get a reference to the keyboard object

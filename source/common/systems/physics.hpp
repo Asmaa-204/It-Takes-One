@@ -24,18 +24,6 @@ namespace our
 
                     rigidBody->getRigidBody()->getMotionState()->getWorldTransform(worldTransform);
 
-                    // Get the current rotation
-                    btQuaternion rotation = worldTransform.getRotation();
-
-                    // Reset X and Z components of the rotation
-                    rotation.setX(0);
-                    rotation.setZ(0);
-                    rotation.normalize();
-
-                    // Apply the modified rotation back to the rigid body
-                    worldTransform.setRotation(rotation);
-                    rigidBody->getRigidBody()->getMotionState()->setWorldTransform(worldTransform);
-
                     entity->localTransform.position.x = worldTransform.getOrigin().getX();
                     entity->localTransform.position.y = worldTransform.getOrigin().getY();
                     entity->localTransform.position.z = worldTransform.getOrigin().getZ();
