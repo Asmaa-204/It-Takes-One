@@ -103,6 +103,8 @@ set(COMMON_SOURCES
         source/common/components/player.hpp
         source/common/components/health.cpp
         source/common/components/health.hpp
+        source/common/components/bullet.cpp
+        source/common/components/bullet.hpp
 
         source/common/systems/forward-renderer.hpp
         source/common/systems/forward-renderer.cpp
