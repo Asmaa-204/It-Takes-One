@@ -49,6 +49,12 @@ namespace our
                             deltaTime * movement->linearVelocity.z
                         );
                         
+                        // limit the x an z speed of the player
+                        if(player) {
+                            updatedLinearVelocity.setX(glm::clamp(updatedLinearVelocity.getX(), -player->movementSpeed.x, player->movementSpeed.x));
+                            updatedLinearVelocity.setZ(glm::clamp(updatedLinearVelocity.getZ(), -player->movementSpeed.z, player->movementSpeed.z));
+                        }
+                        
                         rigidBody->getRigidBody()->setLinearVelocity(updatedLinearVelocity);
                         
                         //disable rotational movements for player
