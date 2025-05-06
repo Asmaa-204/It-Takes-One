@@ -547,6 +547,7 @@
     "world": [
       {
         "position": [0, 2, -3],
+        "rotation": [0, 3.14, 0],
         "components": [
           {
             "type": "Camera"
@@ -1952,8 +1953,8 @@
         ]
       },
       {
-        "scale": [0.5, 0.5, 0.5],
-        "position": [0, 0, 0.5],
+        "scale": [0.7, 0.7, 0.7],
+        "position": [-48, 10, -13],
         "components": [
           {
             "type": "Mesh Renderer",
