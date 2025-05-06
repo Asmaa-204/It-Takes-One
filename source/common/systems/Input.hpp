@@ -54,7 +54,7 @@ namespace our {
             rotation.y -= delta.x * controller->rotationSensitivity;
             
             // Clamp pitch
-            rotation.x = glm::clamp(rotation.x, -glm::half_pi<float>() * 0.99f, glm::half_pi<float>() * 0.99f);
+            rotation.x = glm::clamp(rotation.x, -glm::half_pi<float>() * 0.59f, 0.0f);
             // Wrap yaw
             rotation.y = glm::wrapAngle(rotation.y);
 
