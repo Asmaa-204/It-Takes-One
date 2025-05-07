@@ -2,6 +2,8 @@
 #include <systems/forward-renderer.hpp>
 #include <mesh/mesh-utils.hpp>
 #include <components/light.hpp>
+#include <components/player.hpp>
+#include <entities/entity.hpp>
 
 
 #include <iostream>
@@ -214,15 +216,28 @@ namespace our {
 
         // world->getPhysicsWorld()->debugDrawWorld();
 
+        // get the player entity
+        Entity* player = world->getEntitiesByTag("Player").front();
+        if (!player) return;
+
+        // get the player's player component
+        PlayerComponent* playerComponent = player->getComponent<PlayerComponent>();
+        bool isShooting = playerComponent->getShooting();
+        bool isDamaged = playerComponent->getDamaged();
+
         // If there is a postprocess material, apply postprocessing
         if(postprocessMaterial){
             glBindFramebuffer(GL_FRAMEBUFFER, 0);
             
             postprocessMaterial->setup();
+            postprocessMaterial->shader->set("flashColor", isShooting ? glm::vec3(1.0f, 1.0f, 1.0f) : glm::vec3(1.0f, 0.0f, 0.0f));
+            postprocessMaterial->shader->set("flashIntensity", (isShooting || isDamaged) ? 0.6f : 0.0f);
             glBindVertexArray(postProcessVertexArray);
             glDrawArrays(GL_TRIANGLES, 0, 3);
             glBindVertexArray(0);
         }
+
+        playerComponent->setDamaged(false);
     }
 
 }

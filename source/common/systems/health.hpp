@@ -39,7 +39,8 @@ namespace our
             elapsedTime += deltaTime;
 
             // check if the elapsed time is less than the fire rate
-            if (elapsedTime < damageRate) return;
+            if (elapsedTime < damageRate)
+                return;
             // reset the elapsed time
             elapsedTime = 0.0;
 
@@ -52,12 +53,14 @@ namespace our
             int numManifolds = world->getPhysicsWorld()->getDispatcher()->getNumManifolds();
             for (int i = 0; i < numManifolds; i++)
             {
-                if (i >= world->getPhysicsWorld()->getDispatcher()->getNumManifolds()) {
+                if (i >= world->getPhysicsWorld()->getDispatcher()->getNumManifolds())
+                {
                     continue; // Skip if the index is no longer valid
                 }
 
                 btPersistentManifold *contactManifold = world->getPhysicsWorld()->getDispatcher()->getManifoldByIndexInternal(i);
-                if (!contactManifold) continue; // Skip invalid manifolds
+                if (!contactManifold)
+                    continue; // Skip invalid manifolds
 
                 const btCollisionObject *colObj0 = contactManifold->getBody0();
                 const btCollisionObject *colObj1 = contactManifold->getBody1();
@@ -95,12 +98,13 @@ namespace our
                 bool isThereBullets = bullet1 || bullet2;
                 damagePlayer(world, entity1, entity2, isThereBullets);
                 // reduce the health of the entities if the other entity is not a player
-                if((player1 && !bullet2) || (!player1 && !player2)) health1->takeDamage(1);
-                if((player2 && !bullet1) || (!player2 && !player1)) health2->takeDamage(1);
-
+                if ((player1 && !bullet2) || (!player1 && !player2))
+                    health1->takeDamage(1);
+                if ((player2 && !bullet1) || (!player2 && !player1))
+                    health2->takeDamage(1);
 
                 // check if the entities are alive
-                if (!health1->isAlive() && !player2 )
+                if (!health1->isAlive() && !player2)
                     destroyEntity(world, entity1);
                 if (!health2->isAlive() && !player1)
                     destroyEntity(world, entity2);
@@ -109,10 +113,14 @@ namespace our
 
         void damagePlayer(World *world, Entity *entity1, Entity *entity2, bool isThereBullets)
         {
+            // get the real player component 
+            Entity* playerEntity = world->getEntitiesByTag("Player").front();
+
             // get the player component of the entity
             PlayerComponent *player = entity1->getComponent<PlayerComponent>();
             if (!player)
                 player = entity2->getComponent<PlayerComponent>();
+
 
             if (player && !isThereBullets)
             {
@@ -143,6 +151,8 @@ namespace our
                 soundSystem.playSound("ouch");
                 // set the players speed to the camera's forward vector
                 rigidBody->getRigidBody()->setLinearVelocity(btVector3(cameraForward.x, cameraForward.y, cameraForward.z) * 5.0f);
+
+                player->setDamaged(true);
             }
         }
 

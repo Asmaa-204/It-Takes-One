@@ -10,6 +10,8 @@
 namespace our {
 
     class PlayerComponent : public Component {
+        bool isShooting;
+        bool isDamaged;
     public:
         glm::vec3 movementSpeed = glm::vec3(5.0f, 5.0f, 5.0f);
         float jumpForce = 10.0f;
@@ -31,6 +33,19 @@ namespace our {
             glm::vec3 worldCenter = glm::vec3(localToWorld * glm::vec4(localCenter, 1.0f));
 
             return worldCenter;
+        }
+
+        void setShooting(bool shooting) {
+            isShooting = shooting;
+        }
+        bool getShooting() const {
+            return isShooting;
+        }
+        void setDamaged(bool damaged) {
+            isDamaged = damaged;
+        }
+        bool getDamaged() const {
+            return isDamaged;
         }
 
 
