@@ -2,39 +2,33 @@
 
 #include <iostream>
 
-namespace our
-{
+namespace our {
 
     // This will deserialize a json array of entities and add the new entities
     // to the current world If parent pointer is not null, the new entities will
     // be have their parent set to that given pointer If any of the entities has
     // children, this function will be called recursively for these children
-    void World::deserialize(const nlohmann::json &data, Entity *parent)
-    {
+    void World::deserialize(const nlohmann::json &data, Entity *parent) {
         if (!data.is_array())
             return;
-        for (const auto &entityData : data)
-        {
+        for (const auto &entityData : data) {
             Entity *entity = add();
             entity->parent = parent;
 
             // Deserialize the entity's data
             entity->deserialize(entityData);
 
-            if (entityData.contains("children"))
-            {
+            if (entityData.contains("children")) {
                 deserialize(entityData["children"], entity);
             }
 
-            for (Component *c : entity->components)
-            {
+            for (Component *c : entity->components) {
                 addEntityToTag(c->getid(), entity);
             }
         }
     }
 
-    void World::initializePhysics()
-    {
+    void World::initializePhysics() {
         // create the collision configuration
         collisionConfiguration = new btDefaultCollisionConfiguration();
         // create the dispatcher
@@ -48,8 +42,7 @@ namespace our
             dispatcher, broadPhase, solver, collisionConfiguration);
     }
 
-    void World::shutdownPhysics()
-    {
+    void World::shutdownPhysics() {
         delete physicsWorld;
         delete solver;
         delete broadPhase;
@@ -57,8 +50,7 @@ namespace our
         delete collisionConfiguration;
     }
 
-    Entity *World::createEnemy(glm::vec3 position)
-    {
+    Entity *World::createEnemy(glm::vec3 position) {
         Entity *enemy = this->add();
 
         // Set the transformation of the entity

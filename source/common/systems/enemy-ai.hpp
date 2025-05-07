@@ -26,10 +26,6 @@ namespace our {
         void enter(Application *app) { this->app = app; }
 
         void update(World *world, float deltaTime) override {
-            std::vector<Entity *> v = world->getEntitiesByTag("Player");
-            if (v.size() == 0) {
-                std::cout << "Empty" << std::endl;
-            }
             Entity *player = world->getEntitiesByTag("Player").front();
             if (!player)
                 return;

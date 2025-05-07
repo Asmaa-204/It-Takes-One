@@ -7,7 +7,7 @@
         "width": 1280,
         "height": 720
       },
-      "fullscreen": false
+      "fullscreen": true
     },
     "scene": {
       "renderer": {
@@ -2237,7 +2237,132 @@
           ]
         },
         {
-            "position": [5, 1, 2],
+            "position": [-32, 1.5, -13],
+            "scale": [0.02, 0.02, 0.02],
+            "components": [
+            {
+                "type": "Mesh Renderer",
+                "mesh": "enemy-turtle",
+                "material": "enemy-turtle"
+            },
+            {
+                "type": "Rigid Body",
+                "mass": 1.0
+            }, 
+            {
+                "type": "EnemyAI"
+            },
+            {
+                "type": "EnemyShoot"
+            },
+            {
+                "type": "Health",
+                "maxHealth": 10
+            }
+          ]
+        },
+        {
+            "position": [2, 0, -12],
+            "scale": [0.02, 0.02, 0.02],
+            "components": [
+            {
+                "type": "Mesh Renderer",
+                "mesh": "enemy-turtle",
+                "material": "enemy-turtle"
+            },
+            {
+                "type": "Rigid Body",
+                "mass": 1.0
+            }, 
+            {
+                "type": "EnemyAI"
+            },
+            {
+                "type": "EnemyShoot"
+            },
+            {
+                "type": "Health",
+                "maxHealth": 10
+            }
+          ]
+        },
+        {
+            "position": [3.6, 0, 10],
+            "scale": [0.02, 0.02, 0.02],
+            "components": [
+            {
+                "type": "Mesh Renderer",
+                "mesh": "enemy-turtle",
+                "material": "enemy-turtle"
+            },
+            {
+                "type": "Rigid Body",
+                "mass": 1.0
+            }, 
+            {
+                "type": "EnemyAI"
+            },
+            {
+                "type": "EnemyShoot"
+            },
+            {
+                "type": "Health",
+                "maxHealth": 10
+            }
+          ]
+        },
+        {
+            "position": [27, 0, -1.6],
+            "scale": [0.02, 0.02, 0.02],
+            "components": [
+            {
+                "type": "Mesh Renderer",
+                "mesh": "enemy-turtle",
+                "material": "enemy-turtle"
+            },
+            {
+                "type": "Rigid Body",
+                "mass": 1.0
+            }, 
+            {
+                "type": "EnemyAI"
+            },
+            {
+                "type": "EnemyShoot"
+            },
+            {
+                "type": "Health",
+                "maxHealth": 10
+            }
+          ]
+        },
+        {
+            "position": [16, 3, -39],
+            "scale": [0.02, 0.02, 0.02],
+            "components": [
+            {
+                "type": "Mesh Renderer",
+                "mesh": "enemy-turtle",
+                "material": "enemy-turtle"
+            },
+            {
+                "type": "Rigid Body",
+                "mass": 1.0
+            }, 
+            {
+                "type": "EnemyAI"
+            },
+            {
+                "type": "EnemyShoot"
+            },
+            {
+                "type": "Health",
+                "maxHealth": 10
+            }
+          ]
+        },
+        {
+            "position": [-14, 4, -43],
             "scale": [0.02, 0.02, 0.02],
             "components": [
             {
