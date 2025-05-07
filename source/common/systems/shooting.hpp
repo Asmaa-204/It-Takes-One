@@ -30,7 +30,7 @@ namespace our
 
         void update(World* world, float deltaTime) override {
             // check for mouse input
-            if (!(app->getMouse().isPressed(GLFW_MOUSE_BUTTON_LEFT))) return;
+            if (!(app->getMouse().isPressed(GLFW_MOUSE_BUTTON_LEFT) || app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT))) return;
             // update the elapsed time
             elapsedTime += deltaTime;
 
@@ -75,7 +75,7 @@ namespace our
             bullet->localTransform.rotation = cameraComponent->getOwner()->localTransform.rotation;
 
             // set the scale of the bullet to 0.017
-            bullet->localTransform.scale = glm::vec3(0.017f, 0.017f, 0.017f);
+            bullet->localTransform.scale = glm::vec3(0.022f, 0.022f, 0.022f);
 
             // add mesh component 
             MeshRendererComponent* meshRenderer = bullet->addComponent<MeshRendererComponent>();
