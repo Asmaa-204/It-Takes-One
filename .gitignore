@@ -32,3 +32,5 @@ compile_commands.json
 
 # GLB files
 glb_assets/
+
+.clang-format
