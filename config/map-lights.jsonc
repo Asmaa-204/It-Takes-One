@@ -11,7 +11,7 @@
     },
     "scene": {
       "renderer": {
-        "sky": "assets/textures/sky.jpeg",
+        "sky": "assets/textures/sky2.jpg",
         "postprocess": "assets/shaders/postprocess/flash.frag"
       },
       "assets": {
