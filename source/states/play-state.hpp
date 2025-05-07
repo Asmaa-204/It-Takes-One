@@ -106,6 +106,9 @@ class Playstate : public our::State {
                              ->localTransform.position.x
                       << " ";
             std::cout << world.getEntitiesByTag("Player")[0]
+                             ->localTransform.position.y
+                      << " ";
+            std::cout << world.getEntitiesByTag("Player")[0]
                              ->localTransform.position.z
                       << " ";
             std::cout << std::endl;

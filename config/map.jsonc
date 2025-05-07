@@ -11,7 +11,7 @@
   },
   "scene": {
     "renderer": {
-      "sky": "assets/textures/sky.jpeg",
+      "sky": "assets/textures/sky2.jpg",
       "postprocess": "assets/shaders/postprocess/flash.frag"
     },
     "assets": {
@@ -40,7 +40,8 @@
         "bullet": "assets/textures/bullet_spike.png",
         "jazz": "assets/textures/bunny.png",
         "enemy-turtle": "assets/textures/enemy-turtle.jpg",
-        "sbox": "assets/textures/star-wars-box.jpg"
+        "sbox": "assets/textures/star-wars-box.jpg",
+        "specular": "assets/textures/specular.png"
       },
       "meshes": {
         "bullet": {

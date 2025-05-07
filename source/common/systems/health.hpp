@@ -19,6 +19,10 @@ namespace our {
         SoundSystem soundSystem;
         double elapsedTime = 0.0;
         const double damageRate = 1 / 5.0;  // Time in seconds between shots
+        
+        // Add sound cooldown variables
+        float soundCooldown = 0.0f;
+        const float SOUND_COOLDOWN_DURATION = 1.0f;  // One second between sounds
 
     public:
         void enter(Application *app) {
@@ -28,8 +32,10 @@ namespace our {
         }
 
         void update(World *world, float deltaTime) {
+            // Update cooldowns
             // update the elapsed time
             elapsedTime += deltaTime;
+            soundCooldown = std::max(0.0f, soundCooldown - deltaTime);
 
             // check if the elapsed time is less than the fire rate
             if (elapsedTime < damageRate)
@@ -143,7 +149,12 @@ namespace our {
                 if (!rigidBody)
                     return;
 
-                soundSystem.playSound("ouch");
+                // Play sound only if cooldown is done
+                if (soundCooldown <= 0.0f) {
+                    soundSystem.playSound("ouch");
+                    soundCooldown = SOUND_COOLDOWN_DURATION;
+                }
+
                 // set the players speed to the camera's forward vector
                 rigidBody->getRigidBody()->setLinearVelocity(
                     btVector3(cameraForward.x, cameraForward.y,

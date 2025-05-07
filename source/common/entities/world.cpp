@@ -2,8 +2,7 @@
 
 #include <iostream>
 
-namespace our
-{
+namespace our {
 
     // This will deserialize a json array of entities and add the new entities
     // to the current world If parent pointer is not null, the new entities will
@@ -13,28 +12,24 @@ namespace our
     {
         if (!data.is_array())
             return;
-        for (const auto &entityData : data)
-        {
+        for (const auto &entityData : data) {
             Entity *entity = add();
             entity->parent = parent;
 
             // Deserialize the entity's data
             entity->deserialize(entityData);
 
-            if (entityData.contains("children"))
-            {
+            if (entityData.contains("children")) {
                 deserialize(entityData["children"], entity);
             }
 
-            for (Component *c : entity->components)
-            {
+            for (Component *c : entity->components) {
                 addEntityToTag(c->getid(), entity);
             }
         }
     }
 
-    void World::initializePhysics()
-    {
+    void World::initializePhysics() {
         // create the collision configuration
         collisionConfiguration = new btDefaultCollisionConfiguration();
         // create the dispatcher
@@ -48,14 +43,14 @@ namespace our
             dispatcher, broadPhase, solver, collisionConfiguration);
     }
 
-    void World::shutdownPhysics()
-    {
+    void World::shutdownPhysics() {
         delete physicsWorld;
         delete solver;
         delete broadPhase;
         delete dispatcher;
         delete collisionConfiguration;
     }
+
 
     Entity *World::createEnemy(glm::vec3 position)
     {

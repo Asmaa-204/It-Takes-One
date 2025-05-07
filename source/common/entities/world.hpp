@@ -12,10 +12,10 @@
 #include "debugDrawer/debugDrawer.hpp"
 #include "entity.hpp"
 
-namespace our
-{
+namespace our {
 
     // This class holds a set of entities
+
     class World
     {
         std::unordered_set<Entity *>
@@ -60,6 +60,7 @@ namespace our
         // the "markedForRemoval" set. The elements in the "markedForRemoval"
         // set will be removed and deleted when "deleteMarkedEntities" is
         // called.
+
         Entity *add()
         {
             Entity *entity = new Entity();
@@ -72,30 +73,25 @@ namespace our
         // world.
         const std::unordered_set<Entity *> &getEntities() { return entities; }
 
-        Entity *getEntityByRigidBody(btRigidBody *body)
-        {
+        Entity *getEntityByRigidBody(btRigidBody *body) {
             if (rigidBodies.count(body))
                 return rigidBodies[body];
             return nullptr;
         }
 
-        const void addRigidBody(btRigidBody *body, Entity *entity)
-        {
-            if (body && entity)
-            {
+        const void addRigidBody(btRigidBody *body, Entity *entity) {
+            if (body && entity) {
                 rigidBodies[body] = entity;
             }
         }
 
         btDynamicsWorld *getPhysicsWorld() { return physicsWorld; }
 
-        const std::vector<Entity *> &getEntitiesByTag(const std::string &tag)
-        {
+        const std::vector<Entity *> &getEntitiesByTag(const std::string &tag) {
             return entitiesByTag[tag];
         }
 
-        void addEntityToTag(const std::string &tag, Entity *entity)
-        {
+        void addEntityToTag(const std::string &tag, Entity *entity) {
             if (!entity || tag == "")
                 return;
 
@@ -112,6 +108,7 @@ namespace our
         // This marks an entity for removal by adding it to the
         // "markedForRemoval" set. The elements in the "markedForRemoval" set
         // will be removed and deleted when "deleteMarkedEntities" is called.
+
         void markForRemoval(Entity *entity)
         {
             if (entities.find(entity) != entities.end())
@@ -120,10 +117,8 @@ namespace our
             }
         }
 
-        void deleteMarkedEntities()
-        {
-            for (auto entity : markedForRemoval)
-            {
+        void deleteMarkedEntities() {
+            for (auto entity : markedForRemoval) {
                 entities.erase(entity);
                 // loop on the entitysByTag and remove the entity from all the
                 // tags
@@ -134,10 +129,8 @@ namespace our
             markedForRemoval.clear();
         }
 
-        void clearMarkedEntity(Entity *entity)
-        {
-            for (auto &pair : entitiesByTag)
-            {
+        void clearMarkedEntity(Entity *entity) {
+            for (auto &pair : entitiesByTag) {
                 auto &taggedEntities = pair.second;
                 taggedEntities.erase(std::remove(taggedEntities.begin(),
                                                  taggedEntities.end(), entity),
@@ -150,16 +143,13 @@ namespace our
                 return;
             auto rigidBody = rbc->getRigidBody();
             auto it = rigidBodies.find(rigidBody);
-            if (it != rigidBodies.end())
-            {
+            if (it != rigidBodies.end()) {
                 rigidBodies.erase(it);
             }
         }
 
-        void clear()
-        {
-            for (auto entity : entities)
-            {
+        void clear() {
+            for (auto entity : entities) {
                 clearMarkedEntity(entity);
                 delete entity;
             }
@@ -167,8 +157,7 @@ namespace our
             markedForRemoval.clear();
         }
 
-        ~World()
-        {
+        ~World() {
             clear();
             shutdownPhysics();
         }
