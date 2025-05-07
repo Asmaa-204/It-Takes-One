@@ -2036,8 +2036,11 @@
             "mass": 1.0
           }, 
           {
-            "type": "Enemy"
-          }, 
+            "type": "EnemyAI"
+          },
+          {
+            "type": "EnemyShoot"
+          },
           {
             "type": "Health",
             "maxHealth": 5
