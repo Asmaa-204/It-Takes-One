@@ -27,6 +27,9 @@ namespace our {
     public:
         int light_type;
 
+        // Color
+        glm::vec3 color = glm::vec3(1, 1, 1);
+
         // General Lighting
         glm::vec3 ambient = glm::vec3(1, 1, 1);
         glm::vec3 diffuse = glm::vec3(1, 1, 1);

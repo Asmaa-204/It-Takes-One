@@ -66,6 +66,19 @@ namespace our {
         void deserialize(const nlohmann::json& data) override;
     };
 
+    class PBRMaterial : public Material {
+    public:
+        Texture2D* albedoMap;
+        Texture2D* normalMap;
+        Texture2D* metallicMap;
+        Texture2D* roughnessMap;
+        Texture2D* aoMap;
+        Sampler* sampler;
+
+        void setup() const override;
+        void deserialize(const nlohmann::json& data) override;
+    };
+
     // This function returns a new material instance based on the given type
     inline Material* createMaterialFromType(const std::string& type){
         if(type == "tinted"){
@@ -74,6 +87,8 @@ namespace our {
             return new TexturedMaterial();
         } else if(type == "lit") {
             return new LitMaterial();
+        } else if(type == "pbr") {
+            return new PBRMaterial();
         } else {
             return new Material();
         }

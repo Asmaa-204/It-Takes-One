@@ -27,6 +27,7 @@ namespace our{
             glm::vec3 position = light->getLocalToWorldMatrix() * glm::vec4(0, 0, 0, 1);
         
             shader->set(prefix + "type", int(l->light_type));
+            shader->set(prefix + "color", l->color);
 
             shader->set(prefix + "fade.constant", l->constantAttenuation);
             shader->set(prefix + "fade.linear", l->linearAttenuation);
@@ -61,6 +62,11 @@ namespace our{
 
             for(auto& shader: uniqueShaders)
             {
+                std::cout << shader << std::endl;
+                
+                if(!shader)
+                    continue;
+
                 shader->use();
                 shader->set("n_lights", int(lights.size()));
                 for(int i = 0; i < lights.size(); i++)

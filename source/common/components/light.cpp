@@ -6,6 +6,8 @@ namespace our {
     {
         if (!data.is_object()) return;
 
+        color = data.value("color", color);
+
         ambient = data.value("ambient", ambient);
         diffuse = data.value("diffuse", diffuse);
         specular = data.value("specular", specular);

@@ -93,4 +93,47 @@ namespace our {
         sampler = AssetLoader<Sampler>::get(data.value("sampler", ""));
     }
 
+    void PBRMaterial::setup() const 
+    {
+        Material::setup();
+
+        glActiveTexture(GL_TEXTURE0);
+        albedoMap->bind();
+        sampler->bind(0);
+
+        glActiveTexture(GL_TEXTURE1);
+        normalMap->bind();
+        sampler->bind(1);
+
+        glActiveTexture(GL_TEXTURE2);
+        metallicMap->bind();
+        sampler->bind(2);
+
+        glActiveTexture(GL_TEXTURE3);
+        roughnessMap->bind();
+        sampler->bind(3);
+
+        glActiveTexture(GL_TEXTURE4);
+        aoMap->bind();
+        sampler->bind(4);
+
+        shader->set("material.albedo", 0);
+        shader->set("material.normal", 1);
+        shader->set("material.metallic", 2);
+        shader->set("material.roughness", 3);
+        shader->set("material.aoMap", 4);
+    }
+
+    void PBRMaterial::deserialize(const nlohmann::json& data)
+    {
+        Material::deserialize(data);
+        if(!data.is_object()) return;
+
+        albedoMap = AssetLoader<Texture2D>::get(data.value("albedoMap", ""));
+        normalMap = AssetLoader<Texture2D>::get(data.value("normalMap", ""));
+        metallicMap = AssetLoader<Texture2D>::get(data.value("metallicMap", ""));        
+        roughnessMap = AssetLoader<Texture2D>::get(data.value("roughnessMap", ""));
+        aoMap = AssetLoader<Texture2D>::get(data.value("aoMap", ""));
+        sampler = AssetLoader<Sampler>::get(data.value("sampler", ""));
+    }
 }
