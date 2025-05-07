@@ -29,20 +29,6 @@ namespace our
         }
 
         void update(World* world, float deltaTime) override {
-            // check for mouse input
-            if (!(app->getMouse().isPressed(GLFW_MOUSE_BUTTON_LEFT))) return;
-            // update the elapsed time
-            elapsedTime += deltaTime;
-
-            // check if the elapsed time is less than the fire rate
-            if (elapsedTime < fireRate) return;
-            // reset the elapsed time
-            elapsedTime = 0.0;
-
-            // play fire sound effect
-            if (soundSystem) {
-                soundSystem->playSound("fire");
-            }
 
             // get the player entity
             Entity* player = world->getEntitiesByTag("Player").front();
@@ -50,6 +36,31 @@ namespace our
 
             // get the player's player component
             PlayerComponent* playerComponent = player->getComponent<PlayerComponent>();
+
+            // check for mouse input
+            if (!(app->getMouse().isPressed(GLFW_MOUSE_BUTTON_LEFT))) {
+                playerComponent->setShooting(false);
+                return;
+            }
+            
+            // update the elapsed time
+            elapsedTime += deltaTime;
+
+            // check if the elapsed time is less than the fire rate
+            if (elapsedTime < fireRate) {
+                playerComponent->setShooting(false);
+                return;
+            }
+
+            // reset the elapsed time
+            elapsedTime = 0.0;
+
+            playerComponent->setShooting(true);
+
+            // play fire sound effect
+            if (soundSystem) {
+                soundSystem->playSound("fire");
+            }
 
             // get the center of the player component
             glm::vec3 playerCenter = playerComponent->getMeshCenter();

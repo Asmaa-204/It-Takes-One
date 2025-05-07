@@ -10,7 +10,9 @@
     "fullscreen": false
   },
   "scene": {
-    "renderer": {},
+    "renderer": {
+      "postprocess": "assets/shaders/postprocess/flash.frag"
+    },
     "assets": {
       "shaders": {
         "tinted": {
