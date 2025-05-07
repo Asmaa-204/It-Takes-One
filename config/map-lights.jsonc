@@ -7,7 +7,7 @@
         "width": 1280,
         "height": 720
       },
-      "fullscreen": true
+      "fullscreen": false
     },
     "scene": {
       "renderer": {
@@ -57,7 +57,8 @@
           "metal_ao": "assets/pbr/metal/metal_ao.jpg",
           "metal_roughness": "assets/pbr/metal/metal_roughness.jpg",
           "metal_metallic": "assets/pbr/metal/metal_metalness.jpg",
-          "metal_displacement": "assets/pbr/metal/metal_displacement.jpg"
+          "metal_displacement": "assets/pbr/metal/metal_displacement.jpg",
+          "enemy-turtle": "assets/textures/enemy-turtle.jpg"
         },
         "meshes": {
           "cube": {"path": "assets/models/cube.obj", "isDynamic": false },
@@ -440,6 +441,10 @@
           "5-stone-stairs-9-1": {
             "path": "assets/models/map/5_stone_stairs_9_1.obj",
             "isDynamic": false
+          },
+          "enemy-turtle": {
+            "path": "assets/models/Turtle.obj",
+            "isDynamic": true
           }
         },
         "samplers": {
@@ -612,6 +617,21 @@
               }
             },
             "tint": [1, 1, 1, 1]
+          },
+          "enemy-turtle": {
+            "type": "textured",
+            "shader": "textured",
+            "pipelineState": {
+                "faceCulling": {
+                "enabled": false
+                },
+                "depthTesting": {
+                "enabled": true
+                }
+            },
+            "tint": [1, 1, 1, 1],
+            "texture": "enemy-turtle",
+            "sampler": "default"
           }
         }
       },
@@ -2214,6 +2234,31 @@
                 }
               ]
             }          
+          ]
+        },
+        {
+            "position": [5, 1, 2],
+            "scale": [0.02, 0.02, 0.02],
+            "components": [
+            {
+                "type": "Mesh Renderer",
+                "mesh": "enemy-turtle",
+                "material": "enemy-turtle"
+            },
+            {
+                "type": "Rigid Body",
+                "mass": 1.0
+            }, 
+            {
+                "type": "EnemyAI"
+            },
+            {
+                "type": "EnemyShoot"
+            },
+            {
+                "type": "Health",
+                "maxHealth": 10
+            }
           ]
         }
       ]
