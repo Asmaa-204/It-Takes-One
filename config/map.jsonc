@@ -7,7 +7,7 @@
       "width": 1280,
       "height": 720
     },
-    "fullscreen": true
+    "fullscreen": false
   },
   "scene": {
     "renderer": {
@@ -2024,7 +2024,7 @@
       },
       {
         "position": [5, 1, 2],
-        "scale": [0.03, 0.03, 0.03],
+        "scale": [0.02, 0.02, 0.02],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -2043,7 +2043,7 @@
           },
           {
             "type": "Health",
-            "maxHealth": 5
+            "maxHealth": 10
           }
         ]
       }

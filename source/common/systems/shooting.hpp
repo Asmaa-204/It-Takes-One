@@ -2,6 +2,8 @@
 
 #include <application.hpp>
 #include <components/bullet.hpp>
+#include <components/camera.hpp>
+#include <components/enemy-shoot.hpp>
 #include <components/health.hpp>
 #include <components/player.hpp>
 #include <components/rigid-body.hpp>
@@ -19,18 +21,15 @@ namespace our {
         const double fireRate = 1 / 5.0;  // Time in seconds between shots
         const double bulletSpeed =
             23.0;  // Speed of the bullet in units per second
-    public:
-        void enter(Application* app) {
-            this->app = app;
-            soundSystem = &app->getSound();
-            soundSystem->loadSound("fire", "assets/sounds/fire.wav");
-        }
 
-        void update(World* world, float deltaTime) override {
+        void updatePlayerShooting(World* world, float deltaTime) {
             // get the player entity
             Entity* player = world->getEntitiesByTag("Player").front();
             if (!player)
                 return;
+
+            // update the elapsed time
+            player->elapsedTime += deltaTime;
 
             // get the player's player component
             PlayerComponent* playerComponent =
@@ -38,29 +37,25 @@ namespace our {
 
             // check for mouse input
             if (!(app->getMouse().isPressed(GLFW_MOUSE_BUTTON_LEFT) ||
-                  app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT))) {
+                  app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT)) ||
+                player->elapsedTime < fireRate) {
                 playerComponent->setShooting(false);
                 return;
             }
-
-            // update the elapsed time
-            elapsedTime += deltaTime;
 
             // check if the elapsed time is less than the fire rate
-            if (elapsedTime < fireRate) {
-                playerComponent->setShooting(false);
+            if (player->elapsedTime < fireRate)
                 return;
-            }
 
             // reset the elapsed time
-            elapsedTime = 0.0;
-
-            playerComponent->setShooting(true);
+            player->elapsedTime = 0.0;
 
             // play fire sound effect
             if (soundSystem) {
                 soundSystem->playSound("fire");
             }
+
+            playerComponent->setShooting(true);
 
             // get the center of the player component
             glm::vec3 playerCenter = playerComponent->getMeshCenter();
@@ -96,6 +91,80 @@ namespace our {
             // set the scale of the bullet to 0.017
             bullet->localTransform.scale = glm::vec3(0.022f, 0.022f, 0.022f);
 
+            this->addBulletComponents(bullet);
+
+            // disable gravity for the bullets
+            // cameraForward.y = 0.0f; // set x to 0.0f to avoid the bullet
+            // going sideways cameraForward = glm::normalize(cameraForward);
+            cameraForward.y =
+                0.0f;  // set y to 0.0f to avoid the bullet going up
+            cameraForward = glm::normalize(cameraForward);
+
+            RigidBodyComponent* rigidBody =
+                bullet->getComponent<RigidBodyComponent>();
+
+            // set the bullet's linear velocity to the camera's forward vector
+            rigidBody->getRigidBody()->setLinearVelocity(btVector3(
+                cameraForward.x * bulletSpeed, cameraForward.y * bulletSpeed,
+                cameraForward.z * bulletSpeed));
+
+            rigidBody->getRigidBody()->setGravity(btVector3(0, 0, 0));
+        }
+
+        void updateEnemyShooting(World* world, float deltaTime) {
+            Entity* player = world->getEntitiesByTag("Player").front();
+
+            std::vector<Entity*> enemies =
+                world->getEntitiesByTag("EnemyShoot");
+            for (Entity* enemy : enemies) {
+                // update the elapsed time
+                enemy->elapsedTime += deltaTime;
+
+                EnemyShoot* enemyShoot = enemy->getComponent<EnemyShoot>();
+                if (!enemyShoot->shoot || enemy->elapsedTime < fireRate * 5)
+                    continue;
+
+                // reset the elapsed time
+                enemy->elapsedTime = 0.0;
+
+                // play fire sound effect
+                if (soundSystem) {
+                    soundSystem->playSound("fire");
+                }
+
+                glm::vec3 bulletDirection =
+                    glm::normalize(player->localTransform.position -
+                                   enemy->localTransform.position);
+
+                // create an entity for the bullet
+                Entity* bullet = world->add();
+
+                // set the bullet's position to the player's position
+                bullet->localTransform.position =
+                    enemy->localTransform.position +
+                    glm::vec3(bulletDirection.x, 0.5, bulletDirection.z) * 1.5f;
+
+                // set the scale of the bullet to 0.017
+                bullet->localTransform.scale =
+                    glm::vec3(0.017f, 0.017f, 0.017f);
+
+                this->addBulletComponents(bullet);
+
+                RigidBodyComponent* rigidBody =
+                    bullet->getComponent<RigidBodyComponent>();
+
+                // set the bullet's linear velocity to the camera's forward
+                // vector
+                rigidBody->getRigidBody()->setLinearVelocity(
+                    btVector3(bulletDirection.x * bulletSpeed,
+                              bulletDirection.y * bulletSpeed,
+                              bulletDirection.z * bulletSpeed));
+
+                rigidBody->getRigidBody()->setGravity(btVector3(0, 0, 0));
+            }
+        }
+
+        void addBulletComponents(Entity* bullet) {
             // add mesh component
             MeshRendererComponent* meshRenderer =
                 bullet->addComponent<MeshRendererComponent>();
@@ -115,20 +184,18 @@ namespace our {
             RigidBodyComponent* rigidBody =
                 bullet->addComponent<RigidBodyComponent>();
             rigidBody->createRigidBody(.1f);
+        }
 
-            // disable gravity for the bullets
-            // cameraForward.y = 0.0f; // set x to 0.0f to avoid the bullet
-            // going sideways cameraForward = glm::normalize(cameraForward);
-            cameraForward.y =
-                0.0f;  // set y to 0.0f to avoid the bullet going up
-            cameraForward = glm::normalize(cameraForward);
+    public:
+        void enter(Application* app) {
+            this->app = app;
+            soundSystem = &app->getSound();
+            soundSystem->loadSound("fire", "assets/sounds/fire.wav");
+        }
 
-            // set the bullet's linear velocity to the camera's forward vector
-            rigidBody->getRigidBody()->setLinearVelocity(btVector3(
-                cameraForward.x * bulletSpeed, cameraForward.y * bulletSpeed,
-                cameraForward.z * bulletSpeed));
-
-            rigidBody->getRigidBody()->setGravity(btVector3(0, 0, 0));
+        void update(World* world, float deltaTime) override {
+            this->updatePlayerShooting(world, deltaTime);
+            this->updateEnemyShooting(world, deltaTime);
         }
     };
 

@@ -30,12 +30,17 @@ namespace our {
             if (!player)
                 return;
 
-            std::vector<Entity *> enemies = world->getEntitiesByTag("EnemyAI");
             glm::vec3 *playerPos = &player->localTransform.position;
+            std::vector<Entity *> enemies = world->getEntitiesByTag("EnemyAI");
+
+            // Loop over all enemies, and check if they are within range of
+            // player
             for (Entity *enemy : enemies) {
                 glm::vec3 *enemyPos = &enemy->localTransform.position;
                 EnemyShoot *enemyShoot = enemy->getComponent<EnemyShoot>();
-                if (this->calculateDistance(*playerPos, *enemyPos) < 25.0f) {
+                float distance = this->calculateDistance(*playerPos, *enemyPos);
+
+                if (distance < 7.0f) {
                     enemyShoot->shoot = true;
                 } else {
                     enemyShoot->shoot = false;

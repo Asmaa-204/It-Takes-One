@@ -1,59 +1,68 @@
 #pragma once
 
 #include <components/component.hpp>
-#include "transform.hpp"
-#include <list>
-#include <iterator>
-#include <string>
 #include <glm/glm.hpp>
 #include <iostream>
+#include <iterator>
+#include <list>
+#include <string>
 
-namespace our
-{
+#include "transform.hpp"
 
-    class World; // A forward declaration of the World Class
+namespace our {
 
-    class Entity
-    {
-        World *world;                      // This defines what world own this entity
-        std::list<Component *> components; // A list of components that are owned by this entity
+    class World;  // A forward declaration of the World Class
 
-        friend World;       // The world is a friend since it is the only class that is allowed to instantiate an entity
-        Entity() = default; // The entity constructor is private since only the world is allowed to instantiate an entity
+    class Entity {
+        World *world;  // This defines what world own this entity
+        std::list<Component *>
+            components;  // A list of components that are owned by this entity
+
+        friend World;  // The world is a friend since it is the only class that
+                       // is allowed to instantiate an entity
+        Entity() = default;  // The entity constructor is private since only the
+                             // world is allowed to instantiate an entity
     public:
-        std::string name;         // The name of the entity. It could be useful to refer to an entity by its name
-        Entity *parent;           // The parent of the entity. The transform of the entity is relative to its parent.
-                                  // If parent is null, the entity is a root entity (has no parent).
-        Transform localTransform; // The transform of this entity relative to its parent.
+        std::string name;  // The name of the entity. It could be useful to
+                           // refer to an entity by its name
+        Entity *parent;    // The parent of the entity. The transform of the
+                         // entity is relative to its parent. If parent is null,
+                         // the entity is a root entity (has no parent).
+        Transform localTransform;  // The transform of this entity relative to
+                                   // its parent.
+        float elapsedTime = 0.0;
 
-        World *getWorld() const { return world; } // Returns the world to which this entity belongs
+        World *getWorld() const {
+            return world;
+        }  // Returns the world to which this entity belongs
 
-        glm::mat4 getLocalToWorldMatrix() const;  // Computes and returns the transformation from the entities local space to the world space
-        void deserialize(const nlohmann::json &); // Deserializes the entity data and components from a json object
+        glm::mat4 getLocalToWorldMatrix()
+            const;  // Computes and returns the transformation from the entities
+                    // local space to the world space
+        void deserialize(
+            const nlohmann::json &);  // Deserializes the entity data and
+                                      // components from a json object
 
         // This template method create a component of type T,
         // adds it to the components map and returns a pointer to it
         template <typename T>
-        T *addComponent()
-        {
-            static_assert(std::is_base_of<Component, T>::value, "T must inherit from Component");
+        T *addComponent() {
+            static_assert(std::is_base_of<Component, T>::value,
+                          "T must inherit from Component");
             T *component = new T();
             component->owner = this;
             components.push_back(component);
             return component;
         }
 
-        // This template method searhes for a component of type T and returns a pointer to it
-        // If no component of type T was found, it returns a nullptr
+        // This template method searhes for a component of type T and returns a
+        // pointer to it If no component of type T was found, it returns a
+        // nullptr
         template <typename T>
-        T *getComponent()
-        {
-
-            for (auto component : components)
-            {
+        T *getComponent() {
+            for (auto component : components) {
                 T *targetComponent = dynamic_cast<T *>(component);
-                if (targetComponent)
-                {
+                if (targetComponent) {
                     return targetComponent;
                 }
             }
@@ -63,8 +72,7 @@ namespace our
         // This template method dynami and returns a pointer to it
         // If no component of type T was found, it returns a nullptr
         template <typename T>
-        T *getComponent(size_t index)
-        {
+        T *getComponent(size_t index) {
             auto it = components.begin();
             std::advance(it, index);
             if (it != components.end())
@@ -74,13 +82,9 @@ namespace our
 
         // This template method searhes for a component of type T and deletes it
         template <typename T>
-        void deleteComponent()
-        {
-
-            for (auto it = components.begin(); it != components.end(); it++)
-            {
-                if (dynamic_cast<T *>(*it))
-                {
+        void deleteComponent() {
+            for (auto it = components.begin(); it != components.end(); it++) {
+                if (dynamic_cast<T *>(*it)) {
                     delete *it;
                     components.erase(it);
                     return;
@@ -89,12 +93,10 @@ namespace our
         }
 
         // This template method searhes for a component of type T and deletes it
-        void deleteComponent(size_t index)
-        {
+        void deleteComponent(size_t index) {
             auto it = components.begin();
             std::advance(it, index);
-            if (it != components.end())
-            {
+            if (it != components.end()) {
                 delete *it;
                 components.erase(it);
             }
@@ -102,13 +104,9 @@ namespace our
 
         // This template method searhes for the given component and deletes it
         template <typename T>
-        void deleteComponent(T const *component)
-        {
-
-            for (auto it = components.begin(); it != components.end(); it++)
-            {
-                if (*it == component)
-                {
+        void deleteComponent(T const *component) {
+            for (auto it = components.begin(); it != components.end(); it++) {
+                if (*it == component) {
                     delete *it;
                     components.erase(it);
                     return;
@@ -116,11 +114,10 @@ namespace our
             }
         }
 
-        // Since the entity owns its components, they should be deleted alongside the entity
-        ~Entity()
-        {
-            for (auto component : components)
-            {
+        // Since the entity owns its components, they should be deleted
+        // alongside the entity
+        ~Entity() {
+            for (auto component : components) {
                 delete component;
             }
             components.clear();
@@ -131,4 +128,4 @@ namespace our
         Entity &operator=(Entity const &) = delete;
     };
 
-}
+}  // namespace our

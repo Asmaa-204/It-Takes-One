@@ -1,40 +1,33 @@
 #pragma once
 
-#include <systems/system.hpp>
-#include <systems/sound.hpp>
-
-#include <entities/world.hpp>
-#include <entities/entity.hpp>
-
-#include <components/rigid-body.hpp>
+#include <application.hpp>
+#include <components/bullet.hpp>
+#include <components/camera.hpp>
 #include <components/health.hpp>
 #include <components/player.hpp>
-#include <components/camera.hpp>
-#include <components/bullet.hpp>
-
+#include <components/rigid-body.hpp>
+#include <entities/entity.hpp>
+#include <entities/world.hpp>
 #include <glm/glm.hpp>
-#include <application.hpp>
 #include <iostream>
+#include <systems/sound.hpp>
+#include <systems/system.hpp>
 
-namespace our
-{
-    class HealthSystem : public System
-    {
+namespace our {
+    class HealthSystem : public System {
         Application *app = nullptr;
         SoundSystem soundSystem;
         double elapsedTime = 0.0;
-        const double damageRate = 1 / 5.0; // Time in seconds between shots
+        const double damageRate = 1 / 5.0;  // Time in seconds between shots
 
     public:
-        void enter(Application *app)
-        {
+        void enter(Application *app) {
             this->app = app;
             soundSystem = app->getSound();
             soundSystem.loadSound("ouch", "assets/sounds/ouch.wav");
         }
 
-        void update(World *world, float deltaTime)
-        {
+        void update(World *world, float deltaTime) {
             // update the elapsed time
             elapsedTime += deltaTime;
 
@@ -48,38 +41,42 @@ namespace our
         }
 
     private:
-        void checkAllCollisions(World *world)
-        {
-            int numManifolds = world->getPhysicsWorld()->getDispatcher()->getNumManifolds();
-            for (int i = 0; i < numManifolds; i++)
-            {
-                if (i >= world->getPhysicsWorld()->getDispatcher()->getNumManifolds())
-                {
-                    continue; // Skip if the index is no longer valid
+        void checkAllCollisions(World *world) {
+            int numManifolds =
+                world->getPhysicsWorld()->getDispatcher()->getNumManifolds();
+            for (int i = 0; i < numManifolds; i++) {
+                if (i >= world->getPhysicsWorld()
+                             ->getDispatcher()
+                             ->getNumManifolds()) {
+                    continue;  // Skip if the index is no longer valid
                 }
 
-                btPersistentManifold *contactManifold = world->getPhysicsWorld()->getDispatcher()->getManifoldByIndexInternal(i);
+                btPersistentManifold *contactManifold =
+                    world->getPhysicsWorld()
+                        ->getDispatcher()
+                        ->getManifoldByIndexInternal(i);
                 if (!contactManifold)
-                    continue; // Skip invalid manifolds
+                    continue;  // Skip invalid manifolds
 
                 const btCollisionObject *colObj0 = contactManifold->getBody0();
                 const btCollisionObject *colObj1 = contactManifold->getBody1();
 
-                btRigidBody *body0 = const_cast<btRigidBody *>(btRigidBody::upcast(colObj0));
-                btRigidBody *body1 = const_cast<btRigidBody *>(btRigidBody::upcast(colObj1));
+                btRigidBody *body0 =
+                    const_cast<btRigidBody *>(btRigidBody::upcast(colObj0));
+                btRigidBody *body1 =
+                    const_cast<btRigidBody *>(btRigidBody::upcast(colObj1));
 
                 body0->activate();
                 body1->activate();
 
-                if (body0 && body1)
-                {
-                    DestroyGameObject(world, world->getEntityByRigidBody(body0), world->getEntityByRigidBody(body1));
+                if (body0 && body1) {
+                    DestroyGameObject(world, world->getEntityByRigidBody(body0),
+                                      world->getEntityByRigidBody(body1));
                 }
             }
         }
 
-        void DestroyGameObject(World *world, Entity *entity1, Entity *entity2)
-        {
+        void DestroyGameObject(World *world, Entity *entity1, Entity *entity2) {
             if (!entity1 || !entity2)
                 return;
 
@@ -93,15 +90,13 @@ namespace our
             BulletComponent *bullet1 = entity1->getComponent<BulletComponent>();
             BulletComponent *bullet2 = entity2->getComponent<BulletComponent>();
 
-            if (health1 && health2)
-            {
+            if (health1 && health2) {
                 bool isThereBullets = bullet1 || bullet2;
                 damagePlayer(world, entity1, entity2, isThereBullets);
-                // reduce the health of the entities if the other entity is not a player
-                if ((player1 && !bullet2) || (!player1 && !player2))
-                    health1->takeDamage(1);
-                if ((player2 && !bullet1) || (!player2 && !player1))
-                    health2->takeDamage(1);
+                // reduce the health of the entities if the other entity is not
+                // a player
+                health1->takeDamage(1);
+                health2->takeDamage(1);
 
                 // check if the entities are alive
                 if (!health1->isAlive() && !player2)
@@ -111,31 +106,30 @@ namespace our
             }
         }
 
-        void damagePlayer(World *world, Entity *entity1, Entity *entity2, bool isThereBullets)
-        {
-            // get the real player component 
-            Entity* playerEntity = world->getEntitiesByTag("Player").front();
-
+        void damagePlayer(World *world, Entity *entity1, Entity *entity2,
+                          bool isThereBullets) {
             // get the player component of the entity
             PlayerComponent *player = entity1->getComponent<PlayerComponent>();
             if (!player)
                 player = entity2->getComponent<PlayerComponent>();
 
-
-            if (player && !isThereBullets)
-            {
+            if (player) {
                 // get the camera entity
-                Entity *cameraEntity = world->getEntitiesByTag("Camera").front();
+                Entity *cameraEntity =
+                    world->getEntitiesByTag("Camera").front();
                 if (!cameraEntity)
                     return;
 
                 // get the camera component
-                CameraComponent *cameraComponent = cameraEntity->getComponent<CameraComponent>();
+                CameraComponent *cameraComponent =
+                    cameraEntity->getComponent<CameraComponent>();
                 if (!cameraComponent)
                     return;
 
                 // get the camera's forward vector
-                glm::vec3 cameraForward = glm::vec3(cameraComponent->getOwner()->getLocalToWorldMatrix() * glm::vec4(0.0, 0.0, -1.0f, 0.0));
+                glm::vec3 cameraForward = glm::vec3(
+                    cameraComponent->getOwner()->getLocalToWorldMatrix() *
+                    glm::vec4(0.0, 0.0, -1.0f, 0.0));
 
                 // invert the camera's forward vector
                 cameraForward = -cameraForward;
@@ -144,31 +138,33 @@ namespace our
                 cameraForward = glm::normalize(cameraForward);
 
                 // get the rigid body component of the player
-                RigidBodyComponent *rigidBody = player->getOwner()->getComponent<RigidBodyComponent>();
+                RigidBodyComponent *rigidBody =
+                    player->getOwner()->getComponent<RigidBodyComponent>();
                 if (!rigidBody)
                     return;
 
                 soundSystem.playSound("ouch");
                 // set the players speed to the camera's forward vector
-                rigidBody->getRigidBody()->setLinearVelocity(btVector3(cameraForward.x, cameraForward.y, cameraForward.z) * 5.0f);
+                rigidBody->getRigidBody()->setLinearVelocity(
+                    btVector3(cameraForward.x, cameraForward.y,
+                              cameraForward.z) *
+                    5.0f);
 
                 player->setDamaged(true);
             }
         }
 
-        void destroyEntity(World *world, Entity *entity)
-        {
-            if (entity->getComponent<PlayerComponent>())
-            {
+        void destroyEntity(World *world, Entity *entity) {
+            if (entity->getComponent<PlayerComponent>()) {
                 app->changeState("play");
                 return;
             }
             // destroy entity2
             entity->getWorld()->markForRemoval(entity);
             // delete the rigid body from the pyhsics world
-            btRigidBody *body = entity->getComponent<RigidBodyComponent>()->getRigidBody();
-            if (body)
-            {
+            btRigidBody *body =
+                entity->getComponent<RigidBodyComponent>()->getRigidBody();
+            if (body) {
                 world->getPhysicsWorld()->removeRigidBody(body);
                 delete body->getCollisionShape();
                 delete body->getMotionState();
@@ -177,4 +173,4 @@ namespace our
         }
     };
 
-}
+}  // namespace our
