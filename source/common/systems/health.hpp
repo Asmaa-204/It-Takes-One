@@ -33,6 +33,7 @@ namespace our {
 
         void update(World *world, float deltaTime) {
             // Update cooldowns
+            // update the elapsed time
             elapsedTime += deltaTime;
             soundCooldown = std::max(0.0f, soundCooldown - deltaTime);
 

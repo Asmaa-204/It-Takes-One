@@ -15,7 +15,9 @@
 namespace our {
 
     // This class holds a set of entities
-    class World {
+
+    class World
+    {
         std::unordered_set<Entity *>
             entities;  // These are the entities held by this world
         std::unordered_set<Entity *>
@@ -58,7 +60,9 @@ namespace our {
         // the "markedForRemoval" set. The elements in the "markedForRemoval"
         // set will be removed and deleted when "deleteMarkedEntities" is
         // called.
-        Entity *add() {
+
+        Entity *add()
+        {
             Entity *entity = new Entity();
             entity->world = this;
             entities.insert(entity);
@@ -104,8 +108,11 @@ namespace our {
         // This marks an entity for removal by adding it to the
         // "markedForRemoval" set. The elements in the "markedForRemoval" set
         // will be removed and deleted when "deleteMarkedEntities" is called.
-        void markForRemoval(Entity *entity) {
-            if (entities.find(entity) != entities.end()) {
+
+        void markForRemoval(Entity *entity)
+        {
+            if (entities.find(entity) != entities.end())
+            {
                 markedForRemoval.insert(entity);
             }
         }
