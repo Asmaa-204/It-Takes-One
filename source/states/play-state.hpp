@@ -97,6 +97,13 @@ class Playstate: public our::State {
         // Get a reference to the keyboard object
         auto& keyboard = getApp()->getKeyboard();
 
+        if(keyboard.isPressed(GLFW_KEY_V)) {
+            std::cout<< "location: ";
+            std::cout << world.getEntitiesByTag("Player")[0]->localTransform.position.x << " ";
+            std::cout << world.getEntitiesByTag("Player")[0]->localTransform.position.z << " ";
+            std::cout << std::endl;
+        }
+
         if(keyboard.justPressed(GLFW_KEY_ESCAPE)){
             // If the escape  key is pressed in this frame, go to the play state
             getApp()->changeState("menu");
