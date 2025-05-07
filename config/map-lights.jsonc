@@ -11,7 +11,7 @@
     },
     "scene": {
       "renderer": {
-        "sky": "assets/textures/sky.jpeg",
+        "sky": "assets/textures/sky2.jpg",
         "postprocess": "assets/shaders/postprocess/flash.frag"
       },
       "assets": {
@@ -58,7 +58,8 @@
           "metal_roughness": "assets/pbr/metal/metal_roughness.jpg",
           "metal_metallic": "assets/pbr/metal/metal_metalness.jpg",
           "metal_displacement": "assets/pbr/metal/metal_displacement.jpg",
-          "enemy-turtle": "assets/textures/enemy-turtle.jpg"
+          "enemy-turtle": "assets/textures/enemy-turtle.jpg",
+          "specular": "assets/textures/black.jpg"
         },
         "meshes": {
           "cube": {"path": "assets/models/cube.obj", "isDynamic": false },
@@ -495,8 +496,8 @@
             "refractionIndex": 1.3
           },
           "map-general": {
-            "type": "textured",
-            "shader": "textured",
+            "type": "lit",
+            "shader": "lighting",
             "pipelineState": {
               "faceCulling": {
                 "enabled": false
@@ -506,8 +507,10 @@
               }
             },
             "tint": [1, 1, 1, 1],
-            "texture": "map-general",
+            "diffuseMap": "map-general",
             "sampler": "default",
+            "specularMap": "specular",
+            "emissionMap": "specular",
             "transparent": true,
             "specularColor": [1.0, 1.0, 1.0],
             "shininess": 20.000006,
@@ -515,7 +518,7 @@
             "refractionIndex": 1.3
           },
           "map-ground-1": {
-            "type": "textured",
+            "type": "lit",
             "shader": "textured",
             "pipelineState": {
               "faceCulling": {
@@ -526,8 +529,10 @@
               }
             },
             "tint": [1, 1, 1, 1],
-            "texture": "map-ground-1",
+            "diffuseMap": "map-ground-1",
             "sampler": "default",
+            "specularMap": "specular",
+            "emissionMap": "specular",
             "transparent": true,
             "specularColor": [0.5, 0.5, 0.5],
             "shininess": 0.0,
@@ -535,7 +540,7 @@
             "refractionIndex": 1.3
           },
           "map-ground-2": {
-            "type": "textured",
+            "type": "lit",
             "shader": "textured",
             "pipelineState": {
               "faceCulling": {
@@ -546,8 +551,10 @@
               }
             },
             "tint": [1, 1, 1, 1],
-            "texture": "map-ground-2",
+            "diffuseMap": "map-ground-2",
             "sampler": "default",
+            "specularMap": "specular",
+            "emissionMap": "specular",
             "transparent": true,
             "specularColor": [0.5, 0.5, 0.5],
             "shininess": 0.0,
