@@ -89,31 +89,29 @@ namespace our {
             // get the health components of the entities
             HealthComponent *health1 = entity1->getComponent<HealthComponent>();
             HealthComponent *health2 = entity2->getComponent<HealthComponent>();
-            // get the player components of the entities
-            PlayerComponent *player1 = entity1->getComponent<PlayerComponent>();
-            PlayerComponent *player2 = entity2->getComponent<PlayerComponent>();
-            // get the bullet component of the entities
-            BulletComponent *bullet1 = entity1->getComponent<BulletComponent>();
-            BulletComponent *bullet2 = entity2->getComponent<BulletComponent>();
 
             if (health1 && health2) {
-                bool isThereBullets = bullet1 || bullet2;
-                damagePlayer(world, entity1, entity2, isThereBullets);
-                // reduce the health of the entities if the other entity is not
-                // a player
-                health1->takeDamage(1);
-                health2->takeDamage(1);
+                damagePlayer(world, entity1, entity2);
 
-                // check if the entities are alive
-                if (!health1->isAlive() && !player2)
-                    destroyEntity(world, entity1);
-                if (!health2->isAlive() && !player1)
-                    destroyEntity(world, entity2);
+                damageEntity(entity1, entity2, health1, world);
+                damageEntity(entity2, entity1, health2, world);
+
+                if (!health1->isAlive()) destroyEntity(world, entity1);
+                if (!health2->isAlive()) destroyEntity(world, entity2);
             }
         }
 
-        void damagePlayer(World *world, Entity *entity1, Entity *entity2,
-                          bool isThereBullets) {
+        void damageEntity(Entity *entity1, Entity *entity2, HealthComponent *health1) {
+            PlayerComponent *player2 = entity2->getComponent<PlayerComponent>();
+            if (player2) return; // enemies don't take damage from hitting players
+
+            BulletComponent *bullet2 = entity2->getComponent<BulletComponent>();
+            if (bullet2 && bullet2->getShooter() == entity1) return; // a bullet can't damage its shooter
+                
+            health1->takeDamage(1); // damage the entity
+        }
+
+        void damagePlayer(World *world, Entity *entity1, Entity *entity2) {
             // get the player component of the entity
             PlayerComponent *player = entity1->getComponent<PlayerComponent>();
             if (!player)
