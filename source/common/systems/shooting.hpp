@@ -37,7 +37,7 @@ namespace our {
 
             // check for mouse input
             if (!(app->getMouse().isPressed(GLFW_MOUSE_BUTTON_LEFT) ||
-                  app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT)) ||
+                  app->getKeyboard().isPressed(GLFW_KEY_C)) ||
                 player->elapsedTime < fireRate) {
                 playerComponent->setShooting(false);
                 return;
@@ -91,7 +91,7 @@ namespace our {
             // set the scale of the bullet to 0.017
             bullet->localTransform.scale = glm::vec3(0.022f, 0.022f, 0.022f);
 
-            this->addBulletComponents(bullet);
+            this->addBulletComponents(bullet, player);
 
             // disable gravity for the bullets
             // cameraForward.y = 0.0f; // set x to 0.0f to avoid the bullet
@@ -148,7 +148,7 @@ namespace our {
                 bullet->localTransform.scale =
                     glm::vec3(0.017f, 0.017f, 0.017f);
 
-                this->addBulletComponents(bullet);
+                this->addBulletComponents(bullet, enemy);
 
                 RigidBodyComponent* rigidBody =
                     bullet->getComponent<RigidBodyComponent>();
@@ -164,7 +164,7 @@ namespace our {
             }
         }
 
-        void addBulletComponents(Entity* bullet) {
+        void addBulletComponents(Entity* bullet, Entity* shooter = nullptr) {
             // add mesh component
             MeshRendererComponent* meshRenderer =
                 bullet->addComponent<MeshRendererComponent>();
@@ -179,6 +179,9 @@ namespace our {
             // add a bullet component
             BulletComponent* bulletComponent =
                 bullet->addComponent<BulletComponent>();
+
+            // set the shooter of the bullet
+            bulletComponent->setShooter(shooter);
 
             // create the rigid body component
             RigidBodyComponent* rigidBody =
