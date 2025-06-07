@@ -93,8 +93,8 @@ namespace our {
             if (health1 && health2) {
                 damagePlayer(world, entity1, entity2);
 
-                damageEntity(entity1, entity2, health1, world);
-                damageEntity(entity2, entity1, health2, world);
+                damageEntity(entity1, entity2, health1);
+                damageEntity(entity2, entity1, health2);
 
                 if (!health1->isAlive()) destroyEntity(world, entity1);
                 if (!health2->isAlive()) destroyEntity(world, entity2);
