@@ -165,7 +165,7 @@ namespace our {
 
         void destroyEntity(World *world, Entity *entity) {
             if (entity->getComponent<PlayerComponent>()) {
-                app->changeState("play");
+                app->restartState();
                 return;
             }
             // destroy entity2

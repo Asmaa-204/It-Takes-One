@@ -120,6 +120,23 @@ class Playstate : public our::State {
         }
     }
 
+    void onRestart() override {
+        world.clear();
+        world.shutdownPhysics();
+        // Reinitialize the physics world
+        world.initializePhysics();
+
+        
+        auto& config = getApp()->getConfig()["scene"];
+
+        // If we have a world in the scene config, we use it to populate our
+        // world
+        if (config.contains("world")) {
+            world.initializePhysics();
+            world.deserialize(config["world"]);
+        }
+    }
+
     void onDestroy() override {
         // Don't forget to destroy the renderer
         renderer.destroy();
