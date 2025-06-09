@@ -192,6 +192,8 @@ class Menustate: public our::State {
         
     }
 
+    void onRestart() override {}
+
     void onDestroy() override {
         // Delete all the allocated resources
         delete rectangle;

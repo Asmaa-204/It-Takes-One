@@ -43,6 +43,8 @@
         "map-ground-2": "assets/textures/map/map_ground_2.png",
         "bullet": "assets/textures/bullet_spike.png",
         "jazz": "assets/textures/bunny.png",
+        "heart": "assets/textures/heart.png",
+        "heart-dark": "assets/textures/heart-dark.png",
         "sbox": "assets/textures/star-wars-box.jpg",
 
         "grass_albedo": "assets/pbr/Grass/grass_albedo.jpg",
