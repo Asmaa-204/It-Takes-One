@@ -15,6 +15,8 @@
 #include <systems/shooting.hpp>
 #include <systems/sound.hpp>
 
+#include <components/health.hpp>
+
 // This state shows how to use the ECS framework and deserialization.
 class Playstate : public our::State {
     our::World world;
@@ -74,6 +76,34 @@ class Playstate : public our::State {
             soundSystem->playSource(backgroundMusicSource);
             isMusicPlaying = true;
         }
+    }
+
+    void onImmediateGui() override {
+        // get the heart texture id from the asset loader
+        GLuint heartTexture = our::AssetLoader<our::Texture2D>::get("heart")->getOpenGLName();
+        GLuint heartDarkTexture = our::AssetLoader<our::Texture2D>::get("heart-dark")->getOpenGLName();
+
+        // get the player entity
+        auto playerEntity = world.getEntitiesByTag("Player").front();
+        // get the player component
+        auto playerHealthComponent = playerEntity->getComponent<our::HealthComponent>();
+        // get the player health
+        int playerHealth = playerHealthComponent->getCurrentHealth();
+        int playerDefaultHealth = playerHealthComponent->getDefaultHealth();
+
+        // Here we can draw the immediate GUI (if any)
+        ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiCond_Always);
+        ImGui::SetNextWindowBgAlpha(0.0f); // Transparent background
+        ImGui::Begin("HUD", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoInputs);
+        for (int i = 0; i < playerDefaultHealth - playerHealth; ++i) {
+            ImGui::Image((void*)(intptr_t)heartDarkTexture, ImVec2(32, 32));
+            ImGui::SameLine();
+        }
+        for (int i = 0; i < playerHealth; ++i) {
+            ImGui::Image((void*)(intptr_t)heartTexture, ImVec2(32, 32));
+            ImGui::SameLine();
+        }
+        ImGui::End();
     }
 
     void onDraw(double deltaTime) override {
