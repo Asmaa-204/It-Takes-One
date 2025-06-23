@@ -67,6 +67,7 @@ namespace our
         void initializeSounds()
         {
             soundSystem.loadSound("jump", "assets/sounds/jump.wav");
+            soundSystem.loadSound("ouch", "assets/sounds/ouch.wav");
         }
 
         void handlePlayerInput(PlayerComponent *player, glm::vec3 cameraForward, glm::vec3 cameraRight, MovementComponent *movement, RigidBodyComponent *rigidBody, float deltaTime)
@@ -167,6 +168,20 @@ namespace our
 
             if (playerY < DEATH_HEIGHT_THRESHOLD)
             {
+                // damage the player
+                auto *healthComponent = playerEntity->getComponent<HealthComponent>();
+                if (healthComponent)
+                {
+                    healthComponent->takeDamage(1);
+                    soundSystem.playSound("ouch");
+                    // If the player is dead, restart the game
+                    if (!healthComponent->isAlive())
+                    {
+                       app->restartState();
+                       return; 
+                    }
+                }
+
                 std::cout << "Player died from falling!" << std::endl;
                 // return player to starting position; 
 
