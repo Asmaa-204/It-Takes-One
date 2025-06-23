@@ -27,6 +27,7 @@ glm::mat4 Transform::toMat4() const {
 // Deserializes the entity data and components from a json object
 void Transform::deserialize(const nlohmann::json &data) {
   position = data.value("position", position);
+  originalPosition = position; // Store the original position
   rotation = glm::radians(data.value("rotation", glm::degrees(rotation)));
   scale = data.value("scale", scale);
 }

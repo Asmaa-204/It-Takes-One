@@ -53,7 +53,7 @@ namespace our
             if (playerComponent && rigidBody)
             {
                 orientCharater(playerEntity, rigidBody, cameraEntity->localTransform.rotation.y);
-                checkPlayerFallDeath(playerEntity);
+                checkPlayerFallDeath(playerEntity, rigidBody);
             }
         }
 
@@ -158,7 +158,7 @@ namespace our
             playerEntity->localTransform.rotation.z = worldTransform.getRotation().getZ();
         }
 
-        void checkPlayerFallDeath(Entity *playerEntity)
+        void checkPlayerFallDeath(Entity *playerEntity, RigidBodyComponent* rigidBody)
         {
             if (!playerEntity)
                 return;
@@ -168,7 +168,23 @@ namespace our
             if (playerY < DEATH_HEIGHT_THRESHOLD)
             {
                 std::cout << "Player died from falling!" << std::endl;
-                app->changeState("play");
+                // return player to starting position; 
+
+                btTransform worldTransform;
+
+                rigidBody->getRigidBody()->getMotionState()->getWorldTransform(worldTransform);
+
+                // set the new origin
+                glm::vec3 center = playerEntity->localTransform.originalPosition;
+                worldTransform.setOrigin(btVector3(
+                    center.x,
+                    center.y,
+                    center.z
+                ));
+
+                rigidBody->getRigidBody()->getMotionState()->setWorldTransform(worldTransform);
+                rigidBody->getRigidBody()->setWorldTransform(worldTransform);
+                rigidBody->getRigidBody()->setLinearVelocity(btVector3(0, 0, 0));
             }
         }
 
