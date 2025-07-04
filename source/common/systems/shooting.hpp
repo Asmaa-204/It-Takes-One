@@ -21,6 +21,8 @@ namespace our {
         const double fireRate = 1 / 5.0;  // Time in seconds between shots
         const double bulletSpeed =
             23.0;  // Speed of the bullet in units per second
+        
+        const double bulletSize = 0.022f;
 
         void updatePlayerShooting(World* world, float deltaTime) {
             // get the player entity
@@ -59,6 +61,7 @@ namespace our {
 
             // get the center of the player component
             glm::vec3 playerCenter = playerComponent->getMeshCenter();
+            // glm::vec3 playerCenter = player->localTransform.position;
 
             // get the camera entity
             Entity* cameraEntity = world->getEntitiesByTag("Camera").front();
@@ -89,7 +92,7 @@ namespace our {
                 cameraComponent->getOwner()->localTransform.rotation;
 
             // set the scale of the bullet to 0.017
-            bullet->localTransform.scale = glm::vec3(0.022f, 0.022f, 0.022f);
+            bullet->localTransform.scale = glm::vec3(bulletSize, bulletSize, bulletSize);
 
             this->addBulletComponents(bullet, player);
 

@@ -91,17 +91,17 @@ namespace our {
             HealthComponent *health2 = entity2->getComponent<HealthComponent>();
 
             if (health1 && health2) {
-                damagePlayer(world, entity1, entity2);
+                
 
-                damageEntity(entity1, entity2, health1);
-                damageEntity(entity2, entity1, health2);
+                damageEntity(world, entity1, entity2, health1);
+                damageEntity(world, entity2, entity1, health2);
 
                 if (!health1->isAlive()) destroyEntity(world, entity1);
                 if (!health2->isAlive()) destroyEntity(world, entity2);
             }
         }
 
-        void damageEntity(Entity *entity1, Entity *entity2, HealthComponent *health1) {
+        void damageEntity(World *world, Entity *entity1, Entity *entity2, HealthComponent *health1) {
             PlayerComponent *player2 = entity2->getComponent<PlayerComponent>();
             if (player2) return; // enemies don't take damage from hitting players
 
@@ -109,6 +109,7 @@ namespace our {
             if (bullet2 && bullet2->getShooter() == entity1) return; // a bullet can't damage its shooter
                 
             health1->takeDamage(1); // damage the entity
+            damagePlayer(world, entity1, entity2);
         }
 
         void damagePlayer(World *world, Entity *entity1, Entity *entity2) {

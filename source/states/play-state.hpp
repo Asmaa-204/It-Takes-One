@@ -110,12 +110,12 @@ class Playstate : public our::State {
         // Here, we just run a bunch of systems to control the world logic
         movementSystem.update(&world, (float)deltaTime);
         inputSystem.update(&world, (float)deltaTime);
-        enemyAISystem.update(&world, (float)deltaTime);
         shootingSystem.update(&world, (float)deltaTime);
         lightingSystem.update(&world, (float)deltaTime);
 
         // Apply physics to the world
         physicsSystem.update(&world, (float)deltaTime);
+        enemyAISystem.update(&world, (float)deltaTime);
 
         playerSystem.update(&world, (float)deltaTime);
 

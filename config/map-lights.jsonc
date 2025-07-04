@@ -42,6 +42,7 @@
         "map-ground-1": "assets/textures/map/map_ground_1.png",
         "map-ground-2": "assets/textures/map/map_ground_2.png",
         "bullet": "assets/textures/bullet_spike.png",
+        // "bullet": "assets/textures/fireball.png",
         "jazz": "assets/textures/bunny.png",
         "heart": "assets/textures/heart.png",
         "heart-dark": "assets/textures/heart-dark.png",
@@ -60,12 +61,14 @@
         "metal_roughness": "assets/pbr/metal/metal_roughness.jpg",
         "metal_metallic": "assets/pbr/metal/metal_metalness.jpg",
         "metal_displacement": "assets/pbr/metal/metal_displacement.jpg",
-        "enemy-turtle": "assets/textures/enemy-turtle.jpg",
+        "small-enemies": "assets/textures/goblin.png",
+        "big-enemies": "assets/textures/monster.png",
         "specular": "assets/textures/black.jpg"
       },
       "meshes": {
         "cube": { "path": "assets/models/cube.obj", "isDynamic": false },
         "bullet": {
+          // "path": "assets/models/fireball.obj",
           "path": "assets/models/bullet_spike.obj",
           "isDynamic": true
         },
@@ -445,8 +448,12 @@
           "path": "assets/models/map/5_stone_stairs_9_1.obj",
           "isDynamic": false
         },
-        "enemy-turtle": {
-          "path": "assets/models/Turtle.obj",
+        "small-enemies": {
+          "path": "assets/models/goblin2.obj",
+          "isDynamic": true
+        },
+        "big-enemies": {
+          "path": "assets/models/monster.obj",
           "isDynamic": true
         }
       },
@@ -627,7 +634,7 @@
           },
           "tint": [1, 1, 1, 1]
         },
-        "enemy-turtle": {
+        "small-enemies": {
           "type": "textured",
           "shader": "textured",
           "pipelineState": {
@@ -639,7 +646,22 @@
             }
           },
           "tint": [1, 1, 1, 1],
-          "texture": "enemy-turtle",
+          "texture": "small-enemies",
+          "sampler": "default"
+        },
+        "big-enemies": {
+          "type": "textured",
+          "shader": "textured",
+          "pipelineState": {
+            "faceCulling": {
+              "enabled": false
+            },
+            "depthTesting": {
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          "texture": "big-enemies",
           "sampler": "default"
         }
       }
@@ -2082,26 +2104,7 @@
         ]
       },
       {
-        "position": [1, 1, 5],
-        "scale": [1, 1, 1],
-        "components": [
-          {
-            "type": "Mesh Renderer",
-            "mesh": "cube",
-            "material": "metal"
-          },
-          {
-            "type": "Health",
-            "maxHealth": 5
-          },
-          {
-            "type": "Rigid Body",
-            "mass": 5
-          }
-        ]
-      },
-      {
-        "position": [0, 1, 0],
+        "position": [-46.537, 3.5293, -11.6119],
         "scale": [0.2, 0.2, 0.2],
         "components": [
           {
@@ -2126,7 +2129,7 @@
         ]
       },
       {
-        "position": [5, 1, 0],
+        "position": [-20.105, 2.0086, -12.8271],
         "scale": [0.2, 0.2, 0.2],
         "components": [
           {
@@ -2151,7 +2154,7 @@
         ]
       },
       {
-        "position": [10, 1, 0],
+        "position": [2.5628, 2.0085, -0.870254],
         "scale": [0.2, 0.2, 0.2],
         "components": [
           {
@@ -2176,7 +2179,7 @@
         ]
       },
       {
-        "position": [15, 1, 0],
+        "position": [-8.8642, 2.15846, 21.2371],
         "scale": [0.2, 0.2, 0.2],
         "components": [
           {
@@ -2201,7 +2204,7 @@
         ]
       },
       {
-        "position": [20, 1, 0],
+        "position": [-33.140, 2.21615, 20.4885 ],
         "scale": [0.2, 0.2, 0.2],
         "components": [
           {
@@ -2222,37 +2225,67 @@
           {
             "type": "Rigid Body",
             "mass": 0
-          },
-          {
-            "rotation": [0, 0, 0],
-            "components": [
-              {
-                "type": "Light",
-                "light_type": 1,
-                "color": [1.0, 0.95, 0.9]
-              }
-            ]
-          },
-          {
-            "rotation": [0, 0, 0],
-            "components": [
-              {
-                "type": "Light",
-                "light_type": 1,
-                "color": [0.9, 0.9, 1.0]
-              }
-            ]
           }
         ]
       },
       {
-        "position": [-32, 1.5, -13],
-        "scale": [0.02, 0.02, 0.02],
+        "position": [42.546, 5.145, 10.7642],
+        "scale": [0.2, 0.2, 0.2],
         "components": [
           {
             "type": "Mesh Renderer",
-            "mesh": "enemy-turtle",
-            "material": "enemy-turtle"
+            "mesh": "cube",
+            "material": "lava"
+          },
+          {
+            "type": "Light",
+            "light_type": 3,
+            "ambient": [0.1, 0.1, 0.1],
+            "diffuse": [0.5, 0.5, 0.5],
+            "specular": [0.5, 0.5, 0.5],
+            "constant": 1.0,
+            "linear": 0.0,
+            "quadratic": 0.0
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [28.11, 2.00857, -7.9117],
+        "scale": [0.2, 0.2, 0.2],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "cube",
+            "material": "lava"
+          },
+          {
+            "type": "Light",
+            "light_type": 3,
+            "ambient": [0.1, 0.1, 0.1],
+            "diffuse": [0.5, 0.5, 0.5],
+            "specular": [0.5, 0.5, 0.5],
+            "constant": 1.0,
+            "linear": 0.0,
+            "quadratic": 0.0
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 0
+          }
+        ]
+      },
+      {
+        "position": [-36, 2.5, -13],
+        "scale": [0.61, 0.61, 0.61],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "small-enemies",
+            "material": "small-enemies"
           },
           {
             "type": "Rigid Body",
@@ -2271,13 +2304,13 @@
         ]
       },
       {
-        "position": [2, 0, -12],
-        "scale": [0.02, 0.02, 0.02],
+        "position": [2.5, 1.5, -0.6],
+        "scale": [0.61, 0.61, 0.61],
         "components": [
           {
             "type": "Mesh Renderer",
-            "mesh": "enemy-turtle",
-            "material": "enemy-turtle"
+            "mesh": "small-enemies",
+            "material": "small-enemies"
           },
           {
             "type": "Rigid Body",
@@ -2296,13 +2329,13 @@
         ]
       },
       {
-        "position": [3.6, 0, 10],
-        "scale": [0.02, 0.02, 0.02],
+        "position": [27.2, 1.5, -1.0],
+        "scale": [0.61, 0.61, 0.61],
         "components": [
           {
             "type": "Mesh Renderer",
-            "mesh": "enemy-turtle",
-            "material": "enemy-turtle"
+            "mesh": "small-enemies",
+            "material": "small-enemies"
           },
           {
             "type": "Rigid Body",
@@ -2321,13 +2354,13 @@
         ]
       },
       {
-        "position": [27, 0, -1.6],
-        "scale": [0.02, 0.02, 0.02],
+        "position": [19, 3.5, -39.8],
+        "scale": [0.61, 0.61, 0.61],
         "components": [
           {
             "type": "Mesh Renderer",
-            "mesh": "enemy-turtle",
-            "material": "enemy-turtle"
+            "mesh": "big-enemies",
+            "material": "big-enemies"
           },
           {
             "type": "Rigid Body",
@@ -2346,13 +2379,13 @@
         ]
       },
       {
-        "position": [16, 3, -39],
-        "scale": [0.02, 0.02, 0.02],
+        "position": [-10.5, 2.5, 43.9],
+        "scale": [0.55, 0.55, 0.55],
         "components": [
           {
             "type": "Mesh Renderer",
-            "mesh": "enemy-turtle",
-            "material": "enemy-turtle"
+            "mesh": "big-enemies",
+            "material": "big-enemies"
           },
           {
             "type": "Rigid Body",
@@ -2371,13 +2404,113 @@
         ]
       },
       {
-        "position": [-14, 4, -43],
-        "scale": [0.02, 0.02, 0.02],
+        "position": [58.8, 7.9, -6.7],
+        "scale": [0.61, 0.61, 0.61],
         "components": [
           {
             "type": "Mesh Renderer",
-            "mesh": "enemy-turtle",
-            "material": "enemy-turtle"
+            "mesh": "small-enemies",
+            "material": "small-enemies"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 1.0
+          },
+          {
+            "type": "EnemyAI"
+          },
+          {
+            "type": "EnemyShoot"
+          },
+          {
+            "type": "Health",
+            "maxHealth": 10
+          }
+        ]
+      },
+      {
+        "position": [23.1, 0.5, 34.5],
+        "scale": [0.55, 0.55, 0.55],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "big-enemies",
+            "material": "big-enemies"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 1.0
+          },
+          {
+            "type": "EnemyAI"
+          },
+          {
+            "type": "EnemyShoot"
+          },
+          {
+            "type": "Health",
+            "maxHealth": 10
+          }
+        ]
+      },
+      {
+        "position": [43.3, 4.5, 10.9],
+        "scale": [0.61, 0.61, 0.61],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "small-enemies",
+            "material": "small-enemies"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 1.0
+          },
+          {
+            "type": "EnemyAI"
+          },
+          {
+            "type": "EnemyShoot"
+          },
+          {
+            "type": "Health",
+            "maxHealth": 10
+          }
+        ]
+      },
+      {
+        "position": [-14, 4.5, -43],
+        "scale": [0.61, 0.61, 0.61],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "small-enemies",
+            "material": "small-enemies"
+          },
+          {
+            "type": "Rigid Body",
+            "mass": 1.0
+          },
+          {
+            "type": "EnemyAI"
+          },
+          {
+            "type": "EnemyShoot"
+          },
+          {
+            "type": "Health",
+            "maxHealth": 10
+          }
+        ]
+      },
+      {
+        "position": [-8.8, 1, 22],
+        "scale": [0.61, 0.61, 0.61],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "small-enemies",
+            "material": "small-enemies"
           },
           {
             "type": "Rigid Body",
